@@ -12,8 +12,13 @@
         "es6": true,
         "browser": true,
         "node": true
+<<<<<<< HEAD
     },
     "rules": {
         "no-unused-vars": "warn"
     }
 }
+=======
+    }
+}
+>>>>>>> 249fd00 (Set up linting with basic configuration)
