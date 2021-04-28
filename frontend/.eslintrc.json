@@ -13,6 +13,7 @@
         "browser": true,
         "node": true
 <<<<<<< HEAD
+<<<<<<< HEAD
     },
     "rules": {
         "no-unused-vars": "warn"
@@ -22,3 +23,10 @@
     }
 }
 >>>>>>> 249fd00 (Set up linting with basic configuration)
+=======
+    },
+    "rules": {
+        "no-unused-vars": "warn"
+    }
+}
+>>>>>>> df9ad94 (Create top and bottom navbars)

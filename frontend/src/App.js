@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import './App.css'
 import Content from './components/Content'
 import BottomNavigationBar from './components/BottomNavigationBar'
@@ -6,10 +5,6 @@ import TopNavigationBar from './components/TopNavigationBar'
 import { ThemeProvider } from '@material-ui/core/styles'
 import { AppContextProvider } from './contexts/AppContext'
 import { theme } from './helpers/Themes.js'
-=======
-import logo from './logo.svg'
-import './App.css'
->>>>>>> 249fd00 (Set up linting with basic configuration)
 
 function App() {
     return (
@@ -25,7 +20,10 @@ function App() {
                         }}
                     >
                         <TopNavigationBar />
+<<<<<<< HEAD
                         <Content />
+=======
+>>>>>>> df9ad94 (Create top and bottom navbars)
                         <BottomNavigationBar />
                     </div>
                 </AppContextProvider>
