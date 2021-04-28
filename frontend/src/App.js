@@ -1,4 +1,5 @@
 import './App.css'
+import Content from './components/Content'
 import BottomNavigationBar from './components/BottomNavigationBar'
 import TopNavigationBar from './components/TopNavigationBar'
 import { ThemeProvider } from '@material-ui/core/styles'
@@ -19,6 +20,7 @@ function App() {
                         }}
                     >
                         <TopNavigationBar />
+                        <Content />
                         <BottomNavigationBar />
                     </div>
                 </AppContextProvider>
