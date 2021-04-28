@@ -28,5 +28,10 @@ export const theme = createMuiTheme({
                 fontSize: '44px',
             },
         },
+        MuiBottomNavigationAction: {
+            label: {
+                textTransform: 'capitalize',
+            },
+        },
     },
 })

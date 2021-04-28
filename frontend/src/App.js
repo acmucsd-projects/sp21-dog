@@ -20,10 +20,7 @@ function App() {
                         }}
                     >
                         <TopNavigationBar />
-<<<<<<< HEAD
                         <Content />
-=======
->>>>>>> df9ad94 (Create top and bottom navbars)
                         <BottomNavigationBar />
                     </div>
                 </AppContextProvider>
