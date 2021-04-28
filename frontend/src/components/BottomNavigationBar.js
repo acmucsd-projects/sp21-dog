@@ -1,4 +1,6 @@
 import React from 'react'
+import { useAppContext } from '../contexts/AppContext'
+import { Page } from '../helpers/Page'
 import { makeStyles } from '@material-ui/core/styles'
 import BottomNavigation from '@material-ui/core/BottomNavigation'
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction'
@@ -16,7 +18,20 @@ const useStyles = makeStyles({
 
 export default function BottomNavigationBar() {
     const classes = useStyles()
-    const [value, setValue] = React.useState(0)
+    const context = useAppContext()
+    const [value, setValue] = React.useState()
+
+    const order = [
+        Page.profile,
+        Page.journal,
+        Page.tasks,
+        Page.map,
+        Page.leaderboards,
+    ]
+
+    React.useEffect(() => {
+        setValue(order.indexOf(context.state.page))
+    }, [context.state.page])
 
     return (
         <BottomNavigation
@@ -28,11 +43,44 @@ export default function BottomNavigationBar() {
             showLabels
             className={classes.root}
         >
-            <BottomNavigationAction label="User" icon={<PersonIcon />} />
-            <BottomNavigationAction label="Journal" icon={<MenuBookIcon />} />
-            <BottomNavigationAction label="Tasks" icon={<ListAltIcon />} />
-            <BottomNavigationAction label="Map" icon={<PublicIcon />} />
-            <BottomNavigationAction label="Leader" icon={<StarIcon />} />
+            <BottomNavigationAction
+                label="user"
+                icon={<PersonIcon />}
+                onClick={() => {
+                    context.setState({ ...context.state, page: Page.profile })
+                }}
+            />
+            <BottomNavigationAction
+                label={Page.journal}
+                icon={<MenuBookIcon />}
+                onClick={() => {
+                    context.setState({ ...context.state, page: Page.journal })
+                }}
+            />
+            <BottomNavigationAction
+                label={Page.tasks}
+                icon={<ListAltIcon />}
+                onClick={() => {
+                    context.setState({ ...context.state, page: Page.tasks })
+                }}
+            />
+            <BottomNavigationAction
+                label={Page.map}
+                icon={<PublicIcon />}
+                onClick={() => {
+                    context.setState({ ...context.state, page: Page.map })
+                }}
+            />
+            <BottomNavigationAction
+                label="leader"
+                icon={<StarIcon />}
+                onClick={() => {
+                    context.setState({
+                        ...context.state,
+                        page: Page.leaderboards,
+                    })
+                }}
+            />
         </BottomNavigation>
     )
 }
