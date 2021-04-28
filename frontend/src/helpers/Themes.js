@@ -2,7 +2,9 @@ import { createMuiTheme } from '@material-ui/core/styles'
 import { Color } from './Color'
 
 export const theme = createMuiTheme({
-    typography: {},
+    typography: {
+        fontFamily: 'Oswald',
+    },
     overrides: {
         MuiAppBar: {
             colorPrimary: {
@@ -11,6 +13,11 @@ export const theme = createMuiTheme({
             },
             root: {
                 fontWeight: 'bold',
+            },
+        },
+        MuiBottomNavigationAction: {
+            label: {
+                textTransform: 'capitalize',
             },
         },
     },
