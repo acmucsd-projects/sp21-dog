@@ -1,4 +1,5 @@
 import ReactMapGl from 'react-map-gl'
+import { useEffect } from 'react'
 
 import { useState } from 'react'
 const Map = () => {
@@ -9,6 +10,9 @@ const Map = () => {
         longitude: -122.43,
         zoom: 8,
     })
+    useEffect(() => {
+        return () => {}
+    }, [])
 
     return (
         <>
