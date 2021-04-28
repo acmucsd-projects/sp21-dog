@@ -32,4 +32,4 @@ backend/SlideSync/[Pp]ackages/
 
 backend/SlideSync/Thumbs.db
 backend/SlideSync/Desktop.ini
-backend/SlideSync/.DS_Store
+**/.DS_Store
