@@ -10,15 +10,21 @@ const Map = () => {
         longitude: -122.43,
         zoom: 8,
     })
+    const handleWindowResize = () => {
+        setViewport({ ...viewport })
+    }
     useEffect(() => {
-        return () => {}
+        window.addEventListener('resize', handleWindowResize)
+        return () => {
+            window.removeEventListener('resize', handleWindowResize)
+        }
     }, [])
 
     return (
         <>
             <ReactMapGl
                 {...viewport}
-                onViewportChange={(nextViewport) => setViewport(nextViewport)}
+                onViewportChange={(v) => setViewport(v)}
                 mapboxApiAccessToken="pk.eyJ1IjoibmlzaGFudGJhbGFqaSIsImEiOiJja2xkOGl3cjcxc21yMndtdmxtZWpxeGRuIn0.isOPq2BjpvuzwjZMXW1yWA"
             />
         </>
