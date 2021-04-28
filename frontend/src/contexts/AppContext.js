@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
+import { Page } from '../helpers/Page'
 
 const AppContext = React.createContext()
 
 function AppContextProvider({ children }) {
-    const [state, setState] = useState({})
+    const [state, setState] = useState({
+        page: Page.tasks,
+    })
     const value = { state, setState }
     return <AppContext.Provider value={value}>{children}</AppContext.Provider>
 }
