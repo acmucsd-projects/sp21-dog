@@ -12,7 +12,7 @@ import StarIcon from '@material-ui/icons/Star'
 
 const useStyles = makeStyles({
     root: {
-        width: 500,
+        height: '80px',
     },
 })
 
