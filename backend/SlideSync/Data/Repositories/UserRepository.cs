@@ -18,6 +18,10 @@ namespace SlideSync.Data.Repositories {
             return context.Users.ToList();
         }
 
+        public IEnumerable<UserModel> GetLeaderboard(int count) {
+            return context.Users.OrderByDescending(user => user.Points).Take(count);
+        }
+
         public UserModel GetUserById(int id) {
             return context.Users.Find(id);
         }
