@@ -19,6 +19,12 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: 'bold',
         textTransform: 'capitalize',
     },
+    logo: {
+        marginRight: '12px',
+        '&:hover': {
+            cursor: 'pointer',
+        },
+    },
 }))
 
 export default function TopNavigationBar() {
@@ -36,19 +42,16 @@ export default function TopNavigationBar() {
                         alignItems: 'center',
                     }}
                 >
-                    <IconButton
-                        edge="start"
-                        color="inherit"
-                        aria-label="menu"
+                    <DirectionsRunIcon
+                        className={classes.logo}
                         onClick={() => {
                             context.setState({
                                 ...context.state,
                                 page: Page.tasks,
                             })
                         }}
-                    >
-                        <DirectionsRunIcon />
-                    </IconButton>
+                    />
+
                     <Typography variant="h6" className={classes.title}>
                         {title}
                     </Typography>
