@@ -1,5 +1,7 @@
 using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Text;
 using AutoMapper;
@@ -14,23 +16,41 @@ using SlideSync.Data.Entities.Dto;
 using SlideSync.Data.Repositories.Contracts;
 
 namespace SlideSync.Controllers {
+    // TODO: Refactor into auth controller
     [ApiController]
-    [Route("api/auth")]
+    [Route("api/users")]
     public class UserController : ControllerBase {
+        #region Properties
         private readonly JwtConfig config;
         private readonly IUserRepository userRepository;
         private ICryptoService cryptoService;
         private IMapper mapper;
+        #endregion
         public UserController(IOptions<JwtConfig> config, IUserRepository userRepository, IMapper mapper) {
             this.config = config.Value;
             this.userRepository = userRepository;
             this.mapper = mapper;
+            
             cryptoService = new PBKDF2();
         }
 
+        #region Routes
         [AllowAnonymous]
-        [HttpPost]
-        [Route("register")]
+        [HttpGet("user/{username}")]
+        public IActionResult GetUser(string username) {
+            // Search for user in db
+            var user = userRepository.GetUserByUsername(username);
+            if (user == null) {
+                return NotFound();
+            }
+
+            // Return user info
+            var userReadDto = mapper.Map<UserReadDto>(user);
+            return Ok(userReadDto);
+        }
+
+        [AllowAnonymous]
+        [HttpPost("register")]
         public IActionResult Register([FromForm] UserRegistrationDto register) {
             // Open DB connection
             if (userRepository.GetUserByUsername(register.Username) != null) {
@@ -55,7 +75,7 @@ namespace SlideSync.Controllers {
         }
 
         [AllowAnonymous]
-        [HttpPost]
+        [HttpPost("login")]
         public IActionResult Login([FromForm] UserLoginDto login) {
             var user = AuthenticateUser(login);
 
@@ -67,7 +87,9 @@ namespace SlideSync.Controllers {
             
             return Unauthorized("Invalid username or password");
         }
+        #endregion
 
+        #region Auth
         private string GenerateJWT(UserModel userInfo) {
             var secret = config.Secret;
             var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secret));
@@ -75,7 +97,7 @@ namespace SlideSync.Controllers {
             var tokenHandler = new JwtSecurityTokenHandler();
             var tokenDescriptor = new SecurityTokenDescriptor() {
                 Subject = new ClaimsIdentity(new Claim[] {
-                   new(ClaimTypes.NameIdentifier, userInfo.Id.ToString()) 
+                    new(ClaimTypes.NameIdentifier, userInfo.Id.ToString()) 
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(1),
                 SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature)
@@ -83,6 +105,17 @@ namespace SlideSync.Controllers {
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
             return tokenHandler.WriteToken(token);
+        }
+
+        private bool ValidateToken(string token, JwtSecurityTokenHandler handler = null) {
+            handler ??= new JwtSecurityTokenHandler();
+            try {
+                handler.ValidateToken(token, Startup.TokenValidationParameters, out _);
+            } catch {
+                return false;
+            }
+                
+            return true;
         }
 
         /**
@@ -98,5 +131,7 @@ namespace SlideSync.Controllers {
             return (hash == user.Password) ? user : null;
             
         }
+        #endregion
+        
     }
 }
