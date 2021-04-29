@@ -36,7 +36,7 @@ namespace SlideSync.Controllers {
 
         #region Routes
         [AllowAnonymous]
-        [HttpGet("user/{username}")]
+        [HttpGet("user/{username}", Name = nameof(GetUser))]
         public IActionResult GetUser(string username) {
             // Search for user in db
             var user = userRepository.GetUserByUsername(username);
@@ -70,8 +70,9 @@ namespace SlideSync.Controllers {
             userRepository.AddUser(user);
             userRepository.Save();
 
-            // TODO: Add user DTO
-            return CreatedAtRoute("", "");
+            var userDto = mapper.Map<UserReadDto>(user);
+
+            return CreatedAtRoute(nameof(GetUser), new { username = userDto.Username }, userDto);
         }
 
         [AllowAnonymous]
@@ -79,7 +80,6 @@ namespace SlideSync.Controllers {
         public IActionResult Login([FromForm] UserLoginDto login) {
             var user = AuthenticateUser(login);
 
-            // TODO: Implement login
             if (user != null) {
                 // Generate and return token
                 return Ok(GenerateJWT(user));
@@ -90,6 +90,7 @@ namespace SlideSync.Controllers {
         #endregion
 
         #region Auth
+        // TODO: Refresh token
         private string GenerateJWT(UserModel userInfo) {
             var secret = config.Secret;
             var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secret));
