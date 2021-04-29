@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     },
     title: {
         flexGrow: 1,
-        fontSize: 25,
+        fontSize: 36,
         fontWeight: 'bold',
         textTransform: 'capitalize',
     },
@@ -29,10 +29,15 @@ export default function TopNavigationBar() {
     return (
         <div className={classes.root}>
             <AppBar position="static">
-                <Toolbar>
+                <div
+                    style={{
+                        display: 'flex',
+                        margin: '0 24px',
+                        alignItems: 'center',
+                    }}
+                >
                     <IconButton
                         edge="start"
-                        className={classes.menuButton}
                         color="inherit"
                         aria-label="menu"
                         onClick={() => {
@@ -48,8 +53,7 @@ export default function TopNavigationBar() {
                         {title}
                     </Typography>
                     <IconButton
-                        edge="start"
-                        className={classes.menuButton}
+                        edge="end"
                         color="inherit"
                         aria-label="menu"
                         onClick={() => {
@@ -61,7 +65,7 @@ export default function TopNavigationBar() {
                     >
                         <AccountCircleIcon />
                     </IconButton>
-                </Toolbar>
+                </div>
             </AppBar>
         </div>
     )
