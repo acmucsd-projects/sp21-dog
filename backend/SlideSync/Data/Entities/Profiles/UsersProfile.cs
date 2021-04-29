@@ -6,6 +6,7 @@ namespace SlideSync.Data.Entities.Profiles {
         public UsersProfile() {
             CreateMap<UserRegistrationDto, UserModel>()
                 .ForMember(user => user.Password, opt => opt.Ignore());
+            CreateMap<UserModel, UserReadDto>();
         }
     }
 }
