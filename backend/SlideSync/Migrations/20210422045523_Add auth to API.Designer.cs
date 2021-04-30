@@ -9,7 +9,7 @@ using SlideSync.Data.Context;
 
 namespace SlideSync.Migrations
 {
-    [DbContext(typeof(UsersDbContext))]
+    [DbContext(typeof(GameDbContext))]
     [Migration("20210422045523_Add auth to API")]
     partial class AddauthtoAPI
     {

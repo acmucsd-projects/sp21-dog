@@ -4,13 +4,14 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using SlideSync.Data.Context;
 using SlideSync.Data.Entities;
+using SlideSync.Data.Entities.Models;
 using SlideSync.Data.Repositories.Contracts;
 
 namespace SlideSync.Data.Repositories {
     public class UserRepository : IUserRepository {
-        private readonly UsersDbContext context;
+        private readonly GameDbContext context;
 
-        public UserRepository(UsersDbContext context) {
+        public UserRepository(GameDbContext context) {
             this.context = context;
         }
         
@@ -59,10 +60,6 @@ namespace SlideSync.Data.Repositories {
 
         public void UpdateUser(UserModel user) {
             context.Entry(user).State = EntityState.Modified;
-        }
-
-        public void Save() {
-            context.SaveChanges();
         }
     }
 }
