@@ -26,18 +26,17 @@ namespace SlideSync.Controllers {
     [Route("api/users")]
     public class UserController : ControllerBase {
         #region Fields
+
         private readonly JwtConfig config;
         private readonly IAuthUnit authUnit;
         private ICryptoService cryptoService;
         private IMapper mapper;
-
-        private string refreshTokenCookie = "refreshToken";
         #endregion
         
         public UserController(IOptions<JwtConfig> config, IAuthUnit authUnit, IMapper  mapper) {
-            this.config = config.Value;
             this.authUnit = authUnit;
             this.mapper = mapper;
+            this.config = config.Value;
             
             cryptoService = new PBKDF2();
         }
@@ -90,7 +89,7 @@ namespace SlideSync.Controllers {
 
             if (user == null) return Unauthorized("Invalid username or password");
             
-            var refreshToken = GenerateRefreshToken(user);
+            var refreshToken = AuthController.GenerateRefreshToken(user);
             authUnit.Tokens.AddToken(refreshToken);
             user.RefreshTokens.Add(refreshToken);
             authUnit.Complete();
@@ -98,153 +97,17 @@ namespace SlideSync.Controllers {
             SetCookie(refreshToken);
                 
             // Generate and return token
-            return Ok(GenerateJWT(user));
+            return Ok(AuthController.GenerateJWT(user, config));
         }
-        #endregion
-
-        #region Auth
-        private string GenerateJWT(UserModel userInfo) {
-            var secret = config.Secret;
-            var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secret));
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var tokenDescriptor = new SecurityTokenDescriptor {
-                Subject = new ClaimsIdentity(new Claim[] {
-                    new(ClaimTypes.NameIdentifier, userInfo.Id.ToString()) 
-                }),
-                Expires = DateTime.UtcNow.AddMinutes(15),
-                SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature)
-            };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-
-            return tokenHandler.WriteToken(token);
-        }
-
-        [AllowAnonymous]
-        [HttpGet("refresh-token")]
-        public IActionResult RefreshToken() {
-            // Get refresh token
-            var refreshToken = Request.Cookies[refreshTokenCookie];
-            var authToken = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]).Parameter;
-            
-            // Validate tokens
-            var authModel = ValidateTokens(authToken, refreshToken);
-            if (authModel == null) return BadRequest();
-            
-            // Generate new tokens
-            var newRefreshToken = GenerateRefreshToken(authModel.User);
-            var newAuthToken = GenerateJWT(authModel.User);
-            
-            // Revoke old refresh token
-            authModel.RefreshToken.Revoked = DateTime.UtcNow;
-            authModel.RefreshToken.ReplacedBy = newRefreshToken.Token;
-
-            // Add new refresh token
-            authUnit.Tokens.AddToken(newRefreshToken);
-            // Update existing tokens
-            authUnit.Tokens.UpdateToken(authModel.RefreshToken);
-
-            // Save context
-            authUnit.Complete();
-
-            // Append to cookies
-            SetCookie(newRefreshToken);
-
-            return Ok(newAuthToken);
-        }
-
-        [AllowAnonymous]
-        [HttpPost("revoke-token")]
-        public ActionResult RevokeToken([FromForm] string? token) {
-            var requestedToken = token ?? Request.Cookies[refreshTokenCookie];
-
-            if (string.IsNullOrEmpty(requestedToken)) {
-                return BadRequest();
-            }
-
-            // Get token and revoke it
-            var refreshToken = authUnit.Tokens.GetToken(requestedToken);
-            if (refreshToken == null || !refreshToken.IsActive) return BadRequest("Invalid token");
-            refreshToken.Revoked = DateTime.Now;
-            
-            // Update and save db
-            authUnit.Tokens.UpdateToken(refreshToken);
-            authUnit.Complete();
-
-            return Ok();
-        }
-
+        
         private void SetCookie(RefreshToken refreshToken) {
             var cookieOptions = new CookieOptions {
                 HttpOnly = true,
                 Expires = DateTime.UtcNow.AddDays(7)
             };
-            Response.Cookies.Append(refreshTokenCookie, refreshToken.Token, cookieOptions);
+            Response.Cookies.Append(AuthController.refreshTokenCookie, refreshToken.Token, cookieOptions);
         }
-
-        private AuthenticationModel ValidateTokens(string authToken, string refreshToken) {
-            if (authToken == null || refreshToken == null) return null;
-            
-            // Validate auth token
-            var principal = GetPrincipal(authToken);
-            if (principal == null) {
-                return null;
-            }
-            // Try to get name id from claim
-            var claim = principal.Claims.FirstOrDefault(c => c.Type is ClaimTypes.NameIdentifier);
-            if (claim == null) {
-                return null;
-            }
-            var user = authUnit.Users.GetUserById(int.Parse(claim.Value));
-            // If user claims to be nonexistent user
-            if (user == null) {
-                return null;
-            }
-            
-            // Validate refresh token
-            var existingRefreshToken = authUnit.Tokens.GetToken(refreshToken);
-            if (existingRefreshToken == null) {
-                return null;
-            }
-            // If token doesn't belong to claimed user or it's a stale token
-            if (existingRefreshToken.User.Id != user.Id || !existingRefreshToken.IsActive) {
-                return null;
-            }
-
-            return new AuthenticationModel(user, authToken, existingRefreshToken);
-        }
-
-        private RefreshToken GenerateRefreshToken(UserModel user) {
-            var randomNumber = new byte[64];
-            RandomNumberGenerator.Create().GetBytes(randomNumber);
-            
-            var refreshToken = new RefreshToken {
-                Token = Convert.ToBase64String(randomNumber),
-                Expires = DateTime.UtcNow.AddDays(7),
-                Created = DateTime.UtcNow,
-                User = user
-            };
-
-            return refreshToken;
-        }
-
-        private ClaimsPrincipal GetPrincipal(string token) {
-            var handler = new JwtSecurityTokenHandler();
-
-            try {
-                var claimsPrincipal = handler.ValidateToken(token, new TokenValidationParameters {
-                    ValidateLifetime = false,
-                    ValidateIssuerSigningKey = true,
-                    ValidateAudience = false,
-                    ValidateIssuer = false,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.Secret))
-                }, out _);
-                
-                return claimsPrincipal;
-            } catch {
-                return null;
-            }
-        }
+        
 
         /**
          * Authenticates the user, checking the provided password against the password hash stored in the database
@@ -259,7 +122,7 @@ namespace SlideSync.Controllers {
             return (hash == user.Password) ? user : null;
             
         }
-        #endregion
         
+        #endregion
     }
 }
