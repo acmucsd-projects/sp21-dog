@@ -32,6 +32,8 @@ namespace SlideSync.Controllers {
         private readonly ITaskRepository taskRepository;
         private ICryptoService cryptoService;
         private IMapper mapper;
+
+        private string refreshTokenCookie = "refreshToken";
         #endregion
         
         public UserController(IOptions<JwtConfig> config, IAuthUnit authUnit, ITaskRepository taskRepository, IMapper  mapper) {
