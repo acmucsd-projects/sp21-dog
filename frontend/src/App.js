@@ -1,23 +1,30 @@
-import logo from './logo.svg'
 import './App.css'
+import Content from './components/Content'
+import BottomNavigationBar from './components/BottomNavigationBar'
+import TopNavigationBar from './components/TopNavigationBar'
+import { ThemeProvider } from '@material-ui/core/styles'
+import { AppContextProvider } from './contexts/AppContext'
+import { theme } from './helpers/Themes.js'
 
 function App() {
     return (
         <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <p>
-                    Edit <code>src/App.js</code> and save to reload.
-                </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-                </a>
-            </header>
+            <ThemeProvider theme={theme}>
+                <AppContextProvider>
+                    <div
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'space-between',
+                            height: '100%',
+                        }}
+                    >
+                        <TopNavigationBar />
+                        <Content />
+                        <BottomNavigationBar />
+                    </div>
+                </AppContextProvider>
+            </ThemeProvider>
         </div>
     )
 }
