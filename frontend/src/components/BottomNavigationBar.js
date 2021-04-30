@@ -59,7 +59,7 @@ export default function BottomNavigationBar() {
         return (
             <BottomNavigationAction
                 key={i}
-                disableRipple={true}
+                disableRipple={false}
                 classes={{
                     root: classes.actionItemStyles,
                     selected: classes.selected,

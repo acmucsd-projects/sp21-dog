@@ -5,6 +5,7 @@ import AppBar from '@material-ui/core/AppBar'
 import Typography from '@material-ui/core/Typography'
 import Icon from '@material-ui/core/Icon'
 import { useAppContext } from '../contexts/AppContext'
+import Searchbar from './Searchbar'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -84,6 +85,7 @@ export default function TopNavigationBar() {
                         </Icon>
                     </div>
                 </div>
+                {context.state.page === Page.leaderboards && <Searchbar />}
             </AppBar>
         </div>
     )
