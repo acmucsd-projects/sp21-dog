@@ -28,18 +28,5 @@ export const theme = createMuiTheme({
                 fontSize: '44px',
             },
         },
-        MuiBottomNavigationAction: {
-            root: {
-                minWidth: '40px',
-            },
-            label: {
-                textTransform: 'capitalize',
-            },
-        },
-        MuiSvgIcon: {
-            root: {
-                fontSize: '44px',
-            },
-        },
     },
 })
