@@ -26,12 +26,11 @@ namespace SlideSync.Controllers {
     [Route("api/users")]
     public class UserController : ControllerBase {
         #region Fields
+
         private readonly JwtConfig config;
         private readonly IAuthUnit authUnit;
         private ICryptoService cryptoService;
         private IMapper mapper;
-
-        private string refreshTokenCookie = "refreshToken";
         #endregion
         
         public UserController(IOptions<JwtConfig> config, IAuthUnit authUnit, IMapper  mapper) {
@@ -163,78 +162,15 @@ namespace SlideSync.Controllers {
 
             return Ok();
         }
-
+        
         private void SetCookie(RefreshToken refreshToken) {
             var cookieOptions = new CookieOptions {
                 HttpOnly = true,
                 Expires = DateTime.UtcNow.AddDays(7)
             };
-            Response.Cookies.Append(refreshTokenCookie, refreshToken.Token, cookieOptions);
+            Response.Cookies.Append(AuthController.refreshTokenCookie, refreshToken.Token, cookieOptions);
         }
-
-        private AuthenticationModel ValidateTokens(string authToken, string refreshToken) {
-            if (authToken == null || refreshToken == null) return null;
-            
-            // Validate auth token
-            var principal = GetPrincipal(authToken);
-            if (principal == null) {
-                return null;
-            }
-            // Try to get name id from claim
-            var claim = principal.Claims.FirstOrDefault(c => c.Type is ClaimTypes.NameIdentifier);
-            if (claim == null) {
-                return null;
-            }
-            var user = authUnit.Users.GetUserById(int.Parse(claim.Value));
-            // If user claims to be nonexistent user
-            if (user == null) {
-                return null;
-            }
-            
-            // Validate refresh token
-            var existingRefreshToken = authUnit.Tokens.GetToken(refreshToken);
-            if (existingRefreshToken == null) {
-                return null;
-            }
-            // If token doesn't belong to claimed user or it's a stale token
-            if (existingRefreshToken.User.Id != user.Id || !existingRefreshToken.IsActive) {
-                return null;
-            }
-
-            return new AuthenticationModel(user, authToken, existingRefreshToken);
-        }
-
-        private RefreshToken GenerateRefreshToken(UserModel user) {
-            var randomNumber = new byte[64];
-            RandomNumberGenerator.Create().GetBytes(randomNumber);
-            
-            var refreshToken = new RefreshToken {
-                Token = Convert.ToBase64String(randomNumber),
-                Expires = DateTime.UtcNow.AddDays(7),
-                Created = DateTime.UtcNow,
-                User = user
-            };
-
-            return refreshToken;
-        }
-
-        private ClaimsPrincipal GetPrincipal(string token) {
-            var handler = new JwtSecurityTokenHandler();
-
-            try {
-                var claimsPrincipal = handler.ValidateToken(token, new TokenValidationParameters {
-                    ValidateLifetime = false,
-                    ValidateIssuerSigningKey = true,
-                    ValidateAudience = false,
-                    ValidateIssuer = false,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.Secret))
-                }, out _);
-                
-                return claimsPrincipal;
-            } catch {
-                return null;
-            }
-        }
+        
 
         /**
          * Authenticates the user, checking the provided password against the password hash stored in the database
