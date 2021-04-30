@@ -11,7 +11,7 @@ const Map = () => {
     })
 
     return (
-        <>
+        <div style={{ flex: 1 }}>
             <ReactMapGl
                 {...viewport}
                 onViewportChange={(newViewport) =>
@@ -23,7 +23,7 @@ const Map = () => {
                 }
                 mapboxApiAccessToken="pk.eyJ1IjoibmlzaGFudGJhbGFqaSIsImEiOiJja2xkOGl3cjcxc21yMndtdmxtZWpxeGRuIn0.isOPq2BjpvuzwjZMXW1yWA"
             />
-        </>
+        </div>
     )
 }
 

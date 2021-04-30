@@ -4,15 +4,41 @@ import { Page } from '../helpers/Page'
 import { makeStyles } from '@material-ui/core/styles'
 import BottomNavigation from '@material-ui/core/BottomNavigation'
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction'
-import ListAltIcon from '@material-ui/icons/ListAlt'
-import MenuBookIcon from '@material-ui/icons/MenuBook'
-import PersonIcon from '@material-ui/icons/Person'
-import PublicIcon from '@material-ui/icons/Public'
-import StarIcon from '@material-ui/icons/Star'
+import Icon from '@material-ui/core/Icon'
+import { Color } from '../helpers/Color'
+import { ListItemIcon } from '@material-ui/core'
 
 const useStyles = makeStyles({
     root: {
-        height: '80px',
+        maxWidth: '1000px',
+        minWidth: '100px',
+        height: '60px',
+        justifyContent: 'space-evenly',
+    },
+    imageIcon: {
+        height: 'inherit',
+        width: 'inherit',
+    },
+    iconRoot: {
+        textAlign: 'center',
+        width: '25px',
+        height: '25px',
+    },
+    actionItemStyles: {
+        width: '200px',
+        height: '60px',
+        borderRadius: '50%',
+        '&$selected': {
+            backgroundColor: Color.accent,
+
+            '& button': {
+                backgroundColor: Color.blue,
+            },
+        },
+    },
+    selected: {},
+    button: {
+        backgroundColor: 'blue',
     },
 })
 
@@ -21,66 +47,71 @@ export default function BottomNavigationBar() {
     const context = useAppContext()
     const [value, setValue] = React.useState()
 
-    const order = [
-        Page.profile,
-        Page.journal,
-        Page.tasks,
-        Page.map,
-        Page.leaderboards,
+    const orderedNavItems = [
+        { page: Page.profile, iconSrc: '/icons/user.svg' },
+        { page: Page.journal, iconSrc: '/icons/journal.svg' },
+        { page: Page.tasks, iconSrc: '/icons/tasks.svg' },
+        { page: Page.map, iconSrc: '/icons/map.svg' },
+        { page: Page.leaderboards, iconSrc: '/icons/trophy.svg' },
     ]
 
+    const bottomNavItems = orderedNavItems.map((item, i) => {
+        return (
+            <BottomNavigationAction
+                key={i}
+                disableRipple={true}
+                classes={{
+                    root: classes.actionItemStyles,
+                    selected: classes.selected,
+                }}
+                icon={
+                    <div
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <Icon classes={{ root: classes.iconRoot }}>
+                            <img
+                                className={classes.imageIcon}
+                                src={item.iconSrc}
+                            />
+                        </Icon>
+                    </div>
+                }
+                onClick={() => {
+                    context.setState({ ...context.state, page: item.page })
+                }}
+            />
+        )
+    })
+
     React.useEffect(() => {
-        setValue(order.indexOf(context.state.page))
+        setValue(
+            orderedNavItems.map((item) => item.page).indexOf(context.state.page)
+        )
     }, [context.state.page])
 
     return (
-        <BottomNavigation
-            style={{ width: '100%' }}
-            value={value}
-            onChange={(event, newValue) => {
-                setValue(newValue)
+        <div
+            style={{
+                backgroundColor: Color.primary,
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'center',
             }}
-            showLabels
-            className={classes.root}
         >
-            <BottomNavigationAction
-                label="user"
-                icon={<PersonIcon />}
-                onClick={() => {
-                    context.setState({ ...context.state, page: Page.profile })
+            <BottomNavigation
+                value={value}
+                onChange={(event, newValue) => {
+                    setValue(newValue)
                 }}
-            />
-            <BottomNavigationAction
-                label={Page.journal}
-                icon={<MenuBookIcon />}
-                onClick={() => {
-                    context.setState({ ...context.state, page: Page.journal })
-                }}
-            />
-            <BottomNavigationAction
-                label={Page.tasks}
-                icon={<ListAltIcon />}
-                onClick={() => {
-                    context.setState({ ...context.state, page: Page.tasks })
-                }}
-            />
-            <BottomNavigationAction
-                label={Page.map}
-                icon={<PublicIcon />}
-                onClick={() => {
-                    context.setState({ ...context.state, page: Page.map })
-                }}
-            />
-            <BottomNavigationAction
-                label="leader"
-                icon={<StarIcon />}
-                onClick={() => {
-                    context.setState({
-                        ...context.state,
-                        page: Page.leaderboards,
-                    })
-                }}
-            />
-        </BottomNavigation>
+                showLabels
+                className={classes.root}
+            >
+                {bottomNavItems}
+            </BottomNavigation>
+        </div>
     )
 }
