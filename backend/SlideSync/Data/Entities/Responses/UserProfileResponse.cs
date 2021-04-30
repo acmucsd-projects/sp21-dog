@@ -1,7 +1,7 @@
 using System;
 
-namespace SlideSync.Data.Entities.Dto {
-    public class UserReadDto {
+namespace SlideSync.Data.Entities.Responses {
+    public class UserProfileResponse {
         public string Username { get; set; }
         public string First { get; set; }
         public string Last { get; set; }

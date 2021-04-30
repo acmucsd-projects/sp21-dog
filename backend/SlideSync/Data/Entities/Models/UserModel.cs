@@ -1,6 +1,7 @@
 using System;
+using System.Collections.Generic;
 
-namespace SlideSync.Data.Entities {
+namespace SlideSync.Data.Entities.Models {
     public class UserModel {
         public int Id { get; set; }
         public string Username { get; set; }
@@ -13,5 +14,7 @@ namespace SlideSync.Data.Entities {
         public int FactionId { get; set; } = -1;
         public int GuildId { get; set; } = -1;
         public int Experience { get; set; } = 0;
+        
+        public List<RefreshToken> RefreshTokens { get; set; }
     }
 }

@@ -64,11 +64,15 @@ namespace SlideSync {
                     };
                 });
             
-            services.AddDbContext<UsersDbContext>(options => {
+            // Configure Unit of Work
+            services.AddDbContext<GameDbContext>(options => {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
 
-            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddTransient<ITokenRepository, TokenRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IAuthUnit, AuthUnit>();
+
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.Configure<JwtConfig>(options => Configuration.GetSection("JWT").Bind(options));
