@@ -2,28 +2,33 @@ import React from 'react'
 import { Page } from '../helpers/Page'
 import { makeStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
-import IconButton from '@material-ui/core/IconButton'
-import AccountCircleIcon from '@material-ui/icons/AccountCircle'
-import DirectionsRunIcon from '@material-ui/icons/DirectionsRun'
+import Icon from '@material-ui/core/Icon'
 import { useAppContext } from '../contexts/AppContext'
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        flexGrow: 1,
+        height: '60px',
     },
     title: {
         flexGrow: 1,
         fontSize: 36,
-        fontWeight: 'bold',
         textTransform: 'capitalize',
     },
-    logo: {
-        marginRight: '12px',
+    topNavButton: {
         '&:hover': {
             cursor: 'pointer',
         },
+    },
+    imageIcon: {
+        display: 'flex',
+        height: 'inherit',
+        width: 'inherit',
+    },
+    iconRoot: {
+        textAlign: 'center',
+        width: '45px',
+        height: '45px',
     },
 }))
 
@@ -42,23 +47,28 @@ export default function TopNavigationBar() {
                         alignItems: 'center',
                     }}
                 >
-                    <DirectionsRunIcon
-                        className={classes.logo}
+                    <div
+                        className={classes.topNavButton}
                         onClick={() => {
                             context.setState({
                                 ...context.state,
                                 page: Page.tasks,
                             })
                         }}
-                    />
+                    >
+                        <Icon classes={{ root: classes.iconRoot }}>
+                            <img
+                                className={classes.imageIcon}
+                                src="/logo.svg"
+                            />
+                        </Icon>
+                    </div>
 
                     <Typography variant="h6" className={classes.title}>
                         {title}
                     </Typography>
-                    <IconButton
-                        edge="end"
-                        color="inherit"
-                        aria-label="menu"
+                    <div
+                        className={classes.topNavButton}
                         onClick={() => {
                             context.setState({
                                 ...context.state,
@@ -66,8 +76,13 @@ export default function TopNavigationBar() {
                             })
                         }}
                     >
-                        <AccountCircleIcon />
-                    </IconButton>
+                        <Icon classes={{ root: classes.iconRoot }}>
+                            <img
+                                className={classes.imageIcon}
+                                src="/profilepic.svg"
+                            />
+                        </Icon>
+                    </div>
                 </div>
             </AppBar>
         </div>
