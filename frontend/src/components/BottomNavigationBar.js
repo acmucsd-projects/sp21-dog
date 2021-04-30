@@ -6,14 +6,16 @@ import BottomNavigation from '@material-ui/core/BottomNavigation'
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction'
 import Icon from '@material-ui/core/Icon'
 import { Color } from '../helpers/Color'
+import { ListItemIcon } from '@material-ui/core'
 
 const useStyles = makeStyles({
     root: {
-        width: '100%',
+        maxWidth: '1000px',
+        minWidth: '100px',
         height: '60px',
+        justifyContent: 'space-evenly',
     },
     imageIcon: {
-        display: 'flex',
         height: 'inherit',
         width: 'inherit',
     },
@@ -23,11 +25,21 @@ const useStyles = makeStyles({
         height: '25px',
     },
     actionItemStyles: {
+        width: '200px',
+        height: '60px',
+        borderRadius: '50%',
         '&$selected': {
             backgroundColor: Color.accent,
+
+            '& button': {
+                backgroundColor: Color.blue,
+            },
         },
     },
     selected: {},
+    button: {
+        backgroundColor: 'blue',
+    },
 })
 
 export default function BottomNavigationBar() {
@@ -47,14 +59,26 @@ export default function BottomNavigationBar() {
         return (
             <BottomNavigationAction
                 key={i}
+                disableRipple={true}
                 classes={{
                     root: classes.actionItemStyles,
                     selected: classes.selected,
                 }}
                 icon={
-                    <Icon classes={{ root: classes.iconRoot }}>
-                        <img className={classes.imageIcon} src={item.iconSrc} />
-                    </Icon>
+                    <div
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <Icon classes={{ root: classes.iconRoot }}>
+                            <img
+                                className={classes.imageIcon}
+                                src={item.iconSrc}
+                            />
+                        </Icon>
+                    </div>
                 }
                 onClick={() => {
                     context.setState({ ...context.state, page: item.page })
@@ -70,15 +94,24 @@ export default function BottomNavigationBar() {
     }, [context.state.page])
 
     return (
-        <BottomNavigation
-            value={value}
-            onChange={(event, newValue) => {
-                setValue(newValue)
+        <div
+            style={{
+                backgroundColor: Color.primary,
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'center',
             }}
-            showLabels
-            className={classes.root}
         >
-            {bottomNavItems}
-        </BottomNavigation>
+            <BottomNavigation
+                value={value}
+                onChange={(event, newValue) => {
+                    setValue(newValue)
+                }}
+                showLabels
+                className={classes.root}
+            >
+                {bottomNavItems}
+            </BottomNavigation>
+        </div>
     )
 }
