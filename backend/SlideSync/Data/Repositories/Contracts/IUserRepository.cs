@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using SlideSync.Data.Entities;
+using SlideSync.Data.Entities.Models;
 
 namespace SlideSync.Data.Repositories.Contracts {
     public interface IUserRepository {
         IEnumerable<UserModel> GetUsers();
+        IEnumerable<UserModel> GetLeaderboard(int count);
         UserModel GetUserById(int id);
         UserModel GetUserByUsername(string username);
         void AddUser(UserModel user);
@@ -11,6 +13,5 @@ namespace SlideSync.Data.Repositories.Contracts {
         void DeleteUserById(int id);
         void DeleteUserByUsername(string username);
         void UpdateUser(UserModel user);
-        void Save();
     }
 }
