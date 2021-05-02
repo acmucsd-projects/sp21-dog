@@ -48,6 +48,12 @@ export const theme = createMuiTheme({
                 fontSize: '44px',
             },
         },
+        MuiListItem: {
+            gutters: {
+                paddingLeft: 0,
+                paddingRight: 0,
+            },
+        },
         MuiListItemText: {
             root: {
                 flex: 'none',

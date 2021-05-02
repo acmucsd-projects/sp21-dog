@@ -15,6 +15,11 @@ const useStyles = makeStyles((theme) => ({
     root: {
         backgroundColor: Color.primary,
     },
+    imageIcon: {
+        display: 'flex',
+        height: 'inherit',
+        width: 'inherit',
+    },
 }))
 
 export default function LeaderboardList() {
@@ -43,49 +48,80 @@ export default function LeaderboardList() {
                         key={i}
                         style={{
                             display: 'flex',
-                            justifyContent: 'space-evenly',
+                            //justifyContent: 'space-evenly',
                         }}
                         button
                     >
-                        <ListItemText
-                            id={labelId}
-                            primary={`#${i + 1}`}
-                            primaryTypographyProps={{
-                                style: {
-                                    fontSize: '18px',
-                                    margin: '0 10px 0 10px',
-                                },
-                            }}
-                        />
-                        <ListItemAvatar>
-                            <Avatar
-                                alt={`Avatar n°${item.name}`}
-                                src={`/static/images/avatar/${item.name}.jpg`}
-                            />
-                        </ListItemAvatar>
                         <div
                             style={{
-                                width: '100%',
-                                display: 'flex',
-                                justifyContent: 'space-between',
+                                width: '22.946859903%',
+                                textAlign: 'center',
                             }}
                         >
                             <ListItemText
                                 id={labelId}
-                                primary={item.name}
-                                secondary={
-                                    <>
-                                        {/*<FilterListIcon />*/}
-                                        {`@${item.username}`}
-                                    </>
-                                }
+                                primary={`#${i + 1}`}
                                 primaryTypographyProps={{
                                     style: {
                                         fontSize: '18px',
-                                        fontWeight: '700',
                                     },
                                 }}
                             />
+                        </div>
+                        <div
+                            style={{
+                                flex: 1,
+                                display: 'flex',
+                                alignItems: 'center',
+                            }}
+                        >
+                            <ListItemAvatar>
+                                <Avatar
+                                    alt={`Avatar n°${item.name}`}
+                                    src={`/static/images/avatar/${item.name}.jpg`}
+                                />
+                            </ListItemAvatar>
+                            <div
+                                style={{
+                                    width: '100%',
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
+                                }}
+                            >
+                                <ListItemText
+                                    id={labelId}
+                                    primary={item.name}
+                                    secondary={
+                                        <div
+                                            style={{
+                                                display: 'flex',
+                                                width: '18px',
+                                                height: '18px',
+                                            }}
+                                        >
+                                            <img
+                                                className={classes.imageIcon}
+                                                style={{ marginRight: '4px' }}
+                                                src="/icons/stats/nature.svg"
+                                            />
+                                            {`@${item.username}`}
+                                        </div>
+                                    }
+                                    primaryTypographyProps={{
+                                        style: {
+                                            fontSize: '18px',
+                                            fontWeight: '700',
+                                        },
+                                    }}
+                                />
+                            </div>
+                        </div>
+                        <div
+                            style={{
+                                width: '22.946859903%',
+                                textAlign: 'center',
+                            }}
+                        >
                             <ListItemText
                                 id={labelId}
                                 primary={`${item.points / 10000}k pts`}
