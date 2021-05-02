@@ -20,6 +20,10 @@ const useStyles = makeStyles((theme) => ({
         height: 'inherit',
         width: 'inherit',
     },
+    numberDisplay: {
+        width: '22.946859903%',
+        textAlign: 'center',
+    },
 }))
 
 export default function LeaderboardList() {
@@ -52,17 +56,13 @@ export default function LeaderboardList() {
                         }}
                         button
                     >
-                        <div
-                            style={{
-                                width: '22.946859903%',
-                                textAlign: 'center',
-                            }}
-                        >
+                        <div className={classes.numberDisplay}>
                             <ListItemText
                                 id={labelId}
                                 primary={`#${i + 1}`}
                                 primaryTypographyProps={{
                                     style: {
+                                        fontFamily: 'Oswald',
                                         fontSize: '18px',
                                     },
                                 }}
@@ -116,17 +116,13 @@ export default function LeaderboardList() {
                                 />
                             </div>
                         </div>
-                        <div
-                            style={{
-                                width: '22.946859903%',
-                                textAlign: 'center',
-                            }}
-                        >
+                        <div className={classes.numberDisplay}>
                             <ListItemText
                                 id={labelId}
                                 primary={`${item.points / 10000}k pts`}
                                 primaryTypographyProps={{
                                     style: {
+                                        fontFamily: 'Oswald',
                                         fontSize: '18px',
                                     },
                                 }}

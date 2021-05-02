@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
         fontSize: 36,
         textTransform: 'capitalize',
+        fontFamily: 'Oswald',
     },
     topNavButton: {
         '&:hover': {

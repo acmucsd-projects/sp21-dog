@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+@import url('https://fonts.googleapis.com/css?family=PT+Sans');
 
 #root {
     height: 100%;
@@ -8,7 +9,7 @@
     overflow: auto;
     text-align: center;
     background-color: #e5e5e5;
-    font-family: 'Oswald';
+    font-family: 'PT Sans';
 }
 
 @keyframes fade {

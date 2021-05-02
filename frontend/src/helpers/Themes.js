@@ -3,7 +3,7 @@ import { Color } from './Color'
 
 export const theme = createMuiTheme({
     typography: {
-        fontFamily: 'Oswald',
+        fontFamily: 'PT Sans',
     },
     overrides: {
         MuiAppBar: {
