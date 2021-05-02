@@ -9,7 +9,7 @@ import Searchbar from './Searchbar'
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        height: '60px',
+        //height: '60px',
     },
     title: {
         flexGrow: 1,
@@ -85,7 +85,7 @@ export default function TopNavigationBar() {
                         </Icon>
                     </div>
                 </div>
-                {context.state.page === Page.leaderboards && <Searchbar />}
+                {context.state.page == Page.leaderboards && <Searchbar />}
             </AppBar>
         </div>
     )

@@ -4,6 +4,7 @@ import { Page } from '../helpers/Page'
 import { makeStyles } from '@material-ui/core/styles'
 import BottomNavigation from '@material-ui/core/BottomNavigation'
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction'
+import LeaderboardBottom from './LeaderboardBottom'
 import Icon from '@material-ui/core/Icon'
 import { Color } from '../helpers/Color'
 import { ListItemIcon } from '@material-ui/core'
@@ -24,22 +25,18 @@ const useStyles = makeStyles({
         width: '25px',
         height: '25px',
     },
-    actionItemStyles: {
-        width: '200px',
-        height: '60px',
-        borderRadius: '50%',
+    middleActionItemStyles: {
+        //width: '200px',
+        //height: '60px',
+        minWidth: '20.77294686%',
+        //height: '75%',
+        borderRadius: '25px',
+        backgroundColor: Color.background,
         '&$selected': {
             backgroundColor: Color.accent,
-
-            '& button': {
-                backgroundColor: Color.blue,
-            },
         },
     },
     selected: {},
-    button: {
-        backgroundColor: 'blue',
-    },
 })
 
 export default function BottomNavigationBar() {
@@ -56,14 +53,25 @@ export default function BottomNavigationBar() {
     ]
 
     const bottomNavItems = orderedNavItems.map((item, i) => {
+        let itemClasses = {
+            selected: classes.selected,
+        }
+        console.log(parseInt(orderedNavItems.length / 2))
+        if (
+            orderedNavItems.length % 2 !== 0 &&
+            i === parseInt(orderedNavItems.length / 2)
+        ) {
+            itemClasses = {
+                root: classes.middleActionItemStyles,
+                selected: classes.selected,
+            }
+        }
+
         return (
             <BottomNavigationAction
                 key={i}
                 disableRipple={false}
-                classes={{
-                    root: classes.actionItemStyles,
-                    selected: classes.selected,
-                }}
+                classes={itemClasses}
                 icon={
                     <div
                         style={{
@@ -96,22 +104,31 @@ export default function BottomNavigationBar() {
     return (
         <div
             style={{
-                backgroundColor: Color.primary,
-                width: '100%',
+                // position: 'sticky',
                 display: 'flex',
-                justifyContent: 'center',
+                flexDirection: 'column',
             }}
         >
-            <BottomNavigation
-                value={value}
-                onChange={(event, newValue) => {
-                    setValue(newValue)
+            {context.state.page == Page.leaderboards && <LeaderboardBottom />}
+            <div
+                style={{
+                    backgroundColor: Color.primary,
+                    width: '100%',
+                    display: 'flex',
+                    justifyContent: 'center',
                 }}
-                showLabels
-                className={classes.root}
             >
-                {bottomNavItems}
-            </BottomNavigation>
+                <BottomNavigation
+                    value={value}
+                    onChange={(event, newValue) => {
+                        setValue(newValue)
+                    }}
+                    showLabels
+                    className={classes.root}
+                >
+                    {bottomNavItems}
+                </BottomNavigation>
+            </div>
         </div>
     )
 }

@@ -23,10 +23,20 @@ export const theme = createMuiTheme({
         },
         MuiBottomNavigationAction: {
             root: {
-                minWidth: '45px',
-                maxHeight: '45px',
                 transition: 0,
                 flex: 0,
+                width: '200px',
+                height: '60px',
+                minWidth: '45px',
+                maxHeight: '45px',
+                borderRadius: '50%',
+                '&$selected': {
+                    backgroundColor: Color.accent,
+
+                    '& button': {
+                        backgroundColor: Color.blue,
+                    },
+                },
             },
             label: {
                 textTransform: 'capitalize',
@@ -36,6 +46,11 @@ export const theme = createMuiTheme({
         MuiSvgIcon: {
             root: {
                 fontSize: '44px',
+            },
+        },
+        MuiListItemText: {
+            root: {
+                flex: 'none',
             },
         },
     },
