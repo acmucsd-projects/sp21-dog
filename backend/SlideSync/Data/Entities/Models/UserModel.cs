@@ -25,5 +25,6 @@ namespace SlideSync.Data.Entities.Models {
         
         public List<RefreshToken> RefreshTokens { get; set; }
         public List<TaskModel> Tasks { get; set; }
+
     }
 }

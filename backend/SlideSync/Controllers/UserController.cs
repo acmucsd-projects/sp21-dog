@@ -21,6 +21,7 @@ using SlideSync.Data.Entities.Responses;
 using SlideSync.Data.Repositories.Contracts;
 
 namespace SlideSync.Controllers {
+    // TODO: Refactor into auth controller
     [ApiController]
     [Route("api/users")]
     public class UserController : ControllerBase {
@@ -56,7 +57,7 @@ namespace SlideSync.Controllers {
             var userReadDto = mapper.Map<UserProfileResponse>(user);
             return Ok(userReadDto);
         }
-
+        
         [Authorize]
         [HttpGet("user/{username}/tasks")]
         public IActionResult GetTasks(string username) {
@@ -76,7 +77,7 @@ namespace SlideSync.Controllers {
 
             return Ok(tasksResponse);
         }
-
+        
         [AllowAnonymous]
         [HttpPost("register")]
         public IActionResult Register([FromForm] UserRegistrationRequest register) {

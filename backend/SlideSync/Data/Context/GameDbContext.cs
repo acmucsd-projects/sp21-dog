@@ -18,6 +18,7 @@ namespace SlideSync.Data.Context {
                 .HasMany(u => u.RefreshTokens)
                 .WithOne(t => t.User)
                 .IsRequired();
+
             modelBuilder.Entity<UserModel>()
                 .HasMany(u => u.Tasks)
                 .WithOne(t => t.User)
@@ -29,6 +30,7 @@ namespace SlideSync.Data.Context {
             modelBuilder.Entity<TaskModel>()
                 .Property(t => t.Difficulty)
                 .HasConversion<int>();
+
         }
     }
 }

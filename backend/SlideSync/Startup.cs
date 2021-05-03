@@ -54,6 +54,7 @@ namespace SlideSync {
                     x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                     x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 }).AddJwtBearer(options => {
+
                     options.TokenValidationParameters = TokenValidationParameters;
                     
                     options.Events = new JwtBearerEvents {

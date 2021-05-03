@@ -161,6 +161,7 @@ namespace SlideSync.Migrations
                     b.Navigation("RefreshTokens");
 
                     b.Navigation("Tasks");
+
                 });
 #pragma warning restore 612, 618
         }
