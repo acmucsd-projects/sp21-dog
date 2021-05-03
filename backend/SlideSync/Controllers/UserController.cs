@@ -21,7 +21,6 @@ using SlideSync.Data.Entities.Responses;
 using SlideSync.Data.Repositories.Contracts;
 
 namespace SlideSync.Controllers {
-    // TODO: Refactor into auth controller
     [ApiController]
     [Route("api/users")]
     public class UserController : ControllerBase {

@@ -158,7 +158,7 @@ namespace SlideSync.Controllers {
                 Subject = new ClaimsIdentity(new Claim[] {
                     new(ClaimTypes.NameIdentifier, userInfo.Id.ToString()) 
                 }),
-                Expires = DateTime.UtcNow.AddMinutes(15),
+                Expires = DateTime.UtcNow.AddMinutes(1),
                 SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);

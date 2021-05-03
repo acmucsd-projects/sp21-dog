@@ -37,6 +37,10 @@ backend/ApiTester/[Bb]in/
 backend/ApiTester/[Oo]bj/
 backend/SlideSync.sln.DotSettings.user
 
+backend/ApiTester/[Bb]in/
+backend/ApiTester/[Oo]bj/
+backend/SlideSync.sln.DotSettings.user
+
 backend/SlideSync/Thumbs.db
 backend/SlideSync/Desktop.ini
 **/.DS_Store
