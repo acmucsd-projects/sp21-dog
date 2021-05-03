@@ -50,8 +50,10 @@ namespace SlideSync {
             });
 
             // Adds authentication middleware
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options => {
+            services.AddAuthentication(x => {
+                    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                }).AddJwtBearer(options => {
                     options.TokenValidationParameters = TokenValidationParameters;
                     
                     options.Events = new JwtBearerEvents {
@@ -71,6 +73,7 @@ namespace SlideSync {
 
             services.AddTransient<ITokenRepository, TokenRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<ITaskRepository, TaskRepository>();
             services.AddTransient<IAuthUnit, AuthUnit>();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -90,6 +93,7 @@ namespace SlideSync {
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => {

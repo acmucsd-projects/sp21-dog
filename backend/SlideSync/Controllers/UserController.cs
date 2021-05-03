@@ -21,7 +21,6 @@ using SlideSync.Data.Entities.Responses;
 using SlideSync.Data.Repositories.Contracts;
 
 namespace SlideSync.Controllers {
-    // TODO: Refactor into auth controller
     [ApiController]
     [Route("api/users")]
     public class UserController : ControllerBase {
@@ -29,12 +28,14 @@ namespace SlideSync.Controllers {
 
         private readonly JwtConfig config;
         private readonly IAuthUnit authUnit;
+        private readonly ITaskRepository taskRepository;
         private ICryptoService cryptoService;
         private IMapper mapper;
         #endregion
         
-        public UserController(IOptions<JwtConfig> config, IAuthUnit authUnit, IMapper  mapper) {
+        public UserController(IOptions<JwtConfig> config, IAuthUnit authUnit, ITaskRepository taskRepository, IMapper  mapper) {
             this.authUnit = authUnit;
+            this.taskRepository = taskRepository;
             this.mapper = mapper;
             this.config = config.Value;
             
@@ -54,6 +55,26 @@ namespace SlideSync.Controllers {
             // Return user info
             var userReadDto = mapper.Map<UserProfileResponse>(user);
             return Ok(userReadDto);
+        }
+
+        [Authorize]
+        [HttpGet("user/{username}/tasks")]
+        public IActionResult GetTasks(string username) {
+            // Get header value of token
+            var token = GetAuthorizationHeader(Request);
+            
+            // Get ID from claim
+            var userId = token.Claims.First(c => c.Type == "nameid").Value;
+            var id = int.Parse(userId);
+            
+            // If claimed user is not requested user, user is unauthorized
+            var user = authUnit.Users.GetUserByUsername(username);
+            if (id != user.Id) return Unauthorized();
+
+            var tasks = taskRepository.GetTasksByUserId(id);
+            var tasksResponse = mapper.Map<IEnumerable<TaskResponse>>(tasks);
+
+            return Ok(tasksResponse);
         }
 
         [AllowAnonymous]
@@ -91,7 +112,6 @@ namespace SlideSync.Controllers {
             
             var refreshToken = AuthController.GenerateRefreshToken(user);
             authUnit.Tokens.AddToken(refreshToken);
-            user.RefreshTokens.Add(refreshToken);
             authUnit.Complete();
             
             SetCookie(refreshToken);
@@ -107,71 +127,9 @@ namespace SlideSync.Controllers {
             };
             Response.Cookies.Append(AuthController.refreshTokenCookie, refreshToken.Token, cookieOptions);
         }
-        
+        #endregion
 
-        [AllowAnonymous]
-        [HttpGet("refresh-token")]
-        public IActionResult RefreshToken() {
-            // Get refresh token
-            var refreshToken = Request.Cookies[refreshTokenCookie];
-            var authToken = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]).Parameter;
-            
-            // Validate tokens
-            var authModel = ValidateTokens(authToken, refreshToken);
-            if (authModel == null) return BadRequest();
-            
-            // Generate new tokens
-            var newRefreshToken = GenerateRefreshToken(authModel.User);
-            var newAuthToken = GenerateJWT(authModel.User);
-            
-            // Revoke old refresh token
-            authModel.RefreshToken.Revoked = DateTime.UtcNow;
-            authModel.RefreshToken.ReplacedBy = newRefreshToken.Token;
-
-            // Add new refresh token
-            authUnit.Tokens.AddToken(newRefreshToken);
-            // Update existing tokens
-            authUnit.Tokens.UpdateToken(authModel.RefreshToken);
-
-            // Save context
-            authUnit.Complete();
-
-            // Append to cookies
-            SetCookie(newRefreshToken);
-
-            return Ok(newAuthToken);
-        }
-
-        [AllowAnonymous]
-        [HttpPost("revoke-token")]
-        public ActionResult RevokeToken([FromForm] string? token) {
-            var requestedToken = token ?? Request.Cookies[refreshTokenCookie];
-
-            if (string.IsNullOrEmpty(requestedToken)) {
-                return BadRequest();
-            }
-
-            // Get token and revoke it
-            var refreshToken = authUnit.Tokens.GetToken(requestedToken);
-            if (refreshToken == null || !refreshToken.IsActive) return BadRequest("Invalid token");
-            refreshToken.Revoked = DateTime.Now;
-            
-            // Update and save db
-            authUnit.Tokens.UpdateToken(refreshToken);
-            authUnit.Complete();
-
-            return Ok();
-        }
-        
-        private void SetCookie(RefreshToken refreshToken) {
-            var cookieOptions = new CookieOptions {
-                HttpOnly = true,
-                Expires = DateTime.UtcNow.AddDays(7)
-            };
-            Response.Cookies.Append(AuthController.refreshTokenCookie, refreshToken.Token, cookieOptions);
-        }
-        
-
+        #region Helpers
         /**
          * Authenticates the user, checking the provided password against the password hash stored in the database
          */
@@ -185,7 +143,12 @@ namespace SlideSync.Controllers {
             return (hash == user.Password) ? user : null;
             
         }
-        
+
+        private JwtSecurityToken GetAuthorizationHeader(HttpRequest request) {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var headerToken = AuthenticationHeaderValue.Parse(request.Headers["Authorization"]).Parameter;
+            return tokenHandler.ReadJwtToken(headerToken);
+        }
         #endregion
     }
 }
