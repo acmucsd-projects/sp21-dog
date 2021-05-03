@@ -109,6 +109,17 @@ namespace SlideSync.Controllers {
         }
         
 
+        private bool ValidateToken(string token, JwtSecurityTokenHandler handler = null) {
+            handler ??= new JwtSecurityTokenHandler();
+            try {
+                handler.ValidateToken(token, Startup.TokenValidationParameters, out _);
+            } catch {
+                return false;
+            }
+                
+            return true;
+        }
+
         /**
          * Authenticates the user, checking the provided password against the password hash stored in the database
          */
