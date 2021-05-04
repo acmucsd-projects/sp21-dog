@@ -15,6 +15,9 @@ namespace SlideSync.Data.Context {
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<UserModel>()
+                .Property(u => u.Points);
+            
+            modelBuilder.Entity<UserModel>()
                 .HasMany(u => u.RefreshTokens)
                 .WithOne(t => t.User)
                 .IsRequired();
