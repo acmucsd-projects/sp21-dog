@@ -1,7 +1,11 @@
+import LeaderboardList from './LeaderboardList'
+
 const Leaderboards = () => {
     return (
-        <div>
-            <h1>LEADERBOARD GOES HERE</h1>
+        <div class="overflow-container">
+            <div>
+                <LeaderboardList />
+            </div>
         </div>
     )
 }

@@ -3,11 +3,12 @@ import { Color } from './Color'
 
 export const theme = createMuiTheme({
     typography: {
-        fontFamily: 'Oswald',
+        fontFamily: 'PT Sans',
     },
     overrides: {
         MuiAppBar: {
             root: {
+                height: '8.152173913%',
                 fontWeight: 'bold',
             },
             colorPrimary: {
@@ -17,25 +18,56 @@ export const theme = createMuiTheme({
         },
         MuiBottomNavigation: {
             root: {
+                height: '100%',
                 display: 'flex',
                 alignItems: 'center',
             },
         },
         MuiBottomNavigationAction: {
             root: {
-                minWidth: '45px',
-                maxHeight: '45px',
                 transition: 0,
                 flex: 0,
+                height: '100%',
+                minWidth: '10.869565217%',
+                maxHeight: '80.357142857%',
+                borderRadius: '25px',
+                '&$selected': {
+                    backgroundColor: Color.accent,
+
+                    '& button': {
+                        backgroundColor: Color.blue,
+                    },
+                },
+                '& span': {
+                    width: 'auto',
+                    height: '100%',
+                    '& div': {
+                        width: 'auto',
+                        height: '80.67%',
+                    },
+                },
+            },
+            wrapper: {
+                flexDirection: 'row',
             },
             label: {
                 textTransform: 'capitalize',
             },
-            wrapper: {},
         },
         MuiSvgIcon: {
             root: {
                 fontSize: '44px',
+            },
+        },
+        MuiListItem: {
+            gutters: {
+                paddingLeft: 0,
+                paddingRight: 0,
+            },
+        },
+        MuiListItemText: {
+            root: {
+                flex: 'none',
             },
         },
     },
