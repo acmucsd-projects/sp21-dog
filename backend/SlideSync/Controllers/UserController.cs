@@ -29,12 +29,14 @@ namespace SlideSync.Controllers {
 
         private readonly JwtConfig config;
         private readonly IAuthUnit authUnit;
+        private readonly ITaskRepository taskRepository;
         private ICryptoService cryptoService;
         private IMapper mapper;
         #endregion
         
-        public UserController(IOptions<JwtConfig> config, IAuthUnit authUnit, IMapper  mapper) {
+        public UserController(IOptions<JwtConfig> config, IAuthUnit authUnit, ITaskRepository taskRepository, IMapper  mapper) {
             this.authUnit = authUnit;
+            this.taskRepository = taskRepository;
             this.mapper = mapper;
             this.config = config.Value;
             
@@ -55,7 +57,27 @@ namespace SlideSync.Controllers {
             var userReadDto = mapper.Map<UserProfileResponse>(user);
             return Ok(userReadDto);
         }
+        
+        [Authorize]
+        [HttpGet("user/{username}/tasks")]
+        public IActionResult GetTasks(string username) {
+            // Get header value of token
+            var token = GetAuthorizationHeader(Request);
+            
+            // Get ID from claim
+            var userId = token.Claims.First(c => c.Type == "nameid").Value;
+            var id = int.Parse(userId);
+            
+            // If claimed user is not requested user, user is unauthorized
+            var user = authUnit.Users.GetUserByUsername(username);
+            if (id != user.Id) return Unauthorized();
 
+            var tasks = taskRepository.GetTasksByUserId(id);
+            var tasksResponse = mapper.Map<IEnumerable<TaskResponse>>(tasks);
+
+            return Ok(tasksResponse);
+        }
+        
         [AllowAnonymous]
         [HttpPost("register")]
         public IActionResult Register([FromForm] UserRegistrationRequest register) {
@@ -91,7 +113,6 @@ namespace SlideSync.Controllers {
             
             var refreshToken = AuthController.GenerateRefreshToken(user);
             authUnit.Tokens.AddToken(refreshToken);
-            user.RefreshTokens.Add(refreshToken);
             authUnit.Complete();
             
             SetCookie(refreshToken);
@@ -107,8 +128,9 @@ namespace SlideSync.Controllers {
             };
             Response.Cookies.Append(AuthController.refreshTokenCookie, refreshToken.Token, cookieOptions);
         }
-        
+        #endregion
 
+        #region Helpers
         /**
          * Authenticates the user, checking the provided password against the password hash stored in the database
          */
@@ -122,7 +144,12 @@ namespace SlideSync.Controllers {
             return (hash == user.Password) ? user : null;
             
         }
-        
+
+        private JwtSecurityToken GetAuthorizationHeader(HttpRequest request) {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var headerToken = AuthenticationHeaderValue.Parse(request.Headers["Authorization"]).Parameter;
+            return tokenHandler.ReadJwtToken(headerToken);
+        }
         #endregion
     }
 }

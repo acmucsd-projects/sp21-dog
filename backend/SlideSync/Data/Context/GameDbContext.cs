@@ -6,6 +6,7 @@ namespace SlideSync.Data.Context {
     public class GameDbContext : DbContext {
         public DbSet<UserModel> Users { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
+        public DbSet<TaskModel> Tasks { get; set; }
 
         public GameDbContext(DbContextOptions<GameDbContext> options) : base(options) {
             
@@ -17,6 +18,19 @@ namespace SlideSync.Data.Context {
                 .HasMany(u => u.RefreshTokens)
                 .WithOne(t => t.User)
                 .IsRequired();
+
+            modelBuilder.Entity<UserModel>()
+                .HasMany(u => u.Tasks)
+                .WithOne(t => t.User)
+                .IsRequired();
+
+            modelBuilder.Entity<TaskModel>()
+                .Property(t => t.TaskType)
+                .HasConversion<int>();
+            modelBuilder.Entity<TaskModel>()
+                .Property(t => t.Difficulty)
+                .HasConversion<int>();
+
         }
     }
 }
