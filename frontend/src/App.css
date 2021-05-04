@@ -57,6 +57,11 @@
     overflow: auto;
 }
 
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+}
+
 /* the overflow content itself */
 .overflow-content {
     height: 2000px;

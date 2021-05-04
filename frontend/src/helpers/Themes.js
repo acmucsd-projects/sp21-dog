@@ -47,7 +47,9 @@ export const theme = createMuiTheme({
                     },
                 },
             },
-            wrapper: {},
+            wrapper: {
+                flexDirection: 'row',
+            },
             label: {
                 textTransform: 'capitalize',
             },
