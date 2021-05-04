@@ -8,6 +8,7 @@ export const theme = createMuiTheme({
     overrides: {
         MuiAppBar: {
             root: {
+                height: '8.152173913%',
                 fontWeight: 'bold',
             },
             colorPrimary: {
@@ -17,6 +18,7 @@ export const theme = createMuiTheme({
         },
         MuiBottomNavigation: {
             root: {
+                height: '100%',
                 display: 'flex',
                 alignItems: 'center',
             },
@@ -25,11 +27,10 @@ export const theme = createMuiTheme({
             root: {
                 transition: 0,
                 flex: 0,
-                width: '200px',
-                height: '60px',
-                minWidth: '45px',
-                maxHeight: '45px',
-                borderRadius: '50%',
+                height: '100%',
+                minWidth: '10.869565217%',
+                maxHeight: '80.357142857%',
+                borderRadius: '25px',
                 '&$selected': {
                     backgroundColor: Color.accent,
 
@@ -37,15 +38,21 @@ export const theme = createMuiTheme({
                         backgroundColor: Color.blue,
                     },
                 },
+                '& span': {
+                    width: 'auto',
+                    height: '100%',
+                    '& div': {
+                        width: 'auto',
+                        height: '80.67%',
+                    },
+                },
+            },
+            wrapper: {
+                display: 'flex',
+                flexDirection: 'row',
             },
             label: {
                 textTransform: 'capitalize',
-            },
-            wrapper: {},
-        },
-        MuiSvgIcon: {
-            root: {
-                fontSize: '44px',
             },
         },
         MuiListItem: {

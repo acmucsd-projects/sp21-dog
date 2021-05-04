@@ -10,10 +10,17 @@ import { Color } from '../helpers/Color'
 import { ListItemIcon } from '@material-ui/core'
 
 const useStyles = makeStyles({
+    bottomNavbar: {
+        display: 'flex',
+        backgroundColor: Color.primary,
+        flexDirection: 'column',
+        height: '8.152173913%',
+        justifyContent: 'center',
+    },
     root: {
+        width: '100%',
         maxWidth: '1000px',
         minWidth: '100px',
-        height: '60px',
         justifyContent: 'space-evenly',
     },
     imageIcon: {
@@ -22,18 +29,23 @@ const useStyles = makeStyles({
     },
     iconRoot: {
         textAlign: 'center',
-        width: '25px',
-        height: '25px',
+        width: 'auto',
+        height: '100%',
     },
     middleActionItemStyles: {
-        //width: '200px',
-        //height: '60px',
         minWidth: '20.77294686%',
-        //height: '75%',
         borderRadius: '25px',
         backgroundColor: Color.background,
         '&$selected': {
             backgroundColor: Color.accent,
+        },
+        '& span': {
+            width: 'auto',
+            height: '100%',
+            '& div': {
+                width: 'auto',
+                height: '96.8%',
+            },
         },
     },
     selected: {},
@@ -102,33 +114,28 @@ export default function BottomNavigationBar() {
     }, [context.state.page])
 
     return (
-        <div
-            style={{
-                // position: 'sticky',
-                display: 'flex',
-                flexDirection: 'column',
-            }}
-        >
+        <>
             {context.state.page == Page.leaderboards && <LeaderboardBottom />}
-            <div
-                style={{
-                    backgroundColor: Color.primary,
-                    width: '100%',
-                    display: 'flex',
-                    justifyContent: 'center',
-                }}
-            >
-                <BottomNavigation
-                    value={value}
-                    onChange={(event, newValue) => {
-                        setValue(newValue)
+            <div className={classes.bottomNavbar}>
+                <div
+                    style={{
+                        height: '100%',
+                        display: 'flex',
+                        justifyContent: 'center',
                     }}
-                    showLabels
-                    className={classes.root}
                 >
-                    {bottomNavItems}
-                </BottomNavigation>
+                    <BottomNavigation
+                        value={value}
+                        onChange={(event, newValue) => {
+                            setValue(newValue)
+                        }}
+                        showLabels
+                        className={classes.root}
+                    >
+                        {bottomNavItems}
+                    </BottomNavigation>
+                </div>
             </div>
-        </div>
+        </>
     )
 }
