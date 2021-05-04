@@ -9,13 +9,13 @@ import Tasks from './Tasks'
 const Content = () => {
     const context = useAppContext()
     return (
-        <>
+        <div class="content-wrapper">
             {context.state.page == Page.profile && <Profile />}
             {context.state.page == Page.journal && <Journal />}
             {context.state.page == Page.tasks && <Tasks />}
             {context.state.page == Page.map && <Map />}
             {context.state.page == Page.leaderboards && <Leaderboards />}
-        </>
+        </div>
     )
 }
 

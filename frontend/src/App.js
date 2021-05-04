@@ -11,14 +11,7 @@ function App() {
         <div className="App">
             <ThemeProvider theme={theme}>
                 <AppContextProvider>
-                    <div
-                        style={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            justifyContent: 'space-between',
-                            height: '100%',
-                        }}
-                    >
+                    <div class="main-container">
                         <TopNavigationBar />
                         <Content />
                         <BottomNavigationBar />
