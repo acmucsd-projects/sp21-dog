@@ -38,10 +38,5 @@ export const theme = createMuiTheme({
                 fontSize: '44px',
             },
         },
-        MuiSvgIcon: {
-            root: {
-                fontSize: '44px',
-            },
-        },
     },
 })
