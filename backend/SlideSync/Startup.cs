@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -23,9 +24,18 @@ namespace SlideSync {
     public class Startup {
         public Startup(IConfiguration configuration) {
             Configuration = configuration;
+            TokenValidationParameters = new TokenValidationParameters {
+                ValidateAudience = false,
+                ValidateIssuer = false,
+                ValidateIssuerSigningKey = true,
+                ValidateLifetime = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration["JWT:Secret"])),
+                ClockSkew = TimeSpan.Zero
+            };
         }
 
         public IConfiguration Configuration { get; }
+        public static TokenValidationParameters TokenValidationParameters { get; private set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
@@ -40,21 +50,33 @@ namespace SlideSync {
             });
 
             // Adds authentication middleware
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options => {
-                    options.TokenValidationParameters = new TokenValidationParameters() {
-                        ValidateIssuerSigningKey = true,
-                        ValidateLifetime = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration["JWT:Secret"])),
-                        ClockSkew = TimeSpan.Zero
+            services.AddAuthentication(x => {
+                    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                }).AddJwtBearer(options => {
+
+                    options.TokenValidationParameters = TokenValidationParameters;
+                    
+                    options.Events = new JwtBearerEvents {
+                        OnAuthenticationFailed = context => {
+                            if (context.Exception is SecurityTokenExpiredException) {
+                                context.Response.Headers.Add("Token-Expired", "true");
+                            }
+                            return Task.CompletedTask;
+                        }
                     };
                 });
             
-            services.AddDbContext<UsersDbContext>(options => {
+            // Configure Unit of Work
+            services.AddDbContext<GameDbContext>(options => {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
 
-            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddTransient<ITokenRepository, TokenRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<ITaskRepository, TaskRepository>();
+            services.AddTransient<IAuthUnit, AuthUnit>();
+
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.Configure<JwtConfig>(options => Configuration.GetSection("JWT").Bind(options));
@@ -72,6 +94,7 @@ namespace SlideSync {
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => {

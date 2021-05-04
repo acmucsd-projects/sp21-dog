@@ -1,39 +1,88 @@
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Net.Http.Headers;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using SimpleCrypto;
 using SlideSync.Config;
 using SlideSync.Data.Entities;
-using SlideSync.Data.Entities.Dto;
+using SlideSync.Data.Entities.Models;
+using SlideSync.Data.Entities.Requests;
+using SlideSync.Data.Entities.Responses;
 using SlideSync.Data.Repositories.Contracts;
 
 namespace SlideSync.Controllers {
+    // TODO: Refactor into auth controller
     [ApiController]
-    [Route("api/auth")]
+    [Route("api/users")]
     public class UserController : ControllerBase {
+        #region Fields
+
         private readonly JwtConfig config;
-        private readonly IUserRepository userRepository;
+        private readonly IAuthUnit authUnit;
+        private readonly ITaskRepository taskRepository;
         private ICryptoService cryptoService;
         private IMapper mapper;
-        public UserController(IOptions<JwtConfig> config, IUserRepository userRepository, IMapper mapper) {
-            this.config = config.Value;
-            this.userRepository = userRepository;
+        #endregion
+        
+        public UserController(IOptions<JwtConfig> config, IAuthUnit authUnit, ITaskRepository taskRepository, IMapper  mapper) {
+            this.authUnit = authUnit;
+            this.taskRepository = taskRepository;
             this.mapper = mapper;
+            this.config = config.Value;
+            
             cryptoService = new PBKDF2();
         }
 
+        #region Routes
         [AllowAnonymous]
-        [HttpPost]
-        [Route("register")]
-        public IActionResult Register([FromForm] UserRegistrationDto register) {
+        [HttpGet("user/{username}", Name = nameof(GetUser))]
+        public IActionResult GetUser(string username) {
+            // Search for user in db
+            var user = authUnit.Users.GetUserByUsername(username);
+            if (user == null) {
+                return NotFound();
+            }
+
+            // Return user info
+            var userReadDto = mapper.Map<UserProfileResponse>(user);
+            return Ok(userReadDto);
+        }
+        
+        [Authorize]
+        [HttpGet("user/{username}/tasks")]
+        public IActionResult GetTasks(string username) {
+            // Get header value of token
+            var token = GetAuthorizationHeader(Request);
+            
+            // Get ID from claim
+            var userId = token.Claims.First(c => c.Type == "nameid").Value;
+            var id = int.Parse(userId);
+            
+            // If claimed user is not requested user, user is unauthorized
+            var user = authUnit.Users.GetUserByUsername(username);
+            if (id != user.Id) return Unauthorized();
+
+            var tasks = taskRepository.GetTasksByUserId(id);
+            var tasksResponse = mapper.Map<IEnumerable<TaskResponse>>(tasks);
+
+            return Ok(tasksResponse);
+        }
+        
+        [AllowAnonymous]
+        [HttpPost("register")]
+        public IActionResult Register([FromForm] UserRegistrationRequest register) {
             // Open DB connection
-            if (userRepository.GetUserByUsername(register.Username) != null) {
+            if (authUnit.Users.GetUserByUsername(register.Username) != null) {
                 return Conflict("User already exists");
             }
             
@@ -47,49 +96,46 @@ namespace SlideSync.Controllers {
             user.JoinDate = DateTime.Now;
             
             // Save/close DB
-            userRepository.AddUser(user);
-            userRepository.Save();
+            authUnit.Users.AddUser(user);
+            authUnit.Complete();
 
-            // TODO: Add user DTO
-            return CreatedAtRoute("", "");
+            var userDto = mapper.Map<UserProfileResponse>(user);
+
+            return CreatedAtRoute(nameof(GetUser), new { username = userDto.Username }, userDto);
         }
 
         [AllowAnonymous]
-        [HttpPost]
-        public IActionResult Login([FromForm] UserLoginDto login) {
+        [HttpPost("login")]
+        public IActionResult Login([FromForm] UserLoginRequest login) {
             var user = AuthenticateUser(login);
 
-            // TODO: Implement login
-            if (user != null) {
-                // Generate and return token
-                return Ok(GenerateJWT(user));
-            }
+            if (user == null) return Unauthorized("Invalid username or password");
             
-            return Unauthorized("Invalid username or password");
+            var refreshToken = AuthController.GenerateRefreshToken(user);
+            authUnit.Tokens.AddToken(refreshToken);
+            authUnit.Complete();
+            
+            SetCookie(refreshToken);
+                
+            // Generate and return token
+            return Ok(AuthController.GenerateJWT(user, config));
         }
-
-        private string GenerateJWT(UserModel userInfo) {
-            var secret = config.Secret;
-            var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secret));
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var tokenDescriptor = new SecurityTokenDescriptor() {
-                Subject = new ClaimsIdentity(new Claim[] {
-                   new(ClaimTypes.NameIdentifier, userInfo.Id.ToString()) 
-                }),
-                Expires = DateTime.UtcNow.AddMinutes(1),
-                SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature)
+        
+        private void SetCookie(RefreshToken refreshToken) {
+            var cookieOptions = new CookieOptions {
+                HttpOnly = true,
+                Expires = DateTime.UtcNow.AddDays(7)
             };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-
-            return tokenHandler.WriteToken(token);
+            Response.Cookies.Append(AuthController.refreshTokenCookie, refreshToken.Token, cookieOptions);
         }
+        #endregion
 
+        #region Helpers
         /**
          * Authenticates the user, checking the provided password against the password hash stored in the database
          */
-        private UserModel AuthenticateUser(UserLoginDto login) {
-            var user = userRepository.GetUserByUsername(login.Username);
+        private UserModel AuthenticateUser(UserLoginRequest login) {
+            var user = authUnit.Users.GetUserByUsername(login.Username);
             // User does not exist
             if (user == null) return null;
 
@@ -98,5 +144,12 @@ namespace SlideSync.Controllers {
             return (hash == user.Password) ? user : null;
             
         }
+
+        private JwtSecurityToken GetAuthorizationHeader(HttpRequest request) {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var headerToken = AuthenticationHeaderValue.Parse(request.Headers["Authorization"]).Parameter;
+            return tokenHandler.ReadJwtToken(headerToken);
+        }
+        #endregion
     }
 }

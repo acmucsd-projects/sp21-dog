@@ -47,12 +47,14 @@ export const theme = createMuiTheme({
                     },
                 },
             },
-            wrapper: {
-                display: 'flex',
-                flexDirection: 'row',
-            },
+            wrapper: {},
             label: {
                 textTransform: 'capitalize',
+            },
+        },
+        MuiSvgIcon: {
+            root: {
+                fontSize: '44px',
             },
         },
         MuiListItem: {

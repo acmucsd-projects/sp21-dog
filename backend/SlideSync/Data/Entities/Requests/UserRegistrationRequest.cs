@@ -1,8 +1,8 @@
 #nullable enable
 using System.ComponentModel.DataAnnotations;
 
-namespace SlideSync.Data.Entities.Dto {
-    public class UserRegistrationDto {
+namespace SlideSync.Data.Entities.Requests {
+    public class UserRegistrationRequest {
         [Required(ErrorMessage = "Username is a required field")]
         public string Username { get; set; }
         

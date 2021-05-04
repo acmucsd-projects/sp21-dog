@@ -1,7 +1,7 @@
-import AppBar from '@material-ui/core/AppBar'
 import { makeStyles } from '@material-ui/core/styles'
 import Icon from '@material-ui/core/Icon'
 import { Color } from '../helpers/Color'
+
 const useStyles = makeStyles((theme) => ({
     imageIcon: {
         display: 'flex',

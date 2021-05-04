@@ -50,6 +50,11 @@ const useStyles = makeStyles((theme) => ({
         width: 'auto',
         height: '86.62%',
     },
+    iconRoot: {
+        textAlign: 'center',
+        width: '45px',
+        height: '45px',
+    },
 }))
 
 export default function TopNavigationBar() {
