@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography'
 import Icon from '@material-ui/core/Icon'
 import { useAppContext } from '../contexts/AppContext'
 import Searchbar from './Searchbar'
+import data from '../data/leaderboard.json'
 
 const useStyles = makeStyles((theme) => ({
     topNavbar: {
@@ -49,11 +50,6 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         width: 'auto',
         height: '86.62%',
-    },
-    iconRoot: {
-        textAlign: 'center',
-        width: '45px',
-        height: '45px',
     },
 }))
 
@@ -104,7 +100,6 @@ export default function TopNavigationBar() {
                     </div>
                 </div>
             </AppBar>
-            {/*context.state.page == Page.leaderboards && <Searchbar />*/}
         </>
     )
 }
