@@ -70,5 +70,10 @@ export const theme = createMuiTheme({
                 flex: 'none',
             },
         },
+        MuiButton: {
+            root: {
+                lineHeight: '35px',
+            },
+        },
     },
 })

@@ -10,10 +10,10 @@ export default function Profile() {
                     display: 'flex',
                 }}
             >
-                <CustomButton style={{ fontWeight: 'bold' }}>
+                <CustomButton type="settings" variant="secondary">
                     Edit Profile
                 </CustomButton>
-                <CustomButton style={{ fontWeight: 'bold' }}>
+                <CustomButton type="settings" variant="secondary">
                     Settings
                 </CustomButton>
             </div>

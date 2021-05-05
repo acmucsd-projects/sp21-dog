@@ -4,4 +4,6 @@ export const Color = {
     coreTheme: '#0094FF',
     accent: '#E1F1FF',
     textColor: '#000000',
+    warning: '#ff4c4c',
+    warningLight: '#FFD8D8',
 }
