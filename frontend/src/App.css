@@ -7,6 +7,7 @@
 .App {
     height: 100%;
     overflow: auto;
+
     background-color: 'white';
     font-family: 'PT Sans';
 }
