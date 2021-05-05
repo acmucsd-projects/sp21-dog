@@ -1,10 +1,12 @@
 import React from 'react'
+import { useAppContext } from '../contexts/AppContext'
 import CustomButton from './CustomButton'
 import EditProfileDialog from './EditProfileDialog'
 import LinearDeterminate from './LinearDeterminate'
 
 export default function Profile() {
     const [editProfileOpen, setEditProfileOpen] = React.useState(false)
+    const context = useAppContext()
 
     return (
         <div style={{ width: '100%', padding: '4.347826086%' }}>
@@ -30,13 +32,9 @@ export default function Profile() {
                     Settings
                 </CustomButton>
             </div>
-            <p>Hey there!!</p>
-            <p>
-                My name is Elizabeth and I love going out on adventures! When
-                I’m not out hiking or mountain climbing, I like to hangout with
-                friends at the park. Everyone should always enjoy nature at some
-                point during their day!
-            </p>
+            {context.state.bio.split('\n').map((str) => (
+                <p>{str}</p>
+            ))}
             <hr />
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <h3>Level 35</h3>
