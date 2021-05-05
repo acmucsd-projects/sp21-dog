@@ -5,12 +5,14 @@ using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using SlideSync.Config;
 using SlideSync.Data.Entities.Models;
+using SlideSync.Data.Entities.Responses;
 using SlideSync.Data.Repositories;
 using SlideSync.Data.Repositories.Contracts;
 
@@ -56,13 +58,14 @@ namespace SlideSync.Controllers {
             // Append to cookies
             SetCookie(newRefreshToken);
 
-            return Ok(newAuthToken);
+            return Ok(new UserLoginResponse(newAuthToken));
         }
 
-        [HttpPost("revoke")]
-        public IActionResult RevokeToken([FromForm] string token) {
+        [Authorize]
+        [HttpGet("revoke")]
+        public IActionResult RevokeToken() {
             // Get token from request
-            var requestedToken = token ?? Request.Cookies[refreshTokenCookie];
+            var requestedToken = Request.Cookies[refreshTokenCookie];
             if (string.IsNullOrEmpty(refreshTokenCookie)) return BadRequest("Invalid token");
             
             // Get token from database
@@ -74,7 +77,7 @@ namespace SlideSync.Controllers {
             authUnit.Tokens.UpdateToken(refreshToken);
             authUnit.Complete();
 
-            return Ok();
+            return NoContent();
         }
         
         private AuthenticationModel ValidateTokens(string authToken, string refreshToken) {

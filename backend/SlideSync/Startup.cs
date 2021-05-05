@@ -39,8 +39,30 @@ namespace SlideSync {
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
-            services.AddControllers();
-            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "SlideSync", Version = "v1"}); });
+            services.AddControllers().AddNewtonsoftJson();
+            /*
+            services.AddSwaggerGen(c => {
+                c.SwaggerDoc("v1", new OpenApiInfo {Title = "SlideSync", Version = "v1"});
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme() {
+                    In = ParameterLocation.Header,
+                    Description = "JWT with Bearer",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement {
+                    { 
+                        new OpenApiSecurityScheme  { 
+                            Reference = new OpenApiReference  { 
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer" 
+                            } 
+                        },
+                        new string[] { } 
+                    } 
+                });
+            });
+            */
+            
             services.AddCors(options => {
                 options.AddPolicy("CorsPolicy",
                     builder => builder.WithOrigins("http://localhost:5000")
@@ -60,7 +82,7 @@ namespace SlideSync {
                     options.Events = new JwtBearerEvents {
                         OnAuthenticationFailed = context => {
                             if (context.Exception is SecurityTokenExpiredException) {
-                                context.Response.Headers.Add("Token-Expired", "true");
+                                context.Response.Headers.Add("Token-Expired", "true"); 
                             }
                             return Task.CompletedTask;
                         }
@@ -86,8 +108,13 @@ namespace SlideSync {
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
             if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
+                
+                /*
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SlideSync v1"));
+                app.UseSwaggerUI(c => {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "SlideSync v1");
+                    
+                });*/
             }
 
             app.UseHttpsRedirection();
