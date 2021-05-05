@@ -12,19 +12,6 @@ const styles = (theme) => ({
         margin: 0,
         padding: theme.spacing(2),
     },
-    headerButton: {
-        position: 'absolute',
-        right: theme.spacing(1),
-        top: theme.spacing(1),
-        color: theme.palette.grey[500],
-    },
-    formControl: {
-        margin: theme.spacing(1),
-        minWidth: 120,
-    },
-    selectEmpty: {
-        marginTop: theme.spacing(2),
-    },
 })
 
 const DialogTitle = withStyles(styles)((props) => {
@@ -69,6 +56,7 @@ export default function EditProfileDialog({ open, setOpen }) {
                 onClose={handleClose}
                 aria-labelledby="edit-profile"
                 open={open}
+                disableBackdropClick={true}
             >
                 <DialogTitle
                     id="edit-profile-title"
