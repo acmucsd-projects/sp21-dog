@@ -1,7 +1,12 @@
+import { Color } from '../helpers/Color'
+import TasksList from './TasksList'
+
 const Tasks = () => {
     return (
-        <div>
-            <h1>TASKS GO HERE</h1>
+        <div style={{ backgroundColor: Color.coreTheme, width: '100%' }}>
+            <div style={{ margin: '10px' }}>
+                <TasksList />
+            </div>
         </div>
     )
 }
