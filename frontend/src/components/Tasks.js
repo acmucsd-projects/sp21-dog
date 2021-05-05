@@ -3,9 +3,11 @@ import TasksList from './TasksList'
 
 const Tasks = () => {
     return (
-        <div style={{ backgroundColor: Color.coreTheme, width: '100%' }}>
-            <div style={{ margin: '10px' }}>
-                <TasksList />
+        <div class="overflow-container">
+            <div style={{ width: '100%' }}>
+                <div style={{ margin: '10px' }}>
+                    <TasksList />
+                </div>
             </div>
         </div>
     )
