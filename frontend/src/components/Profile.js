@@ -1,5 +1,6 @@
 import { Color } from '../helpers/Color'
 import CustomButton from './CustomButton'
+import CustomizedDialogs from './CustomizedDialogs'
 import LinearDeterminate from './LinearDeterminate'
 
 export default function Profile() {
@@ -10,6 +11,7 @@ export default function Profile() {
                     display: 'flex',
                 }}
             >
+                <CustomizedDialogs />
                 <CustomButton type="settings" variant="secondary">
                     Edit Profile
                 </CustomButton>
