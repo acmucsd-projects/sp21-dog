@@ -2,7 +2,7 @@ import { Color } from '../helpers/Color'
 import CustomButton from './CustomButton'
 import LinearDeterminate from './LinearDeterminate'
 
-const Profile = () => {
+export default function Profile() {
     return (
         <div style={{ width: '100%', padding: '4.347826086%' }}>
             <div
@@ -37,5 +37,3 @@ const Profile = () => {
         </div>
     )
 }
-
-export default Profile

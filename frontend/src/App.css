@@ -53,22 +53,10 @@ p {
 .overflow-container {
     flex: 1;
     overflow: auto;
+    margin-bottom: 10px;
 }
 
 ::-webkit-scrollbar {
     width: 0px;
     background: transparent;
-}
-
-.overflow-content {
-    height: 2000px;
-    color: black;
-    background-color: #ddd;
-    padding: 20px;
-}
-
-code {
-    font-weight: bold;
-    color: darkred;
-    margin: 0 5px;
 }

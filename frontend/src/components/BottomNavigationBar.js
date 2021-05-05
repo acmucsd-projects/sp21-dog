@@ -16,6 +16,9 @@ const useStyles = makeStyles({
         flexDirection: 'column',
         height: '8.152173913%',
         justifyContent: 'center',
+        boxShadow:
+            '0px -2px 4px -1px rgb(0 0 0 / 20%),' +
+            '0px -4px 5px 0px rgb(0 0 0 / 14%), 0px -1px 10px 0px rgb(0 0 0 / 12%)',
     },
     root: {
         width: '100%',
@@ -114,7 +117,7 @@ export default function BottomNavigationBar() {
 
     return (
         <>
-            {context.state.page == Page.leaderboards && <LeaderboardBottom />}
+            {/*context.state.page == Page.leaderboards && <LeaderboardBottom />*/}
             <div className={classes.bottomNavbar}>
                 <div
                     style={{
