@@ -16,7 +16,7 @@ export default function CustomButton(props) {
             buttonStyle = {
                 ...buttonStyle,
                 backgroundColor: Color.coreTheme,
-                border: '3px solid ' + Color.coreTheme,
+                //border: '3px solid ' + Color.coreTheme,
                 color: Color.primary,
             }
         } else if (props.variant === 'secondary') {
@@ -40,7 +40,7 @@ export default function CustomButton(props) {
             buttonStyle = {
                 ...buttonStyle,
                 backgroundColor: Color.primary,
-                border: '3px solid ' + Color.primary,
+                //border: '3px solid ' + Color.primary,
             }
         } else if (props.variant === 'secondary') {
             buttonStyle = {
@@ -56,19 +56,19 @@ export default function CustomButton(props) {
             buttonStyle = {
                 ...buttonStyle,
                 backgroundColor: Color.accent,
-                border: '3px solid ' + Color.accent,
+                //border: '3px solid ' + Color.accent,
             }
         } else if (props.variant === 'secondary') {
             buttonStyle = {
                 ...buttonStyle,
                 backgroundColor: Color.background,
-                border: '3px solid ' + Color.background,
+                //border: '3px solid ' + Color.background,
             }
         } else if (props.variant === 'warning') {
             buttonStyle = {
                 ...buttonStyle,
                 backgroundColor: Color.warningLight,
-                border: '3px solid ' + Color.warningLight,
+                //border: '3px solid ' + Color.warningLight,
             }
         }
     }
