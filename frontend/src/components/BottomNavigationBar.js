@@ -68,7 +68,6 @@ export default function BottomNavigationBar() {
         let itemClasses = {
             selected: classes.selected,
         }
-        console.log(parseInt(orderedNavItems.length / 2))
         if (
             orderedNavItems.length % 2 !== 0 &&
             i === parseInt(orderedNavItems.length / 2)

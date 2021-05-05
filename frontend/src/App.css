@@ -7,9 +7,18 @@
 .App {
     height: 100%;
     overflow: auto;
-    text-align: center;
-    background-color: #e5e5e5;
+    background-color: 'white';
     font-family: 'PT Sans';
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    margin: 0;
 }
 
 @keyframes fade {
@@ -29,29 +38,18 @@
     animation: fade 0.3s linear forwards;
 }
 
-/* a container with flex-direction column */
 .main-container {
-    height: 100%; /* or position:absolute; height:100%; */
+    height: 100%;
     display: flex;
     flex-direction: column;
 }
 
-/* an arbitrary container of fixed height */
-.fixed-container {
-    height: 100px;
-    padding: 20px;
-    background-color: #0b5ab0;
-    color: white;
-}
-
-/* this is the flex container that will take the rest of the height */
 .content-wrapper {
     display: flex;
     flex: 1;
-    min-height: 0px; /* IMPORTANT: you need this for non-chrome browsers */
+    min-height: 0px;
 }
 
-/* the container for our overflowed content */
 .overflow-container {
     flex: 1;
     overflow: auto;
@@ -59,10 +57,9 @@
 
 ::-webkit-scrollbar {
     width: 0px;
-    background: transparent; /* make scrollbar transparent */
+    background: transparent;
 }
 
-/* the overflow content itself */
 .overflow-content {
     height: 2000px;
     color: black;
