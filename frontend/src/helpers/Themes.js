@@ -75,5 +75,25 @@ export const theme = createMuiTheme({
                 lineHeight: '35px',
             },
         },
+        MuiOutlinedInput: {
+            root: {
+                borderRadius: '18px',
+            },
+        },
+        MuiDialogTitle: {
+            root: {
+                padding: '0 0 0 18px !important',
+                '& h6': {
+                    fontSize: '36px',
+                    fontFamily: 'Oswald',
+                },
+            },
+        },
+        MuiDialog: {
+            paper: {
+                borderRadius: '15px',
+                width: '86.714975845%',
+            },
+        },
     },
 })

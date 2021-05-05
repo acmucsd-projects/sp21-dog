@@ -1,18 +1,29 @@
-import { Color } from '../helpers/Color'
+import React from 'react'
 import CustomButton from './CustomButton'
-import CustomizedDialogs from './CustomizedDialogs'
+import EditProfileDialog from './EditProfileDialog'
 import LinearDeterminate from './LinearDeterminate'
 
 export default function Profile() {
+    const [editProfileOpen, setEditProfileOpen] = React.useState(false)
+
     return (
         <div style={{ width: '100%', padding: '4.347826086%' }}>
+            <EditProfileDialog
+                open={editProfileOpen}
+                setOpen={setEditProfileOpen}
+            />
             <div
                 style={{
                     display: 'flex',
                 }}
             >
-                <CustomizedDialogs />
-                <CustomButton type="settings" variant="secondary">
+                <CustomButton
+                    type="settings"
+                    variant="secondary"
+                    onClick={() => {
+                        setEditProfileOpen(true)
+                    }}
+                >
                     Edit Profile
                 </CustomButton>
                 <CustomButton type="settings" variant="secondary">

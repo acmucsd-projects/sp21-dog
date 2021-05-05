@@ -73,8 +73,21 @@ export default function CustomButton(props) {
         }
     }
 
+    if (props.noVerticalMargin) {
+        buttonStyle = {
+            ...buttonStyle,
+            marginTop: 0,
+            marginBottom: 0,
+        }
+    }
+
     return (
-        <Button style={buttonStyle} variant="contained" disableElevation>
+        <Button
+            style={buttonStyle}
+            variant="contained"
+            disableElevation
+            onClick={props.onClick}
+        >
             {props.children}
         </Button>
     )
