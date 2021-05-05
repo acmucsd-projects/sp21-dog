@@ -1,18 +1,25 @@
 import React from 'react'
 import { useAppContext } from '../contexts/AppContext'
 import CustomButton from './CustomButton'
-import EditProfileDialog from './EditProfileDialog'
 import LinearDeterminate from './LinearDeterminate'
+import CustomDialog from './CustomDialog'
 
 export default function Profile() {
     const [editProfileOpen, setEditProfileOpen] = React.useState(false)
+    const [settingsOpen, setSettingsOpen] = React.useState(false)
     const context = useAppContext()
 
     return (
         <div style={{ width: '100%', padding: '4.347826086%' }}>
-            <EditProfileDialog
+            <CustomDialog
+                type="editProfile"
                 open={editProfileOpen}
                 setOpen={setEditProfileOpen}
+            />
+            <CustomDialog
+                type="calendar"
+                open={settingsOpen}
+                setOpen={setSettingsOpen}
             />
             <div
                 style={{
@@ -28,7 +35,13 @@ export default function Profile() {
                 >
                     Edit Profile
                 </CustomButton>
-                <CustomButton type="settings" variant="secondary">
+                <CustomButton
+                    type="settings"
+                    variant="secondary"
+                    onClick={() => {
+                        setSettingsOpen(true)
+                    }}
+                >
                     Settings
                 </CustomButton>
             </div>

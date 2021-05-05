@@ -10,6 +10,10 @@ export default function CustomButton(props) {
         textTransform: 'capitalize',
     }
 
+    if (props.halfWidth) {
+        buttonStyle = { ...buttonStyle, width: '50%' }
+    }
+
     if (props.type === 'landing') {
         buttonStyle = { ...buttonStyle, borderRadius: '25px', fontSize: '24px' }
         if (props.variant === 'primary') {

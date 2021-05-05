@@ -86,6 +86,7 @@ export const theme = createMuiTheme({
                 '& h6': {
                     fontSize: '36px',
                     fontFamily: 'Oswald',
+                    textTransform: 'capitalize',
                 },
             },
         },
