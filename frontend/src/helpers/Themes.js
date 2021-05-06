@@ -95,5 +95,20 @@ export const theme = createMuiTheme({
                 width: '86.714975845%',
             },
         },
+        MuiAccordion: {
+            root: {
+                margin: '15px',
+                backgroundColor: Color.background,
+            },
+            rounded: {
+                borderRadius: '20px',
+            },
+        },
+        MuiAccordionSummary: {
+            root: {
+                backgroundColor: Color.primary,
+                borderRadius: '20px',
+            },
+        },
     },
 })
