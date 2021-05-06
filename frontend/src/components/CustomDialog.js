@@ -17,6 +17,7 @@ import LogoutAlert from './ModalContent/LogoutAlert'
 import LoginForm from './ModalContent/LoginForm'
 import SignupForm from './ModalContent/SignupForm'
 import { Color } from '../helpers/Color'
+import JournalForm from './ModalContent/JournalForm'
 
 const styles = (theme) => ({
     root: {
@@ -129,6 +130,9 @@ export default function CustomDialog({ type, open, setOpen }) {
         noTopSubmitButton = true
         content = <SignupForm />
         backgroundColor = Color.accent
+    } else if (type === 'journalView') {
+        title = 'view'
+        content = <JournalForm />
     }
 
     return (
