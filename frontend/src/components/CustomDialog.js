@@ -5,9 +5,18 @@ import MuiDialogContent from '@material-ui/core/DialogContent'
 import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography'
 import CustomIconButton from './CustomIconButton'
-import ProfileForm from './ProfileForm'
-import SettingsForm from './SettingsForm'
-import CalendarForm from './CalendarForm'
+import ProfileForm from './ModalContent/ProfileForm'
+import SettingsForm from './ModalContent/SettingsForm'
+import CalendarForm from './ModalContent/CalendarForm'
+import ChangePasswordForm from './ModalContent/ChangePasswordForm'
+import FilterForm from './ModalContent/FilterForm'
+import SortForm from './ModalContent/SortForm'
+import MapLayersForm from './ModalContent/MapLayersForm'
+import UnsavedChangesAlert from './ModalContent/UnsavedChangesAlert'
+import LogoutAlert from './ModalContent/LogoutAlert'
+import LoginForm from './ModalContent/LoginForm'
+import SignupForm from './ModalContent/SignupForm'
+import { Color } from '../helpers/Color'
 
 const styles = (theme) => ({
     root: {
@@ -17,7 +26,14 @@ const styles = (theme) => ({
 })
 
 const DialogTitle = withStyles(styles)((props) => {
-    const { children, classes, onClose, onSave, ...other } = props
+    const {
+        children,
+        classes,
+        onClose,
+        onSave,
+        noTopSubmitButton,
+        ...other
+    } = props
     return (
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <MuiDialogTitle
@@ -28,10 +44,28 @@ const DialogTitle = withStyles(styles)((props) => {
                 <Typography variant="h6">{children}</Typography>
             </MuiDialogTitle>
             <div style={{ display: 'flex', alignItems: 'center' }}>
-                <CustomIconButton src="./back.svg" onClick={onClose} />
-                <div style={{ margin: '0 16px 0 8px' }}>
-                    <CustomIconButton src="./confirm.svg" onClick={onSave} />
-                </div>
+                {noTopSubmitButton ? (
+                    <div style={{ margin: '0 16px 0 8px' }}>
+                        <CustomIconButton
+                            src={
+                                props.whiteButtons
+                                    ? './back-white.svg'
+                                    : './back.svg'
+                            }
+                            onClick={onClose}
+                        />
+                    </div>
+                ) : (
+                    <>
+                        <CustomIconButton src="./back.svg" onClick={onClose} />
+                        <div style={{ margin: '0 16px 0 8px' }}>
+                            <CustomIconButton
+                                src="./confirm.svg"
+                                onClick={onSave}
+                            />
+                        </div>
+                    </>
+                )}
             </div>
         </div>
     )
@@ -54,6 +88,8 @@ export default function CustomDialog({ type, open, setOpen }) {
 
     let title = 'title'
     let content = null
+    let backgroundColor = Color.primary
+    let noTopSubmitButton = false
     if (type === 'editProfile') {
         title = 'Edit Profile'
         content = <ProfileForm />
@@ -63,6 +99,36 @@ export default function CustomDialog({ type, open, setOpen }) {
     } else if (type === 'calendar') {
         title = 'calendar'
         content = <CalendarForm />
+    } else if (type === 'changePassword') {
+        title = 'change password'
+        content = <ChangePasswordForm />
+        noTopSubmitButton = true
+    } else if (type === 'filter') {
+        title = 'filter'
+        content = <FilterForm />
+    } else if (type === 'sort') {
+        title = 'sort'
+        content = <SortForm />
+    } else if (type === 'mapLayers') {
+        title = 'map layers'
+        content = <MapLayersForm />
+    } else if (type === 'unsaved') {
+        title = 'unsaved changes'
+        noTopSubmitButton = true
+        content = <UnsavedChangesAlert />
+    } else if (type === 'logout') {
+        title = 'log out'
+        noTopSubmitButton = true
+        content = <LogoutAlert />
+    } else if (type === 'login') {
+        title = 'welcome back!'
+        noTopSubmitButton = true
+        content = <LoginForm />
+    } else if (type === 'signup') {
+        title = 'welcome!'
+        noTopSubmitButton = true
+        content = <SignupForm />
+        backgroundColor = Color.accent
     }
 
     return (
@@ -72,11 +138,18 @@ export default function CustomDialog({ type, open, setOpen }) {
                 aria-labelledby="edit-profile"
                 open={open}
                 disableBackdropClick={true}
+                PaperProps={{
+                    style: {
+                        backgroundColor: backgroundColor,
+                    },
+                }}
             >
                 <DialogTitle
                     id="edit-profile-title"
                     onClose={handleClose}
                     onSave={handleSave}
+                    noTopSubmitButton={noTopSubmitButton}
+                    whiteButtons={backgroundColor != Color.primary}
                 >
                     {title}
                 </DialogTitle>

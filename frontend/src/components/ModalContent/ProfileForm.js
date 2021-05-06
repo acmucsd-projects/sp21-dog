@@ -1,15 +1,16 @@
-import { useAppContext } from '../contexts/AppContext'
+import { useAppContext } from '../../contexts/AppContext'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import MenuItem from '@material-ui/core/MenuItem'
 import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
 import Typography from '@material-ui/core/Typography'
-import CustomButton from './CustomButton'
+import CustomButton from '../CustomButton'
 
 const useStyles = makeStyles((theme) => ({
     formRoot: {
         '& > p': {
+            fontSize: '18px',
             fontWeight: 'bold',
         },
         '& > div': {
@@ -35,7 +36,7 @@ export default function ProfileForm() {
                     alignItems: 'center',
                 }}
             >
-                <Typography style={{ fontWeight: 'bold' }}>
+                <Typography style={{ fontSize: '18px', fontWeight: 'bold' }}>
                     Profile Icon
                 </Typography>
                 <div style={{ display: 'flex' }}>

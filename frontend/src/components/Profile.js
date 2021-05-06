@@ -17,7 +17,7 @@ export default function Profile() {
                 setOpen={setEditProfileOpen}
             />
             <CustomDialog
-                type="calendar"
+                type="settings"
                 open={settingsOpen}
                 setOpen={setSettingsOpen}
             />

@@ -75,6 +75,24 @@ export default function CustomButton(props) {
                 //border: '3px solid ' + Color.warningLight,
             }
         }
+    } else if (props.type === 'search') {
+        buttonStyle = {
+            ...buttonStyle,
+            borderRadius: '25px',
+            fontSize: '18px',
+        }
+        buttonStyle = {
+            ...buttonStyle,
+            backgroundColor: Color.background,
+            //border: '3px solid ' + Color.background,
+        }
+        if (props.selected) {
+            buttonStyle = {
+                ...buttonStyle,
+                backgroundColor: Color.selection,
+                //border: '3px solid ' + Color.background,
+            }
+        }
     }
 
     if (props.noVerticalMargin) {

@@ -78,6 +78,7 @@ export const theme = createMuiTheme({
         MuiOutlinedInput: {
             root: {
                 borderRadius: '18px',
+                backgroundColor: Color.primary,
             },
         },
         MuiDialogTitle: {
