@@ -78,6 +78,7 @@ export const theme = createMuiTheme({
         MuiOutlinedInput: {
             root: {
                 borderRadius: '18px',
+                backgroundColor: Color.primary,
             },
         },
         MuiDialogTitle: {
@@ -86,6 +87,7 @@ export const theme = createMuiTheme({
                 '& h6': {
                     fontSize: '36px',
                     fontFamily: 'Oswald',
+                    textTransform: 'capitalize',
                 },
             },
         },

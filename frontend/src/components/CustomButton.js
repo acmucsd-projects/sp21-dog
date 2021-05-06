@@ -9,7 +9,9 @@ export default function CustomButton(props) {
         lineHeight: '20px',
         textTransform: 'capitalize',
     }
-
+    if (props.halfWidth) {
+        buttonStyle = { ...buttonStyle, width: '50%' }
+    }
     if (props.type === 'landing') {
         buttonStyle = { ...buttonStyle, borderRadius: '25px', fontSize: '24px' }
         if (props.variant === 'primary') {
@@ -69,6 +71,24 @@ export default function CustomButton(props) {
                 ...buttonStyle,
                 backgroundColor: Color.warningLight,
                 //border: '3px solid ' + Color.warningLight,
+            }
+        }
+    } else if (props.type === 'search') {
+        buttonStyle = {
+            ...buttonStyle,
+            borderRadius: '25px',
+            fontSize: '18px',
+        }
+        buttonStyle = {
+            ...buttonStyle,
+            backgroundColor: Color.background,
+            //border: '3px solid ' + Color.background,
+        }
+        if (props.selected) {
+            buttonStyle = {
+                ...buttonStyle,
+                backgroundColor: Color.selection,
+                //border: '3px solid ' + Color.background,
             }
         }
     }

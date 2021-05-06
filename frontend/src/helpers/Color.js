@@ -6,4 +6,5 @@ export const Color = {
     textColor: '#000000',
     warning: '#ff4c4c',
     warningLight: '#FFD8D8',
+    selection: '#B7E1FF',
 }
