@@ -141,7 +141,7 @@ export default function CustomDialog({ type, open, setOpen }) {
                 onClose={handleClose}
                 aria-labelledby="edit-profile"
                 open={open}
-                disableBackdropClick={true}
+                disableBackdropClick={false}
                 PaperProps={{
                     style: {
                         backgroundColor: backgroundColor,
