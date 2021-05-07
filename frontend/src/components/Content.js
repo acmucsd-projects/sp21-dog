@@ -14,6 +14,8 @@ const Content = () => {
     let backgroundColor = Color.primary
     if (context.state.page === Page.tasks) {
         backgroundColor = Color.coreTheme
+    } else if (context.state.page === Page.home) {
+        backgroundColor = Color.accent
     }
 
     return (

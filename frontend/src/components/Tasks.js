@@ -5,9 +5,7 @@ const Tasks = () => {
     return (
         <div class="overflow-container">
             <div style={{ width: '100%' }}>
-                <div style={{ margin: '10px' }}>
-                    <TasksList />
-                </div>
+                <TasksList />
             </div>
         </div>
     )
