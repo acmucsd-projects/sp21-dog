@@ -14,17 +14,22 @@ const useStyles = makeStyles((theme) => ({
         height: '100%',
         padding: '0 1.932367149%',
         display: 'flex',
+        flexWrap: 'wrap',
         alignItems: 'center',
+    },
+    break: {
+        flexBasis: '100%',
+        height: 0,
     },
     title: {
         flexGrow: 1,
         fontSize: 36,
         textTransform: 'capitalize',
         fontFamily: 'Oswald',
+        textAlign: 'center',
     },
     topNavButton: {
-        height: '100%',
-        width: '100%',
+        height: '50px',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
@@ -60,7 +65,7 @@ export default function TopNavigationBar() {
 
     return (
         <>
-            <AppBar position="static">
+            <AppBar position="static" style={{ height: 'auto' }}>
                 <div className={classes.topNavbar}>
                     <div
                         className={classes.topNavButton}
@@ -99,6 +104,7 @@ export default function TopNavigationBar() {
                         </Icon>
                     </div>
                 </div>
+                {context.state.page == Page.leaderboards && <Searchbar />}
             </AppBar>
         </>
     )
