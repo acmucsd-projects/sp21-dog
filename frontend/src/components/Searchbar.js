@@ -18,19 +18,18 @@ const useStyles = makeStyles({
         //     '0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%)',
     },
     select: {
-        width: '100px',
+        width: 'auto',
         height: '30px',
         border: 'none',
         padding: '2px 0px',
         backgroundColor: Color.accent,
         fontSize: '18px',
         textAlign: 'center',
-        // fontFamily: 'TrebuchetMS',
+        fontFamily: 'Trebuchet MS',
     },
     icon: {
         height: '26px',
         width: '26px',
-        // padding: '6px 6px',
     },
     wrapIconRight: {
         padding: '6px 6px',
@@ -72,12 +71,13 @@ export default function Searchbar() {
             </IconButton>
             <select
                 className={classes.select}
-                value="Points"
+                defaultValue="Points"
                 name="3242"
                 id="g"
-                onClick={() => setSortOpen(true)}
+                // onClick={() => setSortOpen(true)}
             >
-                <option value="Points">Points</option>
+                <option value="po">Points</option>
+                <option value="fs">Tasks</option>
             </select>
             <div className={classes.middle}></div>
             <select
@@ -85,9 +85,12 @@ export default function Searchbar() {
                 defaultValue="All Time"
                 name="gfd"
                 id="f"
-                onClick={() => setFilterOpen(true)}
+                // onClick={() => setFilterOpen(true)}
             >
                 <option value="fs">All Time</option>
+                <option value="">This Year</option>
+                <option value="">This Month</option>
+                <option value="">This Week</option>
             </select>
             <IconButton
                 className={classes.wrapIconRight}
