@@ -26,9 +26,12 @@ const DialogTitle = withStyles(styles)((props) => {
                 <Typography variant="h6">{children}</Typography>
             </MuiDialogTitle>
             <div style={{ display: 'flex', alignItems: 'center' }}>
-                <CustomIconButton src="./back.svg" onClick={onClose} />
+                <CustomIconButton src="./icons/back.svg" onClick={onClose} />
                 <div style={{ margin: '0 16px 0 8px' }}>
-                    <CustomIconButton src="./confirm.svg" onClick={onSave} />
+                    <CustomIconButton
+                        src="./icons/confirm.svg"
+                        onClick={onSave}
+                    />
                 </div>
             </div>
         </div>

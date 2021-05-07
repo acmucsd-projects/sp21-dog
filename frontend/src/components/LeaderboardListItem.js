@@ -74,7 +74,7 @@ export default function LeaderboardListItem({ user, i }) {
                                 <img
                                     className={classes.imageIcon}
                                     style={{ marginRight: '7.614696363%' }}
-                                    src="/icons/stats/nature.svg"
+                                    src="/icons/nature.svg"
                                 />
                                 {`@${user.username}`}
                             </div>

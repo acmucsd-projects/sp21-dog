@@ -35,6 +35,7 @@ const DialogTitle = withStyles(styles)((props) => {
         noTopSubmitButton,
         ...other
     } = props
+
     return (
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <MuiDialogTitle
@@ -50,18 +51,21 @@ const DialogTitle = withStyles(styles)((props) => {
                         <CustomIconButton
                             src={
                                 props.whiteButtons
-                                    ? './back-white.svg'
-                                    : './back.svg'
+                                    ? './icons/back-white.svg'
+                                    : './icons/back-accent.svg'
                             }
                             onClick={onClose}
                         />
                     </div>
                 ) : (
                     <>
-                        <CustomIconButton src="./back.svg" onClick={onClose} />
+                        <CustomIconButton
+                            src="./icons/back-accent.svg"
+                            onClick={onClose}
+                        />
                         <div style={{ margin: '0 16px 0 8px' }}>
                             <CustomIconButton
-                                src="./confirm.svg"
+                                src="./icons/confirm.svg"
                                 onClick={onSave}
                             />
                         </div>
