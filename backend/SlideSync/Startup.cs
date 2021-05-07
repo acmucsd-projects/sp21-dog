@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.EnvironmentVariables;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
@@ -39,8 +40,8 @@ namespace SlideSync {
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
-            services.AddControllers();
-            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "SlideSync", Version = "v1"}); });
+            services.AddControllers().AddNewtonsoftJson();
+            
             services.AddCors(options => {
                 options.AddPolicy("CorsPolicy",
                     builder => builder.WithOrigins("http://localhost:5000")
@@ -60,7 +61,7 @@ namespace SlideSync {
                     options.Events = new JwtBearerEvents {
                         OnAuthenticationFailed = context => {
                             if (context.Exception is SecurityTokenExpiredException) {
-                                context.Response.Headers.Add("Token-Expired", "true");
+                                context.Response.Headers.Add("Token-Expired", "true"); 
                             }
                             return Task.CompletedTask;
                         }
@@ -86,8 +87,6 @@ namespace SlideSync {
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
             if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SlideSync v1"));
             }
 
             app.UseHttpsRedirection();
@@ -100,6 +99,11 @@ namespace SlideSync {
             app.UseEndpoints(endpoints => {
                 endpoints.MapControllers();
             });
+            
+            using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope()) {
+                var db = scope.ServiceProvider.GetRequiredService<GameDbContext>();
+                db.Database.Migrate();
+            }
         }
     }
 }
