@@ -28,7 +28,7 @@ const useStyles = makeStyles({
         display: 'flex',
     },
     logo: {
-        width: '32.36714976%',
+        height: '49.44648446%',
     },
     bold: {
         fontSize: '36px',
