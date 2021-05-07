@@ -33,7 +33,6 @@ const useStyles = makeStyles({
 
 export default function AvatarCard() {
     const classes = useStyles()
-    const bull = <span className={classes.bullet}>•</span>
 
     return (
         <Card className={classes.root}>
@@ -45,7 +44,7 @@ export default function AvatarCard() {
                     }}
                 >
                     <ListItemAvatar>
-                        <Avatar alt={`logo`} src={`/icons/sun.svg`} />
+                        <Avatar alt={`sun`} src={`/icons/sun.svg`} />
                     </ListItemAvatar>
                     <ListItemText
                         id={0}
