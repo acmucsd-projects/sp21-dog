@@ -6,6 +6,7 @@ const AppContext = React.createContext()
 function AppContextProvider({ children }) {
     const [state, setState] = useState({
         page: Page.home,
+        mapOpen: false,
         displayName: 'Elizabeth',
         username: '@lizzyh2021',
         bio:

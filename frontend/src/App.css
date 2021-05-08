@@ -83,3 +83,13 @@ p {
     transform-origin: 0 0;
     transform: rotateZ(-135deg);
 }
+
+.float {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 70px;
+    right: 10px;
+    border-radius: 50px;
+    text-align: center;
+}
