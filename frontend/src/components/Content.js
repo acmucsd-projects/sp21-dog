@@ -13,7 +13,11 @@ const Content = () => {
 
     let backgroundColor = Color.primary
     if (context.state.page === Page.tasks) {
-        backgroundColor = Color.coreTheme
+        if (context.state.mapOpen) {
+            backgroundColor = Color.primary
+        } else {
+            backgroundColor = Color.coreTheme
+        }
     } else if (context.state.page === Page.home) {
         backgroundColor = Color.accent
     }
