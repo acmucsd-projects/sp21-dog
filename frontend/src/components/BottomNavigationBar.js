@@ -103,7 +103,11 @@ export default function BottomNavigationBar() {
                     </div>
                 }
                 onClick={() => {
-                    context.setState({ ...context.state, page: item.page })
+                    context.setState({
+                        ...context.state,
+                        page: item.page,
+                        mapOpen: false,
+                    })
                 }}
             />
         )

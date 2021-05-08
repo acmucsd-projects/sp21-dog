@@ -99,7 +99,6 @@ export const theme = createMuiTheme({
         },
         MuiAccordion: {
             root: {
-                margin: '15px',
                 backgroundColor: Color.background,
             },
             rounded: {
