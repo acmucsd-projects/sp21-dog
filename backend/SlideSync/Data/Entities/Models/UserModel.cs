@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SlideSync.Data.Entities.Models {
     // TODO: Profile Picture
@@ -12,8 +13,13 @@ namespace SlideSync.Data.Entities.Models {
         public string PasswordSalt { get; set; }
         public string First { get; set; }
         public string Last { get; set; }
-        
-        public int Points => Fitness + Nature + Community + Knowledge;
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public int Points {
+            get => Fitness + Nature + Knowledge + Community;
+            private set { }
+        }
+
         public int Fitness { get; set; } = 0;
         public int Nature { get; set; } = 0;
         public int Community { get; set; } = 0;

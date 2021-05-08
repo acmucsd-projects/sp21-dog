@@ -20,7 +20,7 @@ namespace SlideSync.Data.Repositories {
         }
 
         public IEnumerable<UserModel> GetLeaderboard(int count) {
-            return context.Users.OrderByDescending(user => user.Points).Take(count);
+            return context.Users.OrderByDescending(user => user.Points).Take(count).AsEnumerable();
         }
 
         public UserModel GetUserById(int id) {
