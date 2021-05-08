@@ -4,7 +4,7 @@ import ReactMapGL, { Marker } from 'react-map-gl'
 const mapboxApiKey =
     'pk.eyJ1IjoibmlzaGFudGJhbGFqaSIsImEiOiJja2xkOGl3cjcxc21yMndtdmxtZWpxeGRuIn0.isOPq2BjpvuzwjZMXW1yWA'
 
-export default function MapView() {
+export default function MapView({ noDrag }) {
     const [viewport, setViewport] = React.useState({
         width: '100%',
         height: '100%',
@@ -16,13 +16,15 @@ export default function MapView() {
     return (
         <ReactMapGL
             {...viewport}
-            onViewportChange={(newViewport) =>
-                setViewport({
-                    ...newViewport,
-                    width: '100%',
-                    height: '100%',
-                })
-            }
+            onViewportChange={(newViewport) => {
+                if (!noDrag) {
+                    setViewport({
+                        ...newViewport,
+                        width: '100%',
+                        height: '100%',
+                    })
+                }
+            }}
             mapboxApiAccessToken={mapboxApiKey}
             mapStyle="mapbox://styles/mapbox/streets-v11"
         >

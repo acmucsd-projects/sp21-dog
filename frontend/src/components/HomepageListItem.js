@@ -137,7 +137,7 @@ export default function HomepageListItem({ type, style }) {
                             className="content-wrapper"
                             style={{ height: '93px' }}
                         >
-                            <Map />
+                            <Map noDrag={true} />
                         </div>
                     </CardContent>
                 ) : (
