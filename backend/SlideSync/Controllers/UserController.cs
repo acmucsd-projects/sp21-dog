@@ -70,6 +70,7 @@ namespace SlideSync.Controllers {
             
             // If claimed user is not requested user, user is unauthorized
             var user = authUnit.Users.GetUserByUsername(username);
+            if (user == null) return NotFound();
             if (id != user.Id) return Unauthorized();
 
             var tasks = taskRepository.GetTasksByUserId(id);
@@ -118,7 +119,7 @@ namespace SlideSync.Controllers {
             SetCookie(refreshToken);
                 
             // Generate and return token
-            return Ok(AuthController.GenerateJWT(user, config));
+            return Ok(new UserLoginResponse(AuthController.GenerateJWT(user, config)));
         }
         
         private void SetCookie(RefreshToken refreshToken) {
