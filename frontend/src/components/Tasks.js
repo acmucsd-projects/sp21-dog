@@ -9,11 +9,19 @@ import { Page } from '../helpers/Page'
 import { Paper } from '@material-ui/core'
 import TaskListItem from './TaskListItem'
 import MapViewTask from './MapViewTask'
+import CustomDialog from './CustomDialog'
 
 export default function Tasks() {
+    const [layersOpen, setLayersOpen] = React.useState(true)
+
     const context = useAppContext()
     return (
         <div class="overflow-container">
+            <CustomDialog
+                type="mapLayers"
+                open={layersOpen}
+                setOpen={setLayersOpen}
+            />
             {context.state.mapOpen ? (
                 <>
                     <Map />
@@ -28,6 +36,23 @@ export default function Tasks() {
                                     ...context.state,
                                     mapOpen: false,
                                 })
+                            }}
+                        />
+                    </div>
+                    <div
+                        className="float"
+                        style={{ right: '3%', bottom: '24%' }}
+                    >
+                        <FloatingActionButton imgSrc="./icons/maparrow.svg" />
+                    </div>
+                    <div
+                        className="float"
+                        style={{ right: '3%', bottom: '33%' }}
+                    >
+                        <FloatingActionButton
+                            imgSrc="./icons/layers.svg"
+                            onClick={() => {
+                                setLayersOpen(true)
                             }}
                         />
                     </div>
