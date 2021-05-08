@@ -75,8 +75,7 @@ p {
     width: 30px;
     height: 30px;
     color: #fff;
-    background: #4d2d73;
-    border: solid 2px;
+    background-color: #fff;
     border-radius: 0 70% 70%;
     box-shadow: 0 0 2px #000;
     cursor: pointer;

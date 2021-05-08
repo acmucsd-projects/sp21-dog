@@ -30,7 +30,17 @@ export default function MapView({ noDrag }) {
         >
             <Marker latitude={37.75} longitude={-122.43}>
                 <div className="marker">
-                    <span></span>
+                    <span>
+                        <img
+                            style={{
+                                transform: 'rotateZ(135deg)',
+                                width: '80%',
+                                height: '80%',
+                            }}
+                            src="./icons/nature.svg"
+                            alt="map marker"
+                        />
+                    </span>
                 </div>
             </Marker>
         </ReactMapGL>
