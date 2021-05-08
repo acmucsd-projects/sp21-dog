@@ -132,8 +132,13 @@ export default function HomepageListItem({ type, style }) {
                     </div>
                 </div>
                 {showMap ? (
-                    <CardContent>
-                        <Map />
+                    <CardContent style={{ padding: 0 }}>
+                        <div
+                            className="content-wrapper"
+                            style={{ height: '93px' }}
+                        >
+                            <Map />
+                        </div>
                     </CardContent>
                 ) : (
                     <CardContent>
