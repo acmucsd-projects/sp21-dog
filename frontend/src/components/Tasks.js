@@ -12,7 +12,7 @@ import MapViewTask from './MapViewTask'
 import CustomDialog from './CustomDialog'
 
 export default function Tasks() {
-    const [layersOpen, setLayersOpen] = React.useState(true)
+    const [layersOpen, setLayersOpen] = React.useState(false)
 
     const context = useAppContext()
     return (
