@@ -45,7 +45,7 @@ export default function AvatarCard() {
                     }}
                 >
                     <ListItemAvatar>
-                        <Avatar alt={`logo`} src={`/icons/sun.svg`} />
+                        <Avatar alt={`sun`} src={`/icons/sun.svg`} />
                     </ListItemAvatar>
                     <ListItemText
                         id={0}
