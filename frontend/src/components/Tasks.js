@@ -16,7 +16,7 @@ export default function Tasks() {
 
     const context = useAppContext()
     return (
-        <div class="overflow-container">
+        <div className="overflow-container">
             <CustomDialog
                 type="mapLayers"
                 open={layersOpen}
