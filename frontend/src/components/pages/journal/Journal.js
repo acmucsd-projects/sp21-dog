@@ -25,26 +25,50 @@ export default function Journal() {
                     display: 'flex',
                     marginBottom: '8px',
                 }}
+            ></div>
+            <div
+                style={{
+                    display: 'flex',
+                    justifyContent: 'space-evenly',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    margin: '10px 0',
+                }}
             >
-                <h3 style={{ margin: '0 10px' }}>Streaks</h3>
                 <div
                     style={{
-                        display: 'flex',
-                        width: '100%',
-                        justifyContent: 'space-around',
+                        borderRadius: '10px 0 0 0',
+                        flex: 1,
                     }}
                 >
-                    <img
-                        src="./icons/community.svg"
-                        alt="community stat icon"
-                    />
-                    <img
-                        src="./icons/knowledge.svg"
-                        alt="knowledge stat icon"
-                    />
-                    <img src="./icons/nature.svg" alt="nature stat icon" />
-                    <img src="./icons/fitness.svg" alt="fitness stat icon" />
+                    <h3
+                        style={{
+                            margin: '4px',
+                        }}
+                    >
+                        Streaks
+                    </h3>
                 </div>
+                <img
+                    style={{ flex: 1, width: '30px', height: '30px' }}
+                    src="./icons/community.svg"
+                    alt="community stat icon"
+                />
+                <img
+                    style={{ flex: 1, width: '30px', height: '30px' }}
+                    src="./icons/knowledge.svg"
+                    alt="knowledge stat icon"
+                />
+                <img
+                    style={{ flex: 1, width: '30px', height: '30px' }}
+                    src="./icons/nature.svg"
+                    alt="knowledge nature icon"
+                />
+                <img
+                    style={{ flex: 1, width: '30px', height: '30px' }}
+                    src="./icons/fitness.svg"
+                    alt="fitness stat icon"
+                />
             </div>
             <div
                 style={{
@@ -87,6 +111,7 @@ export default function Journal() {
                         justifyContent: 'space-evenly',
                         alignItems: 'center',
                         textAlign: 'center',
+                        borderRadius: '10px 0 10px 0',
                         backgroundColor: Color.lightYellow,
                     }}
                 >
