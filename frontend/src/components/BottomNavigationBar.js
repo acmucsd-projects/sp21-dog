@@ -61,10 +61,10 @@ export default function BottomNavigationBar() {
 
     const orderedNavItems = [
         { page: Page.profile, iconSrc: '/icons/user.svg' },
-        { page: Page.journal, iconSrc: '/icons/journal.svg' },
-        { page: Page.tasks, iconSrc: '/icons/tasks.svg' },
-        { page: Page.map, iconSrc: '/icons/map.svg' },
         { page: Page.leaderboards, iconSrc: '/icons/trophy.svg' },
+        { page: Page.home, iconSrc: '/icons/home.svg' },
+        { page: Page.tasks, iconSrc: '/icons/tasks.svg' },
+        { page: Page.journal, iconSrc: '/icons/journal.svg' },
     ]
 
     const bottomNavItems = orderedNavItems.map((item, i) => {

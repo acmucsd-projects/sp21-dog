@@ -35,10 +35,7 @@ export default function TaskListItem() {
                 >
                     <div style={{ display: 'flex', alignItems: 'center' }}>
                         <ListItemAvatar>
-                            <Avatar
-                                alt={`logo`}
-                                src={`/icons/stats/nature.svg`}
-                            />
+                            <Avatar alt={`logo`} src={`/icons/nature.svg`} />
                         </ListItemAvatar>
                         <ListItemText
                             id={0}
@@ -96,7 +93,7 @@ export default function TaskListItem() {
                                 >
                                     <img
                                         className={classes.imageIcon}
-                                        src="/icons/stats/nature.svg"
+                                        src="/icons/nature.svg"
                                     />
                                     <p>+5 Nature Pts</p>
                                 </div>
@@ -150,7 +147,7 @@ export default function TaskListItem() {
                                     className={classes.imageIcon}
                                 >
                                     <img
-                                        src="/location.svg"
+                                        src="/icons/location.svg"
                                         style={{
                                             width: '70%',
                                             height: '70%',
