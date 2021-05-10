@@ -3,8 +3,8 @@ import { useAppContext } from '../contexts/AppContext'
 import CustomButton from './CustomButton'
 import LinearDeterminate from './LinearDeterminate'
 import CustomDialog from './CustomDialog'
-import StatsChart from './StatsChart'
 import { Color } from '../helpers/Color'
+import StatsChart from './StatsChart'
 
 export default function Profile() {
     const [editProfileOpen, setEditProfileOpen] = React.useState(false)
@@ -16,9 +16,8 @@ export default function Profile() {
             style={{
                 width: '100%',
                 padding: '4.347826086%',
-                overflow: 'hidden',
+                flexDirection: 'column',
             }}
-            className="overflow-container"
         >
             <CustomDialog
                 type="editProfile"
@@ -69,19 +68,19 @@ export default function Profile() {
                 <p>30 Points to next level</p>
             </div>
             <LinearDeterminate />
-
             <div
                 style={{
+                    height: '45%',
                     display: 'flex',
                     flexDirection: 'column',
-                    justifyContent: 'center',
-                    textAlign: 'center',
-                    height: '60%',
+                    justifyContent: 'space-between',
                 }}
             >
                 <StatsChart />
-                <p>User since Apr 27, 2021</p>
-                <p>226 Total Points • 57 Tasks Completed</p>
+                <div style={{ textAlign: 'center' }}>
+                    <p>User since Apr 27, 2021</p>
+                    <p>226 Total Points • 57 Tasks Completed</p>
+                </div>
             </div>
         </div>
     )

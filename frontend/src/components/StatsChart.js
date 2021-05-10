@@ -1,3 +1,4 @@
+import React, { PureComponent } from 'react'
 import {
     RadarChart,
     PolarGrid,
@@ -5,6 +6,7 @@ import {
     PolarRadiusAxis,
     Radar,
     Legend,
+    ResponsiveContainer,
 } from 'recharts'
 import { Color } from '../helpers/Color'
 
@@ -35,91 +37,45 @@ const data = [
     },
 ]
 
-export default function Stats() {
+export default function StatsChart() {
+    let imgSrc = null
     function customTick({ payload, x, y }) {
-        let imgSrc = null
         let xOffset = 0
         let yOffset = 0
-        let imgOffset = 0
-        let pointsOffsetX = 0
-        let pointsOffsetY = 0
 
         if (payload.value === 'Community') {
             imgSrc = './icons/community.svg'
-            xOffset = -70
-            yOffset = -90
-            imgOffset = 45
-            pointsOffsetX = 35
-            pointsOffsetY = 30
+            yOffset = -10
         } else if (payload.value === 'Knowledge') {
             imgSrc = './icons/knowledge.svg'
-            xOffset = 114
-            yOffset = -200
-            imgOffset = -75
-            pointsOffsetX = -35
-            pointsOffsetY = 30
+            xOffset = 10
         } else if (payload.value === 'Nature') {
             imgSrc = './icons/nature.svg'
-            xOffset = -55
-            yOffset = -140
-            imgOffset = 30
-            pointsOffsetX = 20
-            pointsOffsetY = -30
+            yOffset = 10
         } else if (payload.value === 'Fitness') {
             imgSrc = './icons/fitness.svg'
-            xOffset = 315
-            yOffset = -32
-            imgOffset = -60
-            pointsOffsetX = -20
-            pointsOffsetY = -30
+            xOffset = -10
         }
 
         return (
-            <>
-                <image
-                    x={x + xOffset + imgOffset}
-                    y={y + yOffset - 15}
-                    width={30}
-                    height={30}
-                    transform="rotate(45, 100, 50)"
-                    href={imgSrc}
-                ></image>
-                <text
-                    x={x + xOffset}
-                    y={y + yOffset}
-                    text-anchor="middle"
-                    transform="rotate(45, 100, 50)"
-                >
-                    {payload.value}
-                </text>
-                <text
-                    x={x + xOffset + pointsOffsetX}
-                    y={y + yOffset + pointsOffsetY}
-                    text-anchor="middle"
-                    transform="rotate(45, 100, 50)"
-                >
-                    17 Points
-                </text>
-            </>
+            <image
+                x={x + xOffset - 15}
+                y={y + yOffset - 15}
+                width={30}
+                height={30}
+                href={imgSrc}
+            ></image>
         )
     }
 
     return (
-        <div
-            style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: '300px',
-                transform: 'rotateZ(-45deg)',
-            }}
-        >
+        <ResponsiveContainer>
             <RadarChart
-                cx={200}
-                cy={200}
-                outerRadius={100}
-                width={400}
-                height={400}
+                cx={'50%'}
+                cy={'50%'}
+                outerRadius={'60%'}
+                width={'100%'}
+                height={'100%'}
                 data={data}
             >
                 <PolarGrid />
@@ -132,6 +88,6 @@ export default function Stats() {
                     fillOpacity={1}
                 />
             </RadarChart>
-        </div>
+        </ResponsiveContainer>
     )
 }
