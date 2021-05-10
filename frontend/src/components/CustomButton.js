@@ -18,7 +18,11 @@ export default function CustomButton(props) {
             buttonStyle = {
                 ...buttonStyle,
                 backgroundColor: Color.coreTheme,
-                //border: '3px solid ' + Color.coreTheme,
+                // fontSize: '18px',
+                fontFamily: 'Oswald',
+                fontWeight: 'normal',
+                textAlign: 'center',
+                // border: '3px solid ' + Color.coreTheme,
                 color: Color.primary,
             }
         } else if (props.variant === 'secondary') {
@@ -26,6 +30,9 @@ export default function CustomButton(props) {
                 ...buttonStyle,
                 backgroundColor: Color.primary,
                 border: '3px solid ' + Color.coreTheme,
+                fontFamily: 'Oswald',
+                fontWeight: 'normal',
+                // fontSize: '18px',
                 color: Color.coreTheme,
             }
         } else if (props.variant === 'warning') {
