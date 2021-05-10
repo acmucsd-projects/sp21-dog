@@ -6,7 +6,6 @@ import {
     YAxis,
     CartesianGrid,
     Tooltip,
-    Legend,
     ResponsiveContainer,
 } from 'recharts'
 import { Color } from '../../helpers/Color'
@@ -64,8 +63,6 @@ const data = [
 ]
 
 export default function StreaksChart() {
-    const demoUrl = 'https://codesandbox.io/s/simple-line-chart-kec3v'
-
     return (
         <>
             <h4 style={{ textAlign: 'center' }}>Last Week: Task Points</h4>

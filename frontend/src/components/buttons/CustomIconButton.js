@@ -1,6 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles'
 import Icon from '@material-ui/core/Icon'
-import IconButton from '@material-ui/core/IconButton'
 
 const useStyles = makeStyles((theme) => ({
     imageIcon: {
@@ -20,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-export default function CustomIconButton({ src, onClick, style }) {
+export default function CustomIconButton({ src, onClick }) {
     const classes = useStyles()
 
     return (

@@ -1,6 +1,5 @@
 import LeaderboardList from './LeaderboardList'
 import { makeStyles } from '@material-ui/core/styles'
-import { Color } from '../../../helpers/Color'
 
 const useStyles = makeStyles((theme) => ({}))
 

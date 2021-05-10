@@ -3,7 +3,6 @@ import { useAppContext } from '../../../contexts/AppContext'
 import CustomButton from '../../buttons/CustomButton'
 import LinearDeterminate from './LinearDeterminate'
 import CustomDialog from '../../modals/CustomDialog'
-import { Color } from '../../../helpers/Color'
 import StatsChart from '../../charts/StatsChart'
 
 export default function Profile() {

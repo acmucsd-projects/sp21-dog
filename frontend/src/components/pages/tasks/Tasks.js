@@ -1,13 +1,8 @@
 import React from 'react'
-import { Color } from '../../../helpers/Color'
 import TasksList from './TasksList'
 import Map from '../map/Map'
 import { useAppContext } from '../../../contexts/AppContext'
 import FloatingActionButton from '../../buttons/FloatingActionButton'
-import AvatarCard from '../../cards/AvatarCard'
-import { Page } from '../../../helpers/Page'
-import { Paper } from '@material-ui/core'
-import TaskListItem from './TaskListItem'
 import MapViewTask from '../map/MapViewTask'
 import CustomDialog from '../../modals/CustomDialog'
 

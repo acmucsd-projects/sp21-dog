@@ -1,11 +1,9 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import {
     RadarChart,
     PolarGrid,
     PolarAngleAxis,
-    PolarRadiusAxis,
     Radar,
-    Legend,
     ResponsiveContainer,
 } from 'recharts'
 import { Color } from '../../helpers/Color'

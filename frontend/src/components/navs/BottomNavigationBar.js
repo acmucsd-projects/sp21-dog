@@ -9,7 +9,6 @@ import BottomNavigationAction from '@material-ui/core/BottomNavigationAction'
 import LeaderboardBottom from './LeaderboardBottom'
 import Icon from '@material-ui/core/Icon'
 import { Color } from '../../helpers/Color'
-import { ListItemIcon } from '@material-ui/core'
 
 const useStyles = makeStyles({
     bottomNavbar: {
