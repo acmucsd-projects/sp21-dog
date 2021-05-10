@@ -3,7 +3,7 @@ import { useAppContext } from '../contexts/AppContext'
 import CustomButton from './CustomButton'
 import LinearDeterminate from './LinearDeterminate'
 import CustomDialog from './CustomDialog'
-import Stats from './Stats'
+import StatsChart from './StatsChart'
 import { Color } from '../helpers/Color'
 
 export default function Profile() {
@@ -79,7 +79,7 @@ export default function Profile() {
                     height: '60%',
                 }}
             >
-                <Stats />
+                <StatsChart />
                 <p>User since Apr 27, 2021</p>
                 <p>226 Total Points • 57 Tasks Completed</p>
             </div>
