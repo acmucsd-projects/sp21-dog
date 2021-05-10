@@ -112,13 +112,5 @@ export const theme = createMuiTheme({
                 borderRadius: '20px',
             },
         },
-        MuiCardContent: {
-            root: {
-                padding: '0 12px',
-                '&:last-child': {
-                    paddingBottom: 0,
-                },
-            },
-        },
     },
 })

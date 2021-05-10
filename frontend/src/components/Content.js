@@ -7,6 +7,7 @@ import Map from './Map'
 import Profile from './Profile'
 import Tasks from './Tasks'
 import Home from './Home'
+import Landing from './Landing'
 
 const Content = () => {
     const context = useAppContext()
@@ -23,6 +24,7 @@ const Content = () => {
             class="content-wrapper"
             style={{ backgroundColor: backgroundColor }}
         >
+            {context.state.page === Page.landing && <Landing />}
             {context.state.page === Page.profile && <Profile />}
             {context.state.page === Page.leaderboards && <Leaderboards />}
             {context.state.page === Page.home && <Home />}

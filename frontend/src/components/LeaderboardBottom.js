@@ -39,10 +39,7 @@ export default function LeaderboardBottom() {
             }}
         >
             <Icon classes={{ root: classes.iconRoot }}>
-                <img
-                    className={classes.imageIcon}
-                    src="/icons/profilepic.svg"
-                />
+                <img className={classes.imageIcon} src="/profilepic.svg" />
             </Icon>
             <div className={classes.container}>
                 <p className={classes.biggerText}>
