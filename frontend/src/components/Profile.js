@@ -4,7 +4,6 @@ import CustomButton from './CustomButton'
 import LinearDeterminate from './LinearDeterminate'
 import CustomDialog from './CustomDialog'
 import Stats from './Stats'
-import ExampleLineChart from './ExampleLineChart'
 import { Color } from '../helpers/Color'
 
 export default function Profile() {
