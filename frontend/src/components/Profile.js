@@ -3,6 +3,8 @@ import { useAppContext } from '../contexts/AppContext'
 import CustomButton from './CustomButton'
 import LinearDeterminate from './LinearDeterminate'
 import CustomDialog from './CustomDialog'
+import { Color } from '../helpers/Color'
+import StatsChart from './StatsChart'
 
 export default function Profile() {
     const [editProfileOpen, setEditProfileOpen] = React.useState(false)
@@ -10,7 +12,13 @@ export default function Profile() {
     const context = useAppContext()
 
     return (
-        <div style={{ width: '100%', padding: '4.347826086%' }}>
+        <div
+            style={{
+                width: '100%',
+                padding: '4.347826086%',
+                flexDirection: 'column',
+            }}
+        >
             <CustomDialog
                 type="editProfile"
                 open={editProfileOpen}
@@ -48,15 +56,31 @@ export default function Profile() {
             {context.state.bio.split('\n').map((str) => (
                 <p>{str}</p>
             ))}
-            <hr />
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <h3>Level 35</h3>
+            <hr style={{ margin: '12px 0' }} />
+            <div
+                style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                }}
+            >
+                <h3 style={{ fontSize: '18px', margin: '8px 0' }}>Level 35</h3>
                 <p>30 Points to next level</p>
             </div>
             <LinearDeterminate />
-            <div style={{ textAlign: 'center' }}>
-                <p>User since Apr 27, 2021</p>
-                <p>226 Total Points • 57 Tasks Completed</p>
+            <div
+                style={{
+                    height: '45%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                }}
+            >
+                <StatsChart />
+                <div style={{ textAlign: 'center' }}>
+                    <p>User since Apr 27, 2021</p>
+                    <p>226 Total Points • 57 Tasks Completed</p>
+                </div>
             </div>
         </div>
     )
