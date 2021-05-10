@@ -7,4 +7,10 @@ export const Color = {
     warning: '#ff4c4c',
     warningLight: '#FFD8D8',
     selection: '#B7E1FF',
+    yellow: '#FFEEC3',
+    lightYellow: '#FFF7E1',
+    community: '#9B51E0',
+    knowledge: '#0094FF',
+    nature: '#219653',
+    fitness: '#F2994A',
 }
