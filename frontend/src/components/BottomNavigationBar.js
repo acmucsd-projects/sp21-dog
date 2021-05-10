@@ -1,5 +1,7 @@
 import React from 'react'
 import { useAppContext } from '../contexts/AppContext'
+import CustomButton from './CustomButton'
+import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt'
 import { Page } from '../helpers/Page'
 import { makeStyles } from '@material-ui/core/styles'
 import BottomNavigation from '@material-ui/core/BottomNavigation'
@@ -14,7 +16,7 @@ const useStyles = makeStyles({
         display: 'flex',
         backgroundColor: Color.primary,
         flexDirection: 'column',
-        height: '8.152173913%',
+        // height: '8.152173913%',
         justifyContent: 'center',
         boxShadow:
             '0px -2px 4px -1px rgb(0 0 0 / 20%),' +
@@ -34,6 +36,16 @@ const useStyles = makeStyles({
         textAlign: 'center',
         width: 'auto',
         height: '100%',
+    },
+    bottomDesc: {
+        margin: 'auto',
+        fontSize: '24px',
+        width: '500px',
+        fontFamily: 'Oswald',
+        textAlign: 'center',
+    },
+    arrow: {
+        margin: 'auto',
     },
     middleActionItemStyles: {
         minWidth: '20.77294686%',
@@ -121,26 +133,67 @@ export default function BottomNavigationBar() {
 
     return (
         <>
-            {/*context.state.page == Page.leaderboards && <LeaderboardBottom />*/}
             <div className={classes.bottomNavbar}>
-                <div
-                    style={{
-                        height: '100%',
-                        display: 'flex',
-                        justifyContent: 'center',
-                    }}
-                >
-                    <BottomNavigation
-                        value={value}
-                        onChange={(event, newValue) => {
-                            setValue(newValue)
+                {context.state.page == Page.leaderboards && (
+                    <LeaderboardBottom />
+                )}
+                {context.state.page == Page.landing && (
+                    <div
+                        style={{
+                            height: '100%',
+                            display: 'flex',
+                            padding: '0 13px',
+                            // justifyContent: 'center',
                         }}
-                        showLabels
-                        className={classes.root}
                     >
-                        {bottomNavItems}
-                    </BottomNavigation>
-                </div>
+                        <p className={classes.bottomDesc}>Start here!</p>
+                        <ArrowRightAltIcon className={classes.arrow} />
+                        <CustomButton
+                            type="landing"
+                            variant="primary"
+                            onClick={() => {
+                                context.setState({
+                                    ...context.state,
+                                    page: Page.home,
+                                })
+                            }}
+                        >
+                            Sign Up
+                        </CustomButton>
+                        <CustomButton
+                            type="landing"
+                            variant="secondary"
+                            onClick={() => {
+                                context.setState({
+                                    ...context.state,
+                                    page: Page.home,
+                                })
+                            }}
+                        >
+                            Log In
+                        </CustomButton>
+                    </div>
+                )}
+                {context.state.page != Page.landing && (
+                    <div
+                        style={{
+                            height: '100%',
+                            display: 'flex',
+                            justifyContent: 'center',
+                        }}
+                    >
+                        <BottomNavigation
+                            value={value}
+                            onChange={(event, newValue) => {
+                                setValue(newValue)
+                            }}
+                            showLabels
+                            className={classes.root}
+                        >
+                            {bottomNavItems}
+                        </BottomNavigation>
+                    </div>
+                )}
             </div>
         </>
     )
