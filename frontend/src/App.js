@@ -11,7 +11,7 @@ function App() {
         <div className="App">
             <ThemeProvider theme={theme}>
                 <AppContextProvider>
-                    <div class="main-container">
+                    <div className="main-container">
                         <TopNavigationBar />
                         <Content />
                         <BottomNavigationBar />

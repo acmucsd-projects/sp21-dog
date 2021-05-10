@@ -24,7 +24,7 @@ const Content = () => {
 
     return (
         <div
-            class="content-wrapper"
+            className="content-wrapper"
             style={{ backgroundColor: backgroundColor }}
         >
             {context.state.page === Page.landing && <Landing />}
