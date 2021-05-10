@@ -98,7 +98,15 @@ export default function HomepageListItem({ type, style }) {
             className={classes.root}
             style={style}
             onClick={() => {
-                context.setState({ ...context.state, page: targetPage })
+                if (showMap) {
+                    context.setState({
+                        ...context.state,
+                        mapOpen: true,
+                        page: targetPage,
+                    })
+                } else {
+                    context.setState({ ...context.state, page: targetPage })
+                }
             }}
         >
             <div style={{ width: '100%' }}>
@@ -137,7 +145,7 @@ export default function HomepageListItem({ type, style }) {
                             className="content-wrapper"
                             style={{ height: '93px' }}
                         >
-                            <Map />
+                            <Map noDrag={true} />
                         </div>
                     </CardContent>
                 ) : (

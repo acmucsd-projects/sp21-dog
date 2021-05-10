@@ -99,7 +99,6 @@ export const theme = createMuiTheme({
         },
         MuiAccordion: {
             root: {
-                margin: '15px',
                 backgroundColor: Color.background,
             },
             rounded: {
@@ -110,6 +109,14 @@ export const theme = createMuiTheme({
             root: {
                 backgroundColor: Color.primary,
                 borderRadius: '20px',
+            },
+        },
+        MuiCardContent: {
+            root: {
+                padding: '0 12px',
+                '&:last-child': {
+                    paddingBottom: 0,
+                },
             },
         },
     },

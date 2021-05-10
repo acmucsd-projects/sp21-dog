@@ -1,30 +1,48 @@
-import ReactMapGl from 'react-map-gl'
+import React from 'react'
+import ReactMapGL, { Marker } from 'react-map-gl'
 
-import { useState } from 'react'
-const Map = () => {
-    const [viewport, setViewport] = useState({
+const mapboxApiKey =
+    'pk.eyJ1IjoibmlzaGFudGJhbGFqaSIsImEiOiJja2xkOGl3cjcxc21yMndtdmxtZWpxeGRuIn0.isOPq2BjpvuzwjZMXW1yWA'
+
+export default function MapView({ noDrag }) {
+    const [viewport, setViewport] = React.useState({
         width: '100%',
         height: '100%',
         latitude: 37.75,
         longitude: -122.43,
-        zoom: 8,
+        zoom: 15,
     })
 
     return (
-        <div style={{ flex: 1 }}>
-            <ReactMapGl
-                {...viewport}
-                onViewportChange={(newViewport) =>
+        <ReactMapGL
+            {...viewport}
+            onViewportChange={(newViewport) => {
+                if (!noDrag) {
                     setViewport({
                         ...newViewport,
                         width: '100%',
                         height: '100%',
                     })
                 }
-                mapboxApiAccessToken="pk.eyJ1IjoibmlzaGFudGJhbGFqaSIsImEiOiJja2xkOGl3cjcxc21yMndtdmxtZWpxeGRuIn0.isOPq2BjpvuzwjZMXW1yWA"
-            />
-        </div>
+            }}
+            mapboxApiAccessToken={mapboxApiKey}
+            mapStyle="mapbox://styles/mapbox/streets-v11"
+        >
+            <Marker latitude={37.75} longitude={-122.43}>
+                <div className="marker">
+                    <span>
+                        <img
+                            style={{
+                                transform: 'rotateZ(135deg)',
+                                width: '80%',
+                                height: '80%',
+                            }}
+                            src="./icons/nature.svg"
+                            alt="map marker"
+                        />
+                    </span>
+                </div>
+            </Marker>
+        </ReactMapGL>
     )
 }
-
-export default Map

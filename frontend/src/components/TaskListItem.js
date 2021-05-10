@@ -16,11 +16,15 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-export default function TaskListItem() {
+export default function TaskListItem({ mapView, style }) {
     const classes = useStyles()
+    let margin = '15px 0'
+    if (mapView) {
+        margin = '8px'
+    }
 
     return (
-        <Accordion>
+        <Accordion style={{ margin: margin }}>
             <AccordionSummary
                 aria-controls="panel2a-content"
                 id="panel2a-header"
@@ -69,9 +73,11 @@ export default function TaskListItem() {
                         <CustomButton type="tasks" variant="primary">
                             Share
                         </CustomButton>
-                        <CustomButton type="tasks" variant="secondary">
-                            View on Map
-                        </CustomButton>
+                        {!mapView && (
+                            <CustomButton type="tasks" variant="secondary">
+                                View on Map
+                            </CustomButton>
+                        )}
                     </div>
                     <div>
                         <div
