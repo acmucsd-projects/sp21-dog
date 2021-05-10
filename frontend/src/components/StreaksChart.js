@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import {
     LineChart,
     Line,
@@ -63,56 +63,54 @@ const data = [
     },
 ]
 
-export default class StreaksChart extends PureComponent {
-    static demoUrl = 'https://codesandbox.io/s/simple-line-chart-kec3v'
+export default function StreaksChart() {
+    const demoUrl = 'https://codesandbox.io/s/simple-line-chart-kec3v'
 
-    render() {
-        return (
-            <>
-                <h4 style={{ textAlign: 'center' }}>Last Week: Task Points</h4>
-                <ResponsiveContainer width="100%" height="100%">
-                    <LineChart
-                        width={500}
-                        height={300}
-                        data={data}
-                        margin={{
-                            top: 5,
-                            right: 30,
-                            left: 20,
-                            bottom: 5,
-                        }}
-                    >
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="name" />
-                        <YAxis />
-                        <Tooltip />
-                        <Line
-                            type="monotone"
-                            dataKey="community"
-                            stroke={Color.community}
-                            dot={false}
-                        />
-                        <Line
-                            type="monotone"
-                            dataKey="knowledge"
-                            stroke={Color.knowledge}
-                            dot={false}
-                        />
-                        <Line
-                            type="monotone"
-                            dataKey="nature"
-                            stroke={Color.nature}
-                            dot={false}
-                        />
-                        <Line
-                            type="monotone"
-                            dataKey="fitness"
-                            stroke={Color.fitness}
-                            dot={false}
-                        />
-                    </LineChart>
-                </ResponsiveContainer>
-            </>
-        )
-    }
+    return (
+        <>
+            <h4 style={{ textAlign: 'center' }}>Last Week: Task Points</h4>
+            <ResponsiveContainer width="100%" height="100%">
+                <LineChart
+                    width={500}
+                    height={300}
+                    data={data}
+                    margin={{
+                        top: 5,
+                        right: 30,
+                        left: 20,
+                        bottom: 5,
+                    }}
+                >
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="name" />
+                    <YAxis />
+                    <Tooltip />
+                    <Line
+                        type="monotone"
+                        dataKey="community"
+                        stroke={Color.community}
+                        dot={false}
+                    />
+                    <Line
+                        type="monotone"
+                        dataKey="knowledge"
+                        stroke={Color.knowledge}
+                        dot={false}
+                    />
+                    <Line
+                        type="monotone"
+                        dataKey="nature"
+                        stroke={Color.nature}
+                        dot={false}
+                    />
+                    <Line
+                        type="monotone"
+                        dataKey="fitness"
+                        stroke={Color.fitness}
+                        dot={false}
+                    />
+                </LineChart>
+            </ResponsiveContainer>
+        </>
+    )
 }
