@@ -6,8 +6,14 @@ import ProfileContent from './ProfileContent'
 
 export default function Profile() {
     const [editProfileOpen, setEditProfileOpen] = React.useState(false)
+    const [editPasswordOpen, setEditPasswordOpen] = React.useState(false)
     const [settingsOpen, setSettingsOpen] = React.useState(false)
     const context = useAppContext()
+
+    const customSetEditPasswordOpen = (open) => {
+        setEditPasswordOpen(open)
+        setSettingsOpen(!open)
+    }
 
     return (
         <div
@@ -27,6 +33,13 @@ export default function Profile() {
                 type="settings"
                 open={settingsOpen}
                 setOpen={setSettingsOpen}
+                setEditPasswordOpen={customSetEditPasswordOpen}
+            />
+            <CustomDialog
+                type="editPassword"
+                open={editPasswordOpen}
+                setOpen={customSetEditPasswordOpen}
+                setEditPasswordOpen={customSetEditPasswordOpen}
             />
             <div
                 style={{

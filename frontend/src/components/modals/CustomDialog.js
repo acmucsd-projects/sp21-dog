@@ -76,7 +76,12 @@ const DialogContent = withStyles((theme) => ({
     },
 }))(MuiDialogContent)
 
-export default function CustomDialog({ type, open, setOpen }) {
+export default function CustomDialog({
+    type,
+    open,
+    setOpen,
+    setEditPasswordOpen,
+}) {
     const context = useAppContext()
     const tempContext = useTempContext()
 
@@ -99,13 +104,15 @@ export default function CustomDialog({ type, open, setOpen }) {
         content = <ProfileForm />
     } else if (type === 'settings') {
         title = 'settings'
-        content = <SettingsForm />
+        content = <SettingsForm setEditPasswordOpen={setEditPasswordOpen} />
     } else if (type === 'calendar') {
         title = 'calendar'
         content = <CalendarForm />
-    } else if (type === 'changePassword') {
+    } else if (type === 'editPassword') {
         title = 'change password'
-        content = <ChangePasswordForm />
+        content = (
+            <ChangePasswordForm setEditPasswordOpen={setEditPasswordOpen} />
+        )
         noTopSubmitButton = true
     } else if (type === 'filter') {
         title = 'filter'

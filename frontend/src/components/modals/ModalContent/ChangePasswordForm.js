@@ -19,36 +19,47 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-export default function ChangePasswordForm() {
+export default function ChangePasswordForm({ setEditPasswordOpen }) {
     const classes = useStyles()
-    const context = useAppContext()
-
-    const handleSave = () => {}
 
     return (
-        <form className={classes.formRoot} noValidate autoComplete="off">
+        <div className={classes.formRoot}>
             <Typography>Old Password</Typography>
-            <TextField id="password" variant="outlined" type="password" />
+            <TextField
+                id="old-password"
+                variant="outlined"
+                type="password"
+                required
+                onChange={() => {}}
+            />
             <Typography>New Password</Typography>
-            <TextField id="password" variant="outlined" type="password" />
+            <TextField
+                id="new-password"
+                variant="outlined"
+                type="password"
+                required
+            />
             <Typography>Confirm New Password</Typography>
-            <TextField id="password" variant="outlined" type="password" />
+            <TextField
+                id="confirm-new-password"
+                variant="outlined"
+                type="password"
+                required
+            />
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <CustomButton
-                    type="settings"
-                    variant="primary"
-                    onClick={handleSave}
-                >
+                <CustomButton type="settings" variant="primary" submit={true}>
                     Confirm
                 </CustomButton>
                 <CustomButton
                     type="settings"
                     variant="secondary"
-                    onClick={handleSave}
+                    onClick={() => {
+                        setEditPasswordOpen(false)
+                    }}
                 >
                     Cancel
                 </CustomButton>
             </div>
-        </form>
+        </div>
     )
 }

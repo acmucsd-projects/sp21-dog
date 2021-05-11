@@ -12,6 +12,9 @@ export default function CustomButton(props) {
     if (props.halfWidth) {
         buttonStyle = { ...buttonStyle, width: '50%' }
     }
+    if (props.inheritWidth) {
+        buttonStyle = { ...buttonStyle, width: 'inherit' }
+    }
     if (props.type === 'landing') {
         buttonStyle = { ...buttonStyle, borderRadius: '25px', fontSize: '24px' }
         if (props.variant === 'primary') {
@@ -108,12 +111,22 @@ export default function CustomButton(props) {
         }
     }
 
-    return (
+    return props.submit === undefined ? (
         <Button
             style={buttonStyle}
             variant="contained"
             disableElevation
             onClick={props.onClick}
+        >
+            {props.children}
+        </Button>
+    ) : (
+        <Button
+            style={buttonStyle}
+            variant="contained"
+            disableElevation
+            onClick={props.onClick}
+            type="submit"
         >
             {props.children}
         </Button>
