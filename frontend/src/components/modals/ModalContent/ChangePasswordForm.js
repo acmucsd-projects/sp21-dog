@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import CustomButton from '../../buttons/CustomButton'
+import { useTempContext } from '../../../contexts/TempContext'
 
 const useStyles = makeStyles((theme) => ({
     formRoot: {
@@ -21,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ChangePasswordForm({ setEditPasswordOpen }) {
     const classes = useStyles()
+    const tempContext = useTempContext()
 
     return (
         <div className={classes.formRoot}>
@@ -30,7 +32,6 @@ export default function ChangePasswordForm({ setEditPasswordOpen }) {
                 variant="outlined"
                 type="password"
                 required
-                onChange={() => {}}
             />
             <Typography>New Password</Typography>
             <TextField
@@ -38,6 +39,12 @@ export default function ChangePasswordForm({ setEditPasswordOpen }) {
                 variant="outlined"
                 type="password"
                 required
+                onChange={(e) => {
+                    tempContext.setState({
+                        ...tempContext.state,
+                        password: e.target.value,
+                    })
+                }}
             />
             <Typography>Confirm New Password</Typography>
             <TextField

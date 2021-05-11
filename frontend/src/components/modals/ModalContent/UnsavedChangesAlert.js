@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-export default function UnsavedChangesAlert() {
+export default function UnsavedChangesAlert({ setUnsavedOpen, closeAll }) {
     const classes = useStyles()
 
     return (
@@ -21,10 +21,22 @@ export default function UnsavedChangesAlert() {
                 sure?
             </Typography>
             <div style={{ display: 'flex' }}>
-                <CustomButton type="settings" variant="warning">
+                <CustomButton
+                    type="settings"
+                    variant="warning"
+                    onClick={() => {
+                        closeAll()
+                    }}
+                >
                     Don't Save
                 </CustomButton>
-                <CustomButton type="settings" variant="secondary">
+                <CustomButton
+                    type="settings"
+                    variant="secondary"
+                    onClick={() => {
+                        setUnsavedOpen(false)
+                    }}
+                >
                     Cancel
                 </CustomButton>
             </div>

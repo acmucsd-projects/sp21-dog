@@ -1,3 +1,4 @@
+import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import Dialog from '@material-ui/core/Dialog'
 import MuiDialogTitle from '@material-ui/core/DialogTitle'
@@ -28,7 +29,7 @@ const styles = (theme) => ({
 })
 
 const DialogTitle = withStyles(styles)((props) => {
-    const { children, classes, onClose, noTopSubmitButton, ...other } = props
+    const { children, classes, onClose, buttonOptions, ...other } = props
 
     return (
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -40,7 +41,7 @@ const DialogTitle = withStyles(styles)((props) => {
                 <Typography variant="h6">{children}</Typography>
             </MuiDialogTitle>
             <div style={{ display: 'flex', alignItems: 'center' }}>
-                {noTopSubmitButton ? (
+                {buttonOptions === 'noTopSubmit' ? (
                     <div style={{ margin: '0 16px 0 8px' }}>
                         <CustomIconButton
                             src={
@@ -49,21 +50,25 @@ const DialogTitle = withStyles(styles)((props) => {
                                     : './icons/back-accent.svg'
                             }
                             onClick={onClose}
+                            type="button"
                         />
                     </div>
                 ) : (
-                    <>
-                        <CustomIconButton
-                            src="./icons/back-accent.svg"
-                            onClick={onClose}
-                        />
-                        <div style={{ margin: '0 16px 0 8px' }}>
+                    buttonOptions !== 'noTop' && (
+                        <>
                             <CustomIconButton
-                                src="./icons/confirm.svg"
-                                type="submit"
+                                src="./icons/back-accent.svg"
+                                onClick={onClose}
+                                type="button"
                             />
-                        </div>
-                    </>
+                            <div style={{ margin: '0 16px 0 8px' }}>
+                                <CustomIconButton
+                                    src="./icons/confirm.svg"
+                                    type="submit"
+                                />
+                            </div>
+                        </>
+                    )
                 )}
             </div>
         </div>
@@ -80,14 +85,28 @@ export default function CustomDialog({
     type,
     open,
     setOpen,
+    setUnsavedOpen,
+    closeAll,
     setEditPasswordOpen,
 }) {
     const context = useAppContext()
     const tempContext = useTempContext()
 
+    function equals(obj1, obj2) {
+        return Object.keys(obj1).every((key) => {
+            return obj1[key] === obj2[key]
+        })
+    }
+
     const handleClose = () => {
-        setOpen(false)
-        tempContext.setState(context.state)
+        if (
+            setUnsavedOpen !== undefined &&
+            !equals(tempContext.state, context.state)
+        ) {
+            setUnsavedOpen(true)
+        } else {
+            setOpen(false)
+        }
     }
 
     const handleSave = () => {
@@ -95,10 +114,14 @@ export default function CustomDialog({
         context.setState({ ...context.state, ...tempContext.state })
     }
 
+    React.useEffect(() => {
+        tempContext.setState(context.state)
+    }, [])
+
     let title = 'title'
     let content = null
     let backgroundColor = Color.primary
-    let noTopSubmitButton = false
+    let buttonOptions = null
     if (type === 'editProfile') {
         title = 'Edit Profile'
         content = <ProfileForm />
@@ -110,10 +133,8 @@ export default function CustomDialog({
         content = <CalendarForm />
     } else if (type === 'editPassword') {
         title = 'change password'
-        content = (
-            <ChangePasswordForm setEditPasswordOpen={setEditPasswordOpen} />
-        )
-        noTopSubmitButton = true
+        content = <ChangePasswordForm setEditPasswordOpen={setOpen} />
+        buttonOptions = 'noTopSubmit'
     } else if (type === 'filter') {
         title = 'filter'
         content = <FilterForm />
@@ -125,19 +146,21 @@ export default function CustomDialog({
         content = <MapLayersForm />
     } else if (type === 'unsaved') {
         title = 'unsaved changes'
-        noTopSubmitButton = true
-        content = <UnsavedChangesAlert />
+        buttonOptions = 'noTop'
+        content = (
+            <UnsavedChangesAlert setUnsavedOpen={setOpen} closeAll={closeAll} />
+        )
     } else if (type === 'logout') {
         title = 'log out'
-        noTopSubmitButton = true
+        buttonOptions = 'noTopSubmit'
         content = <LogoutAlert />
     } else if (type === 'login') {
         title = 'welcome back!'
-        noTopSubmitButton = true
+        buttonOptions = 'noTopSubmit'
         content = <LoginForm />
     } else if (type === 'signup') {
         title = 'welcome!'
-        noTopSubmitButton = true
+        buttonOptions = 'noTopSubmit'
         content = <SignupForm />
         backgroundColor = Color.accent
     } else if (type === 'journalView') {
@@ -168,7 +191,7 @@ export default function CustomDialog({
                     <DialogTitle
                         id="edit-profile-title"
                         onClose={handleClose}
-                        noTopSubmitButton={noTopSubmitButton}
+                        buttonOptions={buttonOptions}
                         whiteButtons={backgroundColor != Color.primary}
                     >
                         {title}
