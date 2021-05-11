@@ -1,3 +1,4 @@
+import React from 'react'
 import { useAppContext } from '../../../contexts/AppContext'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
@@ -6,6 +7,7 @@ import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
 import Typography from '@material-ui/core/Typography'
 import CustomButton from '../../buttons/CustomButton'
+import { useTempContext } from '../../../contexts/TempContext'
 
 const useStyles = makeStyles((theme) => ({
     formRoot: {
@@ -26,6 +28,21 @@ const useStyles = makeStyles((theme) => ({
 export default function ProfileForm() {
     const classes = useStyles()
     const context = useAppContext()
+    const tempContext = useTempContext()
+
+    const regions = ['United States', 'Canada']
+    const regionMenuItems = regions.map((item, i) => (
+        <MenuItem value={i}>{item}</MenuItem>
+    ))
+
+    React.useEffect(() => {
+        tempContext.setState({
+            displayName: context.state.displayName,
+            username: context.state.username,
+            region: context.state.region,
+            bio: context.state.bio,
+        })
+    }, [])
 
     return (
         <form className={classes.formRoot} noValidate autoComplete="off">
@@ -60,27 +77,41 @@ export default function ProfileForm() {
             <TextField
                 id="display-name"
                 variant="outlined"
-                value={context.state.displayName}
+                value={tempContext.state.displayName}
+                onChange={(e) => {
+                    tempContext.setState({
+                        ...tempContext.state,
+                        displayName: e.target.value,
+                    })
+                }}
             />
             <Typography>Username</Typography>
             <TextField
                 id="username"
                 variant="outlined"
-                value={context.state.username}
+                value={tempContext.state.username}
+                onChange={(e) =>
+                    tempContext.setState({
+                        ...tempContext.state,
+                        username: e.target.value,
+                    })
+                }
             />
             <Typography>Region</Typography>
             <FormControl variant="outlined" className={classes.formControl}>
                 <Select
                     labelId="region-label"
                     id="region"
-                    value={0}
-                    //onChange={handleChange}
+                    value={regions.indexOf(tempContext.state.region)}
+                    onChange={(e) =>
+                        tempContext.setState({
+                            ...tempContext.state,
+                            region: regions[e.target.value],
+                        })
+                    }
                     label="Region"
                 >
-                    <MenuItem value="">
-                        <em>None</em>
-                    </MenuItem>
-                    <MenuItem value={0}>United States</MenuItem>
+                    {regionMenuItems}
                 </Select>
             </FormControl>
             <Typography>Bio</Typography>
@@ -89,7 +120,13 @@ export default function ProfileForm() {
                 variant="outlined"
                 multiline
                 rows={10}
-                value={context.state.bio}
+                value={tempContext.state.bio}
+                onChange={(e) =>
+                    tempContext.setState({
+                        ...tempContext.state,
+                        bio: e.target.value,
+                    })
+                }
             />
         </form>
     )

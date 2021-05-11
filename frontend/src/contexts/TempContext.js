@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { Page } from '../helpers/Page'
 
-const AppContext = React.createContext()
+const TempContext = React.createContext()
 
-function AppContextProvider({ children }) {
+function TempContextProvider({ children }) {
     const [state, setState] = useState({
         page: Page.landing,
         mapOpen: false,
@@ -14,17 +14,17 @@ function AppContextProvider({ children }) {
             'Hey there!!\nMy name is Elizabeth and I love going out on adventures! When I’m not out hiking or mountain climbing, I like to hangout with friends at the park. Everyone should always enjoy nature at some point during their day!',
     })
     const value = { state, setState }
-    return <AppContext.Provider value={value}>{children}</AppContext.Provider>
+    return <TempContext.Provider value={value}>{children}</TempContext.Provider>
 }
 
-function useAppContext() {
-    const context = React.useContext(AppContext)
+function useTempContext() {
+    const context = React.useContext(TempContext)
     if (context === undefined) {
         throw new Error(
-            'useAppContext must be used within a AppContextProvider'
+            'useTempContext must be used within a TempContextProvider'
         )
     }
     return context
 }
 
-export { AppContextProvider, useAppContext }
+export { TempContextProvider, useTempContext }

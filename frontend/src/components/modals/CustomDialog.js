@@ -17,6 +17,8 @@ import LoginForm from './ModalContent/LoginForm'
 import SignupForm from './ModalContent/SignupForm'
 import { Color } from '../../helpers/Color'
 import JournalForm from './ModalContent/JournalForm'
+import { useTempContext } from '../../contexts/TempContext'
+import { useAppContext } from '../../contexts/AppContext'
 
 const styles = (theme) => ({
     root: {
@@ -82,12 +84,17 @@ const DialogContent = withStyles((theme) => ({
 }))(MuiDialogContent)
 
 export default function CustomDialog({ type, open, setOpen }) {
+    const context = useAppContext()
+    const tempContext = useTempContext()
+
     const handleClose = () => {
         setOpen(false)
+        tempContext.setState(context.state)
     }
 
     const handleSave = () => {
         setOpen(false)
+        context.setState({ ...context.state, ...tempContext.state })
     }
 
     let title = 'title'
