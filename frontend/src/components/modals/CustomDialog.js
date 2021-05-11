@@ -28,14 +28,7 @@ const styles = (theme) => ({
 })
 
 const DialogTitle = withStyles(styles)((props) => {
-    const {
-        children,
-        classes,
-        onClose,
-        onSave,
-        noTopSubmitButton,
-        ...other
-    } = props
+    const { children, classes, onClose, noTopSubmitButton, ...other } = props
 
     return (
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -67,7 +60,7 @@ const DialogTitle = withStyles(styles)((props) => {
                         <div style={{ margin: '0 16px 0 8px' }}>
                             <CustomIconButton
                                 src="./icons/confirm.svg"
-                                onClick={onSave}
+                                type="submit"
                             />
                         </div>
                     </>
@@ -158,16 +151,23 @@ export default function CustomDialog({ type, open, setOpen }) {
                     },
                 }}
             >
-                <DialogTitle
-                    id="edit-profile-title"
-                    onClose={handleClose}
-                    onSave={handleSave}
-                    noTopSubmitButton={noTopSubmitButton}
-                    whiteButtons={backgroundColor != Color.primary}
+                <form
+                    autoComplete="off"
+                    onSubmit={(e) => {
+                        e.preventDefault()
+                        handleSave()
+                    }}
                 >
-                    {title}
-                </DialogTitle>
-                <DialogContent dividers>{content}</DialogContent>
+                    <DialogTitle
+                        id="edit-profile-title"
+                        onClose={handleClose}
+                        noTopSubmitButton={noTopSubmitButton}
+                        whiteButtons={backgroundColor != Color.primary}
+                    >
+                        {title}
+                    </DialogTitle>
+                    <DialogContent dividers>{content}</DialogContent>
+                </form>
             </Dialog>
         </>
     )

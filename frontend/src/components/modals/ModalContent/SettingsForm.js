@@ -1,8 +1,10 @@
+import React from 'react'
 import { useAppContext } from '../../../contexts/AppContext'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import CustomButton from '../../buttons/CustomButton'
+import { useTempContext } from '../../../contexts/TempContext'
 
 const useStyles = makeStyles((theme) => ({
     formRoot: {
@@ -22,15 +24,43 @@ const useStyles = makeStyles((theme) => ({
 export default function SettingsForm() {
     const classes = useStyles()
     const context = useAppContext()
+    const tempContext = useTempContext()
 
     const handleSave = () => {}
 
+    React.useEffect(() => {
+        tempContext.setState({
+            email: context.state.email,
+            password: context.state.password,
+        })
+    }, [])
+
     return (
-        <form className={classes.formRoot} noValidate autoComplete="off">
+        <div className={classes.formRoot}>
             <Typography>Email</Typography>
-            <TextField id="email" variant="outlined" type="email" />
+            <TextField
+                id="email"
+                variant="outlined"
+                type="email"
+                required
+                value={tempContext.state.email}
+                onChange={(e) => {
+                    tempContext.setState({
+                        ...tempContext,
+                        email: e.target.value,
+                    })
+                }}
+            />
             <Typography>Password</Typography>
-            <TextField id="password" variant="outlined" type="password" />
+            <TextField
+                id="password"
+                variant="outlined"
+                type="password"
+                InputProps={{
+                    readOnly: true,
+                }}
+                value={tempContext.state.password}
+            />
             <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <CustomButton
                     type="landing"
@@ -41,6 +71,6 @@ export default function SettingsForm() {
                     Log Out
                 </CustomButton>
             </div>
-        </form>
+        </div>
     )
 }

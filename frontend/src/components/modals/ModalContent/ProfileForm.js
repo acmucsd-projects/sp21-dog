@@ -45,7 +45,7 @@ export default function ProfileForm() {
     }, [])
 
     return (
-        <form className={classes.formRoot} noValidate autoComplete="off">
+        <div className={classes.formRoot}>
             <div
                 style={{
                     display: 'flex',
@@ -77,6 +77,7 @@ export default function ProfileForm() {
             <TextField
                 id="display-name"
                 variant="outlined"
+                required
                 value={tempContext.state.displayName}
                 onChange={(e) => {
                     tempContext.setState({
@@ -89,6 +90,7 @@ export default function ProfileForm() {
             <TextField
                 id="username"
                 variant="outlined"
+                required
                 value={tempContext.state.username}
                 onChange={(e) =>
                     tempContext.setState({
@@ -128,6 +130,6 @@ export default function ProfileForm() {
                     })
                 }
             />
-        </form>
+        </div>
     )
 }
