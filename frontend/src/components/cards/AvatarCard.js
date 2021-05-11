@@ -5,6 +5,7 @@ import CardContent from '@material-ui/core/CardContent'
 import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 import Avatar from '@material-ui/core/Avatar'
 import ListItemText from '@material-ui/core/ListItemText'
+import { useAppContext } from '../../contexts/AppContext'
 
 const useStyles = makeStyles({
     root: {
@@ -25,6 +26,7 @@ const useStyles = makeStyles({
 
 export default function AvatarCard() {
     const classes = useStyles()
+    const context = useAppContext()
 
     return (
         <Card className={classes.root}>
@@ -40,7 +42,7 @@ export default function AvatarCard() {
                     </ListItemAvatar>
                     <ListItemText
                         id={0}
-                        primary={'Good morning, Elizabeth!'}
+                        primary={`Good morning, ${context.state.displyName}!`}
                         secondary={'Ready to kick start the day?'}
                         primaryTypographyProps={{
                             style: {

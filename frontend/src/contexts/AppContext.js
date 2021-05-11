@@ -8,7 +8,7 @@ function AppContextProvider({ children }) {
         page: Page.landing,
         mapOpen: false,
         displayName: 'Elizabeth',
-        username: '@lizzyh2021',
+        username: 'lizzyh2021',
         email: 'lizzyh2021@gmail.com',
         password: 'thisshouldnotbeinplaintext',
         region: 'United States',

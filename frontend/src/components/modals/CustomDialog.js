@@ -134,7 +134,7 @@ export default function CustomDialog({
     } else if (type === 'editPassword') {
         title = 'change password'
         content = <ChangePasswordForm setEditPasswordOpen={setOpen} />
-        buttonOptions = 'noTopSubmit'
+        buttonOptions = 'noTop'
     } else if (type === 'filter') {
         title = 'filter'
         content = <FilterForm />
