@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography'
 import Icon from '@material-ui/core/Icon'
 import { useAppContext } from '../../contexts/AppContext'
 import Searchbar from './Searchbar'
+import ProfileCard from '../cards/ProfileCard'
 
 const useStyles = makeStyles((theme) => ({
     topNavbar: {
@@ -159,6 +160,7 @@ export default function TopNavigationBar() {
                     </div>
                 )}
                 {context.state.page == Page.leaderboards && <Searchbar />}
+                {context.state.page == Page.profile && <ProfileCard />}
             </AppBar>
         </>
     )

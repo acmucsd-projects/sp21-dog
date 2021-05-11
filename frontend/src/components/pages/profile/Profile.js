@@ -12,6 +12,7 @@ export default function Profile() {
 
     return (
         <div
+            className="overflow-container"
             style={{
                 width: '100%',
                 padding: '4.347826086%',
