@@ -1,17 +1,20 @@
+import React from 'react'
 import LeaderboardList from './LeaderboardList'
-import { makeStyles } from '@material-ui/core/styles'
+import ProfileDialog from '../../modals/ProfileDialog'
 
-const useStyles = makeStyles((theme) => ({}))
+export default function Leaderboards() {
+    const [profileOpen, setProfileOpen] = React.useState(false)
 
-const Leaderboards = () => {
-    const classes = useStyles()
+    const onItemClick = () => {
+        setProfileOpen(true)
+    }
+
     return (
         <div class="overflow-container" style={{ margin: 0 }}>
+            <ProfileDialog open={profileOpen} setOpen={setProfileOpen} />
             <div style={{ width: '100%' }}>
-                <LeaderboardList />
+                <LeaderboardList onItemClick={onItemClick} />
             </div>
         </div>
     )
 }
-
-export default Leaderboards

@@ -13,6 +13,7 @@ const useStyles = makeStyles({
         justifyContent: 'space-between',
         backgroundColor: Color.primary,
         alignItems: 'center',
+        fontFamily: 'PT Sans',
         width: '100%',
     },
     root: {
