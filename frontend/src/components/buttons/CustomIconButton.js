@@ -19,11 +19,12 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-export default function CustomIconButton({ src, onClick, type }) {
+export default function CustomIconButton({ src, onClick, type, className }) {
     const classes = useStyles()
 
     return (
         <button
+            className={className}
             style={{
                 border: 0,
                 backgroundColor: 'transparent',

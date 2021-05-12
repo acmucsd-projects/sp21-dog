@@ -42,7 +42,7 @@ export default function AvatarCard() {
                     </ListItemAvatar>
                     <ListItemText
                         id={0}
-                        primary={`Good morning, ${context.state.displyName}!`}
+                        primary={`Good morning, ${context.state.displayName}!`}
                         secondary={'Ready to kick start the day?'}
                         primaryTypographyProps={{
                             style: {

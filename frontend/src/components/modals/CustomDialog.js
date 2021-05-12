@@ -163,7 +163,7 @@ export default function CustomDialog({
         buttonOptions = 'noTopSubmit'
         content = <SignupForm />
         backgroundColor = Color.accent
-    } else if (type === 'journalView') {
+    } else if (type === 'view') {
         title = 'view'
         content = <JournalForm />
     }
