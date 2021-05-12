@@ -35,15 +35,6 @@ export default function ProfileForm() {
         <MenuItem value={i}>{item}</MenuItem>
     ))
 
-    React.useEffect(() => {
-        tempContext.setState({
-            displayName: context.state.displayName,
-            username: context.state.username,
-            region: context.state.region,
-            bio: context.state.bio,
-        })
-    }, [])
-
     return (
         <div className={classes.formRoot}>
             <div

@@ -20,6 +20,7 @@ import { Color } from '../../helpers/Color'
 import JournalForm from './ModalContent/JournalForm'
 import { useTempContext } from '../../contexts/TempContext'
 import { useAppContext } from '../../contexts/AppContext'
+import { Page } from '../../helpers/Page'
 
 const styles = (theme) => ({
     root: {
@@ -88,6 +89,7 @@ export default function CustomDialog({
     setUnsavedOpen,
     closeAll,
     setEditPasswordOpen,
+    keyName,
 }) {
     const context = useAppContext()
     const tempContext = useTempContext()
@@ -105,6 +107,7 @@ export default function CustomDialog({
         ) {
             setUnsavedOpen(true)
         } else {
+            tempContext.setState(context.state)
             setOpen(false)
         }
     }
@@ -137,7 +140,7 @@ export default function CustomDialog({
         buttonOptions = 'noTop'
     } else if (type === 'filter') {
         title = 'filter'
-        content = <FilterForm />
+        content = <FilterForm keyName={keyName} />
     } else if (type === 'sort') {
         title = 'sort'
         content = <SortForm />
@@ -148,7 +151,13 @@ export default function CustomDialog({
         title = 'unsaved changes'
         buttonOptions = 'noTop'
         content = (
-            <UnsavedChangesAlert setUnsavedOpen={setOpen} closeAll={closeAll} />
+            <UnsavedChangesAlert
+                setUnsavedOpen={setOpen}
+                closeAll={() => {
+                    tempContext.setState(context.state)
+                    closeAll()
+                }}
+            />
         )
     } else if (type === 'logout') {
         title = 'log out'

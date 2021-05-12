@@ -1,5 +1,6 @@
 import React from 'react'
 import { useAppContext } from '../../../contexts/AppContext'
+import { useTempContext } from '../../../contexts/TempContext'
 import CustomButton from '../../buttons/CustomButton'
 import CustomDialog from '../../modals/CustomDialog'
 import ProfileContent from './ProfileContent'
@@ -10,6 +11,7 @@ export default function Profile() {
     const [settingsOpen, setSettingsOpen] = React.useState(false)
     const [unsavedOpen, setUnsavedOpen] = React.useState(false)
     const context = useAppContext()
+    const tempContext = useTempContext()
 
     const customSetEditPasswordOpen = (open) => {
         setEditPasswordOpen(open)

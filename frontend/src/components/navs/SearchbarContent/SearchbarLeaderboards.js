@@ -16,6 +16,7 @@ export default function SearchbarLeaderboards({ classes }) {
                 type="filter"
                 open={filterOpen}
                 setOpen={setFilterOpen}
+                keyName="leaderboardOptions"
             />
             <CustomDialog type="view" open={viewOpen} setOpen={setViewOpen} />
             <IconButton

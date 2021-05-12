@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import SearchbarLeaderboards from './SearchbarContent/SearchbarLeaderboards'
 import SearchbarJournal from './SearchbarContent/SearchbarJournal'
 import SearchbarTasks from './SearchbarContent/SearchbarTasks'
+import { useAppContext } from '../../contexts/AppContext'
 const useStyles = makeStyles({
     dropdown: {
         display: 'flex',
@@ -42,15 +43,20 @@ const useStyles = makeStyles({
         borderRight: 'solid 1px',
     },
 })
-export default function Searchbar({ page }) {
+export default function Searchbar() {
     const classes = useStyles()
+    const context = useAppContext()
     return (
         <div className={classes.dropdown}>
-            {page === Page.leaderboards && (
+            {context.state.page === Page.leaderboards && (
                 <SearchbarLeaderboards classes={classes} />
             )}
-            {page === Page.journal && <SearchbarJournal classes={classes} />}
-            {page === Page.tasks && <SearchbarTasks classes={classes} />}
+            {context.state.page === Page.journal && (
+                <SearchbarJournal classes={classes} />
+            )}
+            {context.state.page === Page.tasks && !context.state.mapOpen && (
+                <SearchbarTasks classes={classes} />
+            )}
         </div>
     )
 }
