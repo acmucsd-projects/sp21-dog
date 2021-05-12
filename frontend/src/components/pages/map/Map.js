@@ -1,9 +1,7 @@
 import React from 'react'
 import ReactMapGL, { Marker } from 'react-map-gl'
 
-const mapboxApiKey =
-    'pk.eyJ1IjoibmlzaGFudGJhbGFqaSIsImEiOiJja2xkOGl3cjcxc21yMndtdmxtZWpxeGRuIn0.isOPq2BjpvuzwjZMXW1yWA'
-
+const mapboxApiKey = process.env.REACT_APP_MAPBOX_API_KEY
 export default function MapView({ noDrag }) {
     const [viewport, setViewport] = React.useState({
         width: '100%',
