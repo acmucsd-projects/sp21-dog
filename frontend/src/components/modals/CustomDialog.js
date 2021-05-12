@@ -143,10 +143,10 @@ export default function CustomDialog({
         content = <FilterForm keyName={keyName} />
     } else if (type === 'sort') {
         title = 'sort'
-        content = <SortForm />
+        content = <SortForm keyName={keyName} />
     } else if (type === 'mapLayers') {
         title = 'map layers'
-        content = <MapLayersForm />
+        content = <MapLayersForm keyName={keyName} />
     } else if (type === 'unsaved') {
         title = 'unsaved changes'
         buttonOptions = 'noTop'

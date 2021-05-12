@@ -28,7 +28,7 @@ function AppContextProvider({ children }) {
             },
         },
         tasksOptions: {
-            sort: 'type',
+            sort: { sortBy: 'type', ascending: false },
             filter: {
                 community: false,
                 knowledge: false,

@@ -20,7 +20,12 @@ export default function SearchbarTasks({ classes }) {
                 setOpen={setFilterOpen}
                 keyName="tasksOptions"
             />
-            <CustomDialog type="sort" open={sortOpen} setOpen={setSortOpen} />
+            <CustomDialog
+                type="sort"
+                open={sortOpen}
+                setOpen={setSortOpen}
+                keyName="tasksOptions"
+            />
             <IconButton
                 className={classes.wrapIconLeft}
                 aria-label="show 4 new mails"
