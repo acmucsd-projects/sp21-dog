@@ -174,7 +174,7 @@ export default function CustomDialog({
         backgroundColor = Color.accent
     } else if (type === 'view') {
         title = 'view'
-        content = <JournalForm />
+        content = <JournalForm keyName={keyName} />
     }
 
     return (

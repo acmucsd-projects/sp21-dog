@@ -19,7 +19,12 @@ export default function SearchbarJournal({ classes }) {
                 open={calendarOpen}
                 setOpen={setCalendarOpen}
             />
-            <CustomDialog type="view" open={viewOpen} setOpen={setViewOpen} />
+            <CustomDialog
+                type="view"
+                open={viewOpen}
+                setOpen={setViewOpen}
+                keyName={'journalOptions'}
+            />
             <IconButton
                 className={classes.wrapIconLeft}
                 aria-label="show 4 new mails"

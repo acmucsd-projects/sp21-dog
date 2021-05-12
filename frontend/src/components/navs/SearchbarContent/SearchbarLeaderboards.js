@@ -18,7 +18,12 @@ export default function SearchbarLeaderboards({ classes }) {
                 setOpen={setFilterOpen}
                 keyName="leaderboardOptions"
             />
-            <CustomDialog type="view" open={viewOpen} setOpen={setViewOpen} />
+            <CustomDialog
+                type="view"
+                open={viewOpen}
+                setOpen={setViewOpen}
+                keyName="leaderboardOptions"
+            />
             <IconButton
                 className={classes.wrapIconLeft}
                 aria-label="show 4 new mails"
