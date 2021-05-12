@@ -89,6 +89,10 @@ export default function CustomDialog({
     setUnsavedOpen,
     closeAll,
     setEditPasswordOpen,
+    setLoginOpen,
+    setSignupOpen,
+    validate,
+    nextPage,
     keyName,
 }) {
     const context = useAppContext()
@@ -112,9 +116,27 @@ export default function CustomDialog({
         }
     }
 
-    const handleSave = () => {
+    const saveAndClose = () => {
         setOpen(false)
-        context.setState({ ...context.state, ...tempContext.state })
+        if (nextPage !== undefined) {
+            context.setState({
+                ...context.state,
+                ...tempContext.state,
+                page: nextPage,
+            })
+        } else {
+            context.setState({ ...context.state, ...tempContext.state })
+        }
+    }
+
+    const handleSave = () => {
+        if (validate !== undefined) {
+            if (validate()) {
+                saveAndClose()
+            }
+        } else {
+            saveAndClose()
+        }
     }
 
     React.useEffect(() => {
@@ -166,11 +188,11 @@ export default function CustomDialog({
     } else if (type === 'login') {
         title = 'welcome back!'
         buttonOptions = 'noTopSubmit'
-        content = <LoginForm />
+        content = <LoginForm setSignupOpen={setSignupOpen} />
     } else if (type === 'signup') {
         title = 'welcome!'
         buttonOptions = 'noTopSubmit'
-        content = <SignupForm />
+        content = <SignupForm setLoginOpen={setLoginOpen} />
         backgroundColor = Color.accent
     } else if (type === 'view') {
         title = 'view'

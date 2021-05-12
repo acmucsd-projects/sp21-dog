@@ -9,6 +9,8 @@ import BottomNavigationAction from '@material-ui/core/BottomNavigationAction'
 import LeaderboardBottom from './LeaderboardBottom'
 import Icon from '@material-ui/core/Icon'
 import { Color } from '../../helpers/Color'
+import CustomDialog from '../modals/CustomDialog'
+import { useTempContext } from '../../contexts/TempContext'
 
 const useStyles = makeStyles({
     bottomNavbar: {
@@ -68,7 +70,19 @@ const useStyles = makeStyles({
 export default function BottomNavigationBar() {
     const classes = useStyles()
     const context = useAppContext()
+    const tempContext = useTempContext()
     const [value, setValue] = React.useState()
+    const [loginOpen, setLoginOpen] = React.useState(false)
+    const [signupOpen, setSignupOpen] = React.useState(false)
+
+    const customSetLoginSignupOpen = (open) => {
+        setLoginOpen(!loginOpen)
+        setSignupOpen(!signupOpen)
+    }
+
+    const accountValidate = () => {}
+
+    const confirmPasswordValidate = () => {}
 
     const orderedNavItems = [
         { page: Page.profile, iconSrc: '/icons/user.svg' },
@@ -132,6 +146,20 @@ export default function BottomNavigationBar() {
 
     return (
         <>
+            <CustomDialog
+                type="login"
+                open={loginOpen}
+                setOpen={setLoginOpen}
+                setSignupOpen={customSetLoginSignupOpen}
+                nextPage={Page.home}
+            />
+            <CustomDialog
+                type="signup"
+                open={signupOpen}
+                setOpen={setSignupOpen}
+                setLoginOpen={customSetLoginSignupOpen}
+                nextPage={Page.home}
+            />
             <div className={classes.bottomNavbar}>
                 {context.state.page == Page.leaderboards && (
                     <LeaderboardBottom />
@@ -142,7 +170,6 @@ export default function BottomNavigationBar() {
                             height: '100%',
                             display: 'flex',
                             padding: '0 13px',
-                            // justifyContent: 'center',
                         }}
                     >
                         <p className={classes.bottomDesc}>Start here!</p>
@@ -151,10 +178,7 @@ export default function BottomNavigationBar() {
                             type="landing"
                             variant="primary"
                             onClick={() => {
-                                context.setState({
-                                    ...context.state,
-                                    page: Page.home,
-                                })
+                                setSignupOpen(true)
                             }}
                         >
                             Sign Up
@@ -163,10 +187,7 @@ export default function BottomNavigationBar() {
                             type="landing"
                             variant="secondary"
                             onClick={() => {
-                                context.setState({
-                                    ...context.state,
-                                    page: Page.home,
-                                })
+                                setLoginOpen(true)
                             }}
                         >
                             Log In

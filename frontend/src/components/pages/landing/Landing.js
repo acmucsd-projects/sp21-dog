@@ -48,8 +48,10 @@ const useStyles = makeStyles({
         fontSize: '18px',
     },
 })
-const Landing = () => {
+
+export default function Landing() {
     const classes = useStyles()
+
     return (
         <div style={{ width: '100%' }}>
             <div className={classes.top}>
@@ -83,5 +85,3 @@ const Landing = () => {
         </div>
     )
 }
-
-export default Landing

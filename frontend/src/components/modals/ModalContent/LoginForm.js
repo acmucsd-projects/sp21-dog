@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import CustomButton from '../../buttons/CustomButton'
+import { useTempContext } from '../../../contexts/TempContext'
 
 const useStyles = makeStyles((theme) => ({
     formRoot: {
@@ -19,24 +20,44 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-export default function LoginForm() {
+export default function LoginForm({ setSignupOpen }) {
     const classes = useStyles()
-    const context = useAppContext()
-
-    const handleSave = () => {}
+    const tempContext = useTempContext()
 
     return (
         <>
-            <form className={classes.formRoot} noValidate autoComplete="off">
+            <div className={classes.formRoot}>
                 <Typography>Email</Typography>
-                <TextField id="email" variant="outlined" type="email" />
+                <TextField
+                    id="email"
+                    variant="outlined"
+                    type="email"
+                    required
+                    onChange={(e) =>
+                        tempContext.setState({
+                            ...tempContext,
+                            email: e.target.value,
+                        })
+                    }
+                />
                 <Typography>Password</Typography>
-                <TextField id="password" variant="outlined" type="password" />
+                <TextField
+                    id="password"
+                    variant="outlined"
+                    type="password"
+                    onChange={(e) =>
+                        tempContext.setState({
+                            ...tempContext,
+                            password: e.target.value,
+                        })
+                    }
+                />
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <CustomButton
                         type="landing"
                         variant="primary"
                         halfWidth={true}
+                        submit={true}
                     >
                         Log In
                     </CustomButton>
@@ -58,11 +79,12 @@ export default function LoginForm() {
                         type="landing"
                         variant="secondary"
                         halfWidth={true}
+                        onClick={() => setSignupOpen(true)}
                     >
                         Sign Up
                     </CustomButton>
                 </div>
-            </form>
+            </div>
         </>
     )
 }

@@ -5,7 +5,7 @@ const TempContext = React.createContext()
 
 function TempContextProvider({ children }) {
     const [state, setState] = useState({
-        page: Page.landing,
+        page: Page.home,
         mapOpen: false,
         displayName: 'Elizabeth',
         username: 'lizzyh2021',

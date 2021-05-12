@@ -111,7 +111,7 @@ export default function CustomButton(props) {
         }
     }
 
-    return props.submit === undefined ? (
+    return props.submit === undefined || !props.submit ? (
         <Button
             style={buttonStyle}
             variant="contained"
