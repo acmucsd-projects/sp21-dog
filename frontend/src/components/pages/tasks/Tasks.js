@@ -16,6 +16,7 @@ export default function Tasks() {
                 type="mapLayers"
                 open={layersOpen}
                 setOpen={setLayersOpen}
+                keyName={'mapOptions'}
             />
             {context.state.mapOpen ? (
                 <>

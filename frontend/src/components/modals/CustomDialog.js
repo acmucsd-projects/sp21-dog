@@ -119,7 +119,7 @@ export default function CustomDialog({
 
     React.useEffect(() => {
         tempContext.setState(context.state)
-    }, [])
+    }, [context.state.mapOpen])
 
     let title = 'title'
     let content = null
