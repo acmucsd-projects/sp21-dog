@@ -21,6 +21,7 @@ import JournalForm from './ModalContent/JournalForm'
 import { useTempContext } from '../../contexts/TempContext'
 import { useAppContext } from '../../contexts/AppContext'
 import { Page } from '../../helpers/Page'
+import Alert from '@material-ui/lab/Alert'
 
 const styles = (theme) => ({
     root: {
@@ -93,11 +94,14 @@ export default function CustomDialog({
     setSignupOpen,
     setLogoutAlertOpen,
     validate,
+    errorMessage,
     nextPage,
     keyName,
 }) {
     const context = useAppContext()
     const tempContext = useTempContext()
+
+    const [error, setError] = React.useState(false)
 
     function equals(obj1, obj2) {
         return Object.keys(obj1).every((key) => {
@@ -133,7 +137,10 @@ export default function CustomDialog({
     const handleSave = () => {
         if (validate !== undefined) {
             if (validate()) {
+                setError(false)
                 saveAndClose()
+            } else {
+                setError(true)
             }
         } else {
             saveAndClose()
@@ -238,6 +245,7 @@ export default function CustomDialog({
                     >
                         {title}
                     </DialogTitle>
+                    {error && <Alert severity="error">{errorMessage}</Alert>}
                     <DialogContent dividers>{content}</DialogContent>
                 </form>
             </Dialog>

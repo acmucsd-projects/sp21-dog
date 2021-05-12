@@ -52,6 +52,12 @@ export default function ChangePasswordForm({ setEditPasswordOpen }) {
                 variant="outlined"
                 type="password"
                 required
+                onChange={(e) =>
+                    tempContext.setState({
+                        ...tempContext.state,
+                        confirmPassword: e.target.value,
+                    })
+                }
             />
             <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <CustomButton type="settings" variant="primary" submit={true}>

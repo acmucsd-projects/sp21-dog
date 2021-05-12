@@ -82,7 +82,10 @@ export default function BottomNavigationBar() {
 
     const accountValidate = () => {}
 
-    const confirmPasswordValidate = () => {}
+    const confirmPasswordValidate = () => {
+        console.log(tempContext.state)
+        return tempContext.state.password === tempContext.state.confirmPassword
+    }
 
     const orderedNavItems = [
         { page: Page.profile, iconSrc: '/icons/user.svg' },
@@ -159,6 +162,8 @@ export default function BottomNavigationBar() {
                 setOpen={setSignupOpen}
                 setLoginOpen={customSetLoginSignupOpen}
                 nextPage={Page.home}
+                validate={confirmPasswordValidate}
+                errorMessage="Passwords do not match"
             />
             <div className={classes.bottomNavbar}>
                 {context.state.page == Page.leaderboards && (

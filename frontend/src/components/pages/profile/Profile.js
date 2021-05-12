@@ -6,6 +6,8 @@ import CustomDialog from '../../modals/CustomDialog'
 import ProfileContent from './ProfileContent'
 
 export default function Profile() {
+    const tempContext = useTempContext()
+
     const [editProfileOpen, setEditProfileOpen] = React.useState(false)
     const [editPasswordOpen, setEditPasswordOpen] = React.useState(false)
     const [settingsOpen, setSettingsOpen] = React.useState(false)
@@ -22,6 +24,11 @@ export default function Profile() {
         setSettingsOpen(false)
         setEditProfileOpen(false)
         setLogoutAlertOpen(false)
+    }
+
+    const confirmPasswordValidate = () => {
+        console.log(tempContext.state)
+        return tempContext.state.password === tempContext.state.confirmPassword
     }
 
     return (
@@ -51,6 +58,8 @@ export default function Profile() {
                 type="editPassword"
                 open={editPasswordOpen}
                 setOpen={customSetEditPasswordOpen}
+                validate={confirmPasswordValidate}
+                errorMessage="Old password is incorrect or passwords do not match"
             />
             <CustomDialog
                 type="unsaved"
