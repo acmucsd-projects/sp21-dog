@@ -1,16 +1,21 @@
 import React from 'react'
+import { useAppContext } from '../../../contexts/AppContext'
 import { Color } from '../../../helpers/Color'
 import StreaksChart from '../../charts/StreaksChart'
+import Searchbar from '../../navs/Searchbar'
 
 export default function Journal() {
+    const context = useAppContext()
+
     return (
         <div
             style={{
                 width: '100%',
-                padding: '4.347826086%',
+                //padding: '4.347826086%',
                 flexDirection: 'column',
             }}
         >
+            {context.state.desktopView && <Searchbar />}
             <div
                 style={{
                     height: '45%',

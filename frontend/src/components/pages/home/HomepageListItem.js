@@ -14,12 +14,18 @@ const useStyles = makeStyles({
         minWidth: 275,
         borderRadius: '15px',
         width: '100%',
-        //height: '75px',
         display: 'flex',
         alignItems: 'center',
         '&:hover': {
             cursor: 'pointer',
         },
+    },
+    unclickable: {
+        minWidth: 275,
+        borderRadius: '15px',
+        width: '100%',
+        display: 'flex',
+        alignItems: 'center',
     },
     bullet: {
         display: 'inline-block',
@@ -58,6 +64,7 @@ export default function HomepageListItem({ type, style }) {
     let secondaryText = 'secondary text'
     let showMap = false
     let targetPage = Page.home
+    let unclickable = false
 
     if (type === 'nearbyTasks') {
         title = 'nearby tasks'
@@ -70,33 +77,42 @@ export default function HomepageListItem({ type, style }) {
         primaryText = 'Keep your best Fitness streak!'
         secondaryText = `Streak: 14 days     Best: 14 days`
         targetPage = Page.journal
+        if (context.state.desktopView) {
+            unclickable = true
+        }
     } else if (type === 'journal') {
         title = 'journal'
         iconSrc = './icons/journal.svg'
         primaryText = 'Great job this week!'
         secondaryText = 'You averaged 4 tasks/day over the last 7 days.'
         targetPage = Page.journal
+        if (context.state.desktopView) {
+            unclickable = true
+        }
     } else if (type === 'leaderboards') {
         title = 'leaderboards'
         iconSrc = './icons/trophy.svg'
         primaryText = "You're in 2nd place with 45k pts!"
         secondaryText = '1.9k pts behind the next person.'
-        targetPage = Page.leaderboards
+        targetPage =
+            (context.state.desktopView && Page.profile) || Page.leaderboards
     }
 
     return (
         <Card
-            className={classes.root}
+            className={unclickable ? classes.unclickable : classes.root}
             style={style}
             onClick={() => {
-                if (showMap) {
-                    context.setState({
-                        ...context.state,
-                        mapOpen: true,
-                        page: targetPage,
-                    })
-                } else {
-                    context.setState({ ...context.state, page: targetPage })
+                if (!unclickable) {
+                    if (showMap) {
+                        context.setState({
+                            ...context.state,
+                            mapOpen: true,
+                            page: targetPage,
+                        })
+                    } else {
+                        context.setState({ ...context.state, page: targetPage })
+                    }
                 }
             }}
         >
@@ -127,7 +143,9 @@ export default function HomepageListItem({ type, style }) {
                         >
                             {title}
                         </h3>
-                        <NavigateNextIcon style={{ height: '80%' }} />
+                        {!unclickable && (
+                            <NavigateNextIcon style={{ height: '80%' }} />
+                        )}
                     </div>
                 </div>
                 {showMap ? (

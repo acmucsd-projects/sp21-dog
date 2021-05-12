@@ -12,6 +12,9 @@ import TopNavigationBarDesktop from '../navs/TopNavigationBarDesktop'
 import BottomNavigationBar from '../navs/BottomNavigationBar'
 import LeaderboardBottom from '../navs/LeaderboardBottom'
 import Map from './map/Map'
+import ProfileCard from '../cards/ProfileCard'
+import SearchbarLeaderboards from '../navs/SearchbarContent/SearchbarLeaderboards'
+import Searchbar from '../navs/Searchbar'
 
 export default function Content() {
     const context = useAppContext()
@@ -37,6 +40,7 @@ export default function Content() {
                     className="content-wrapper"
                     style={{
                         display: 'flex',
+                        flexDirection: 'column',
                         justifyContent: 'center',
                         alignItems: 'center',
                         backgroundColor: '#0094FF',
@@ -53,34 +57,33 @@ export default function Content() {
                             style={{
                                 backgroundColor: Color.primary,
                                 borderRadius: '15px',
-                                width: '50%',
-                                height: '90%',
+
+                                margin: '3% 3%',
+                                padding: '1%',
                             }}
+                            className="content-wrapper"
                         >
                             {context.state.page === Page.landing && <Landing />}
                             {context.state.page === Page.profile && (
-                                <div style={{ display: 'flex' }}>
+                                <div style={{ display: 'flex', width: '100%' }}>
                                     <Profile />
                                     <hr />
                                     <div
+                                        style={{
+                                            flexDirection: 'column',
+                                        }}
                                         className="content-wrapper"
-                                        style={{ width: '50%', height: '90%' }}
                                     >
-                                        <div
-                                            style={{
-                                                display: 'flex',
-                                                flexDirection: 'column',
-                                            }}
-                                            className="overflow-container"
-                                        >
+                                        <Searchbar />
+
+                                        <div className="overflow-container">
                                             <Leaderboards />
-                                            <LeaderboardBottom />
                                         </div>
                                     </div>
                                 </div>
                             )}
                             {context.state.page === Page.home && (
-                                <div style={{ display: 'flex' }}>
+                                <div style={{ display: 'flex', width: '100%' }}>
                                     <Home />
                                     <hr />
                                     <Journal />

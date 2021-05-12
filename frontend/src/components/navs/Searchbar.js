@@ -46,6 +46,22 @@ const useStyles = makeStyles({
 export default function Searchbar() {
     const classes = useStyles()
     const context = useAppContext()
+    if (context.state.desktopView) {
+        return (
+            <div className={classes.dropdown}>
+                {context.state.page === Page.profile && (
+                    <SearchbarLeaderboards classes={classes} />
+                )}
+                {context.state.page === Page.home && (
+                    <SearchbarJournal classes={classes} />
+                )}
+                {context.state.page === Page.tasks &&
+                    !context.state.mapOpen && (
+                        <SearchbarTasks classes={classes} />
+                    )}
+            </div>
+        )
+    }
     return (
         <div className={classes.dropdown}>
             {context.state.page === Page.leaderboards && (

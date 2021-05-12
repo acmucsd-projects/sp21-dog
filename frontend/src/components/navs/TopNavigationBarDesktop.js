@@ -18,7 +18,7 @@ const useStyles = makeStyles({
         display: 'flex',
         backgroundColor: Color.primary,
         flexDirection: 'column',
-        // height: '8.152173913%',
+        height: '7%',
         justifyContent: 'center',
         boxShadow:
             '0px -2px 4px -1px rgb(0 0 0 / 20%),' +

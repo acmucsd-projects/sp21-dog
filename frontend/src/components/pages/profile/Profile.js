@@ -4,6 +4,7 @@ import { useTempContext } from '../../../contexts/TempContext'
 import CustomButton from '../../buttons/CustomButton'
 import CustomDialog from '../../modals/CustomDialog'
 import ProfileContent from './ProfileContent'
+import ProfileCard from '../../cards/ProfileCard'
 
 export default function Profile() {
     const tempContext = useTempContext()
@@ -31,73 +32,78 @@ export default function Profile() {
         return tempContext.state.password === tempContext.state.confirmPassword
     }
 
+    const context = useAppContext()
+
     return (
-        <div
-            className="overflow-container"
-            style={{
-                width: '100%',
-                padding: '4.347826086%',
-                flexDirection: 'column',
-            }}
-        >
-            <CustomDialog
-                type="editProfile"
-                open={editProfileOpen}
-                setOpen={setEditProfileOpen}
-                setUnsavedOpen={setUnsavedOpen}
-            />
-            <CustomDialog
-                type="settings"
-                open={settingsOpen}
-                setOpen={setSettingsOpen}
-                setEditPasswordOpen={customSetEditPasswordOpen}
-                setUnsavedOpen={setUnsavedOpen}
-                setLogoutAlertOpen={setLogoutAlertOpen}
-            />
-            <CustomDialog
-                type="editPassword"
-                open={editPasswordOpen}
-                setOpen={customSetEditPasswordOpen}
-                validate={confirmPasswordValidate}
-                errorMessage="Old password is incorrect or passwords do not match"
-            />
-            <CustomDialog
-                type="unsaved"
-                open={unsavedOpen}
-                setOpen={setUnsavedOpen}
-                closeAll={closeAll}
-            />
-            <CustomDialog
-                type="logout"
-                open={logoutAlertOpen}
-                setOpen={setLogoutAlertOpen}
-                closeAll={closeAll}
-            />
+        <>
             <div
+                className="overflow-container"
                 style={{
-                    display: 'flex',
+                    width: '100%',
+                    //padding: '4.347826086%',
+                    flexDirection: 'column',
                 }}
             >
-                <CustomButton
+                <CustomDialog
+                    type="editProfile"
+                    open={editProfileOpen}
+                    setOpen={setEditProfileOpen}
+                    setUnsavedOpen={setUnsavedOpen}
+                />
+                <CustomDialog
                     type="settings"
-                    variant="secondary"
-                    onClick={() => {
-                        setEditProfileOpen(true)
+                    open={settingsOpen}
+                    setOpen={setSettingsOpen}
+                    setEditPasswordOpen={customSetEditPasswordOpen}
+                    setUnsavedOpen={setUnsavedOpen}
+                    setLogoutAlertOpen={setLogoutAlertOpen}
+                />
+                <CustomDialog
+                    type="editPassword"
+                    open={editPasswordOpen}
+                    setOpen={customSetEditPasswordOpen}
+                    validate={confirmPasswordValidate}
+                    errorMessage="Old password is incorrect or passwords do not match"
+                />
+                <CustomDialog
+                    type="unsaved"
+                    open={unsavedOpen}
+                    setOpen={setUnsavedOpen}
+                    closeAll={closeAll}
+                />
+                <CustomDialog
+                    type="logout"
+                    open={logoutAlertOpen}
+                    setOpen={setLogoutAlertOpen}
+                    closeAll={closeAll}
+                />
+                {context.state.desktopView && <ProfileCard />}
+                <div
+                    style={{
+                        display: 'flex',
                     }}
                 >
-                    Edit Profile
-                </CustomButton>
-                <CustomButton
-                    type="settings"
-                    variant="secondary"
-                    onClick={() => {
-                        setSettingsOpen(true)
-                    }}
-                >
-                    Settings
-                </CustomButton>
+                    <CustomButton
+                        type="settings"
+                        variant="secondary"
+                        onClick={() => {
+                            setEditProfileOpen(true)
+                        }}
+                    >
+                        Edit Profile
+                    </CustomButton>
+                    <CustomButton
+                        type="settings"
+                        variant="secondary"
+                        onClick={() => {
+                            setSettingsOpen(true)
+                        }}
+                    >
+                        Settings
+                    </CustomButton>
+                </div>
+                <ProfileContent />
             </div>
-            <ProfileContent />
-        </div>
+        </>
     )
 }
