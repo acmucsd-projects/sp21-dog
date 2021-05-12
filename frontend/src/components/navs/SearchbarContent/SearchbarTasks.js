@@ -18,6 +18,7 @@ export default function SearchbarTasks({ classes }) {
                 type="filter"
                 open={filterOpen}
                 setOpen={setFilterOpen}
+                keyName="tasksOptions"
             />
             <CustomDialog type="sort" open={sortOpen} setOpen={setSortOpen} />
             <IconButton

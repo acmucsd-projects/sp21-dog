@@ -1,11 +1,6 @@
 import React from 'react'
-import { useAppContext } from '../../../contexts/AppContext'
-import { makeStyles } from '@material-ui/core/styles'
-import TextField from '@material-ui/core/TextField'
-import Typography from '@material-ui/core/Typography'
 import CustomButton from '../../buttons/CustomButton'
 import { useTempContext } from '../../../contexts/TempContext'
-import ChangePasswordForm from './ChangePasswordForm'
 
 export default function FilterForm({ keyName }) {
     const tempContext = useTempContext()
@@ -41,83 +36,71 @@ export default function FilterForm({ keyName }) {
     }
 
     return (
-        keyName !== undefined && (
-            <>
-                <div style={{ display: 'flex' }}>
-                    <CustomButton
-                        type="search"
-                        selected={
-                            tempContext.state[keyName].filter[
-                                Object.keys(
-                                    tempContext.state[keyName].filter
-                                )[0]
-                            ]
-                        }
-                        onClick={() => handleToggle(0)}
-                    >
-                        {Object.keys(tempContext.state[keyName].filter)[0]}
-                    </CustomButton>
-                    <CustomButton
-                        type="search"
-                        selected={
-                            tempContext.state[keyName].filter[
-                                Object.keys(
-                                    tempContext.state[keyName].filter
-                                )[1]
-                            ]
-                        }
-                        onClick={() => handleToggle(1)}
-                    >
-                        {Object.keys(tempContext.state[keyName].filter)[1]}
-                    </CustomButton>
-                </div>
-                <div style={{ display: 'flex' }}>
-                    <CustomButton
-                        type="search"
-                        selected={
-                            tempContext.state[keyName].filter[
-                                Object.keys(
-                                    tempContext.state[keyName].filter
-                                )[2]
-                            ]
-                        }
-                        onClick={() => handleToggle(2)}
-                    >
-                        {Object.keys(tempContext.state[keyName].filter)[2]}
-                    </CustomButton>
-                    <CustomButton
-                        type="search"
-                        selected={
-                            tempContext.state[keyName].filter[
-                                Object.keys(
-                                    tempContext.state[keyName].filter
-                                )[3]
-                            ]
-                        }
-                        onClick={() => handleToggle(3)}
-                    >
-                        {Object.keys(tempContext.state[keyName].filter)[3]}
-                    </CustomButton>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <CustomButton
-                        type="search"
-                        halfWidth={true}
-                        selected={
-                            tempContext.state[keyName].filter[
-                                Object.keys(
-                                    tempContext.state[keyName].filter
-                                )[4]
-                            ]
-                        }
-                        onClick={() => {
-                            handleSelectAll()
-                        }}
-                    >
-                        {Object.keys(tempContext.state[keyName].filter)[4]}
-                    </CustomButton>
-                </div>
-            </>
-        )
+        <>
+            <div style={{ display: 'flex' }}>
+                <CustomButton
+                    type="search"
+                    selected={
+                        tempContext.state[keyName].filter[
+                            Object.keys(tempContext.state[keyName].filter)[0]
+                        ]
+                    }
+                    onClick={() => handleToggle(0)}
+                >
+                    {Object.keys(tempContext.state[keyName].filter)[0]}
+                </CustomButton>
+                <CustomButton
+                    type="search"
+                    selected={
+                        tempContext.state[keyName].filter[
+                            Object.keys(tempContext.state[keyName].filter)[1]
+                        ]
+                    }
+                    onClick={() => handleToggle(1)}
+                >
+                    {Object.keys(tempContext.state[keyName].filter)[1]}
+                </CustomButton>
+            </div>
+            <div style={{ display: 'flex' }}>
+                <CustomButton
+                    type="search"
+                    selected={
+                        tempContext.state[keyName].filter[
+                            Object.keys(tempContext.state[keyName].filter)[2]
+                        ]
+                    }
+                    onClick={() => handleToggle(2)}
+                >
+                    {Object.keys(tempContext.state[keyName].filter)[2]}
+                </CustomButton>
+                <CustomButton
+                    type="search"
+                    selected={
+                        tempContext.state[keyName].filter[
+                            Object.keys(tempContext.state[keyName].filter)[3]
+                        ]
+                    }
+                    onClick={() => handleToggle(3)}
+                >
+                    {Object.keys(tempContext.state[keyName].filter)[3]}
+                </CustomButton>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <CustomButton
+                    type="search"
+                    halfWidth={true}
+                    selected={
+                        tempContext.state[keyName].filter[
+                            Object.keys(tempContext.state[keyName].filter)[4]
+                        ]
+                    }
+                    onClick={() => {
+                        handleSelectAll()
+                    }}
+                >
+                    {Object.keys(tempContext.state[keyName].filter)[4]}
+                </CustomButton>
+            </div>
+        </>
     )
 }
