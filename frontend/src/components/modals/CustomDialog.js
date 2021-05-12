@@ -91,6 +91,7 @@ export default function CustomDialog({
     setEditPasswordOpen,
     setLoginOpen,
     setSignupOpen,
+    setLogoutAlertOpen,
     validate,
     nextPage,
     keyName,
@@ -152,7 +153,12 @@ export default function CustomDialog({
         content = <ProfileForm />
     } else if (type === 'settings') {
         title = 'settings'
-        content = <SettingsForm setEditPasswordOpen={setEditPasswordOpen} />
+        content = (
+            <SettingsForm
+                setEditPasswordOpen={setEditPasswordOpen}
+                setLogoutAlertOpen={setLogoutAlertOpen}
+            />
+        )
     } else if (type === 'calendar') {
         title = 'calendar'
         content = <CalendarForm />
@@ -183,8 +189,13 @@ export default function CustomDialog({
         )
     } else if (type === 'logout') {
         title = 'log out'
-        buttonOptions = 'noTopSubmit'
-        content = <LogoutAlert />
+        buttonOptions = 'noTop'
+        content = (
+            <LogoutAlert
+                setLogoutAlertOpen={setOpen}
+                closeAll={() => closeAll()}
+            />
+        )
     } else if (type === 'login') {
         title = 'welcome back!'
         buttonOptions = 'noTopSubmit'

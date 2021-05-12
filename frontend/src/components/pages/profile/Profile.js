@@ -10,8 +10,7 @@ export default function Profile() {
     const [editPasswordOpen, setEditPasswordOpen] = React.useState(false)
     const [settingsOpen, setSettingsOpen] = React.useState(false)
     const [unsavedOpen, setUnsavedOpen] = React.useState(false)
-    const context = useAppContext()
-    const tempContext = useTempContext()
+    const [logoutAlertOpen, setLogoutAlertOpen] = React.useState(false)
 
     const customSetEditPasswordOpen = (open) => {
         setEditPasswordOpen(open)
@@ -22,6 +21,7 @@ export default function Profile() {
         setUnsavedOpen(false)
         setSettingsOpen(false)
         setEditProfileOpen(false)
+        setLogoutAlertOpen(false)
     }
 
     return (
@@ -45,6 +45,7 @@ export default function Profile() {
                 setOpen={setSettingsOpen}
                 setEditPasswordOpen={customSetEditPasswordOpen}
                 setUnsavedOpen={setUnsavedOpen}
+                setLogoutAlertOpen={setLogoutAlertOpen}
             />
             <CustomDialog
                 type="editPassword"
@@ -55,6 +56,12 @@ export default function Profile() {
                 type="unsaved"
                 open={unsavedOpen}
                 setOpen={setUnsavedOpen}
+                closeAll={closeAll}
+            />
+            <CustomDialog
+                type="logout"
+                open={logoutAlertOpen}
+                setOpen={setLogoutAlertOpen}
                 closeAll={closeAll}
             />
             <div

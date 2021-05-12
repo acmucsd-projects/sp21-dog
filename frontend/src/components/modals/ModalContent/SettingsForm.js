@@ -22,14 +22,19 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-export default function SettingsForm({ setEditPasswordOpen }) {
+export default function SettingsForm({
+    setEditPasswordOpen,
+    setLogoutAlertOpen,
+}) {
     const classes = useStyles()
     const context = useAppContext()
     const tempContext = useTempContext()
 
     const [openPassword, setOpenPassword] = React.useState(false)
 
-    const handleSave = () => {}
+    const handleLogout = () => {
+        setLogoutAlertOpen(true)
+    }
 
     React.useEffect(() => {
         tempContext.setState({
@@ -85,7 +90,7 @@ export default function SettingsForm({ setEditPasswordOpen }) {
                             type="landing"
                             variant="warning"
                             halfWidth={true}
-                            onClick={handleSave}
+                            onClick={handleLogout}
                         >
                             Log Out
                         </CustomButton>
