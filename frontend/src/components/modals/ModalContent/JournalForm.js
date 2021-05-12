@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
 export default function JournalForm({ keyName }) {
     const classes = useStyles()
     const tempContext = useTempContext()
-    const periodOptions = ['week', 'month', 'year']
+    const periodOptions = ['week', 'month', 'year', 'all']
     const displayDataOptions = ['tasks', 'points']
 
     const handlePeriodToggle = (i) => {
@@ -56,42 +56,71 @@ export default function JournalForm({ keyName }) {
             >
                 <Typography>Period</Typography>
                 <div style={{ display: 'flex' }}>
-                    <CustomButton
-                        type="search"
-                        selected={
-                            periodOptions[0] ===
-                            tempContext.state[keyName].view.timePeriod
-                        }
-                        onClick={() => {
-                            handlePeriodToggle(0)
+                    <div
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            marginBottom: '8px',
                         }}
                     >
-                        {periodOptions[0]}
-                    </CustomButton>
-                    <CustomButton
-                        type="search"
-                        selected={
-                            periodOptions[1] ===
-                            tempContext.state[keyName].view.timePeriod
-                        }
-                        onClick={() => {
-                            handlePeriodToggle(1)
-                        }}
-                    >
-                        {periodOptions[1]}
-                    </CustomButton>
-                    <CustomButton
-                        type="search"
-                        selected={
-                            periodOptions[2] ===
-                            tempContext.state[keyName].view.timePeriod
-                        }
-                        onClick={() => {
-                            handlePeriodToggle(2)
-                        }}
-                    >
-                        {periodOptions[2]}
-                    </CustomButton>
+                        <div style={{ display: 'flex' }}>
+                            <CustomButton
+                                type="search"
+                                selected={
+                                    periodOptions[0] ===
+                                    tempContext.state[keyName].view.timePeriod
+                                }
+                                onClick={() => {
+                                    handlePeriodToggle(0)
+                                }}
+                            >
+                                {periodOptions[0]}
+                            </CustomButton>
+                            <CustomButton
+                                type="search"
+                                selected={
+                                    periodOptions[1] ===
+                                    tempContext.state[keyName].view.timePeriod
+                                }
+                                onClick={() => {
+                                    handlePeriodToggle(1)
+                                }}
+                            >
+                                {periodOptions[1]}
+                            </CustomButton>
+                            <CustomButton
+                                type="search"
+                                selected={
+                                    periodOptions[2] ===
+                                    tempContext.state[keyName].view.timePeriod
+                                }
+                                onClick={() => {
+                                    handlePeriodToggle(2)
+                                }}
+                            >
+                                {periodOptions[2]}
+                            </CustomButton>
+                        </div>
+                        <div
+                            style={{
+                                display: 'flex',
+                                justifyContent: 'flex-end',
+                            }}
+                        >
+                            <CustomButton
+                                type="search"
+                                selected={
+                                    periodOptions[3] ===
+                                    tempContext.state[keyName].view.timePeriod
+                                }
+                                onClick={() => {
+                                    handlePeriodToggle(3)
+                                }}
+                            >
+                                {periodOptions[3]}
+                            </CustomButton>
+                        </div>
+                    </div>
                 </div>
             </div>
 
