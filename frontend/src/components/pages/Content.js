@@ -15,6 +15,7 @@ import Map from './map/Map'
 import ProfileCard from '../cards/ProfileCard'
 import SearchbarLeaderboards from '../navs/SearchbarContent/SearchbarLeaderboards'
 import Searchbar from '../navs/Searchbar'
+import TaskList from './tasks/TasksList'
 
 export default function Content() {
     const context = useAppContext()
@@ -50,7 +51,19 @@ export default function Content() {
                     {context.state.page === Page.tasks ? (
                         <>
                             <Map />
-                            <Tasks />
+
+                            <div
+                                style={{
+                                    position: 'absolute',
+                                    top: '10%',
+                                    right: '0%',
+                                    width: '40%',
+                                    height: '50%',
+                                }}
+                            >
+                                <Searchbar />
+                                <Tasks />
+                            </div>
                         </>
                     ) : (
                         <div

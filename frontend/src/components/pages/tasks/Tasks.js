@@ -10,6 +10,11 @@ export default function Tasks() {
     const [layersOpen, setLayersOpen] = React.useState(false)
 
     const context = useAppContext()
+    let offset = 0
+    if (context.state.desktopView) {
+        offset = -15
+    }
+
     if (context.state.desktopView) {
         return (
             <div
@@ -24,37 +29,59 @@ export default function Tasks() {
                 />
                 <div style={{ width: '100%', padding: '0 10px' }}>
                     <TasksList />
+                    {!context.state.desktopView && (
+                        <div
+                            className="float"
+                            style={{ right: '3%', bottom: '15%' }}
+                        >
+                            <FloatingActionButton
+                                imgSrc="./icons/map.svg"
+                                onClick={() => {
+                                    context.setState({
+                                        ...context.state,
+                                        mapOpen: true,
+                                    })
+                                }}
+                            />
+                        </div>
+                    )}
+                </div>
+                <Map />
+                {!context.state.desktopView && (
                     <div
                         className="float"
-                        style={{ right: '3%', bottom: '15%' }}
+                        style={{
+                            right: '3%',
+                            bottom: `${15 + offset}%`,
+                        }}
                     >
                         <FloatingActionButton
-                            imgSrc="./icons/map.svg"
+                            imgSrc="./icons/journal.svg"
                             onClick={() => {
                                 context.setState({
                                     ...context.state,
-                                    mapOpen: true,
+                                    mapOpen: false,
                                 })
                             }}
                         />
                     </div>
-                </div>
-                <Map />
-                <div className="float" style={{ right: '3%', bottom: '15%' }}>
-                    <FloatingActionButton
-                        imgSrc="./icons/journal.svg"
-                        onClick={() => {
-                            context.setState({
-                                ...context.state,
-                                mapOpen: false,
-                            })
-                        }}
-                    />
-                </div>
-                <div className="float" style={{ right: '3%', bottom: '24%' }}>
+                )}
+                <div
+                    className="float"
+                    style={{
+                        right: '3%',
+                        bottom: `${24 + offset}%`,
+                    }}
+                >
                     <FloatingActionButton imgSrc="./icons/maparrow.svg" />
                 </div>
-                <div className="float" style={{ right: '3%', bottom: '33%' }}>
+                <div
+                    className="float"
+                    style={{
+                        right: '3%',
+                        bottom: `${33 + offset}%`,
+                    }}
+                >
                     <FloatingActionButton
                         imgSrc="./icons/layers.svg"
                         onClick={() => {
@@ -62,9 +89,14 @@ export default function Tasks() {
                         }}
                     />
                 </div>
-                <div className="float" style={{ bottom: '13%', width: '83%' }}>
-                    <MapViewTask />
-                </div>
+                {!context.state.desktopView && (
+                    <div
+                        className="float"
+                        style={{ bottom: '13%', width: '83%' }}
+                    >
+                        <MapViewTask />
+                    </div>
+                )}
             </div>
         )
     }
