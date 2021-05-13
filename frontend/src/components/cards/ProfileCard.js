@@ -32,7 +32,7 @@ const useStyles = makeStyles({
     },
 })
 
-export default function AvatarCard() {
+export default function ProfileCard() {
     const classes = useStyles()
     const context = useAppContext()
 
