@@ -18,7 +18,7 @@ const useStyles = makeStyles({
         display: 'flex',
         backgroundColor: Color.primary,
         flexDirection: 'column',
-        height: '7%',
+        height: '8%',
         justifyContent: 'center',
         boxShadow:
             '0px -2px 4px -1px rgb(0 0 0 / 20%),' +
@@ -28,7 +28,7 @@ const useStyles = makeStyles({
         width: '100%',
         maxWidth: '1000px',
         minWidth: '100px',
-        justifyContent: 'space-evenly',
+        justifyContent: 'center',
     },
     imageIcon: {
         height: 'inherit',
@@ -198,6 +198,7 @@ export default function TopNavigationBarDesktop() {
                             height: '100%',
                             display: 'flex',
                             justifyContent: 'center',
+                            alignItems: 'center',
                         }}
                     >
                         <Icon classes={{ root: classes.logoIconRoot }}>
