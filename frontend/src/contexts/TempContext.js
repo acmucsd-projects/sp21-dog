@@ -5,7 +5,8 @@ const TempContext = React.createContext()
 
 function TempContextProvider({ children }) {
     const [state, setState] = useState({
-        page: Page.home,
+        desktopView: false, // Desktop landing page is not finished yet
+        page: Page.landing,
         mapOpen: false,
         displayName: 'Elizabeth',
         username: 'lizzyh2021',
