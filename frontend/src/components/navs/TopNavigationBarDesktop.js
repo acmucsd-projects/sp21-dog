@@ -145,7 +145,7 @@ export default function TopNavigationBarDesktop() {
                             alignItems: 'center',
                         }}
                     >
-                        <Icon classes={{ root: classes.iconRoot }}>
+                        <Icon classes={{ root: classes.logoIconRoot }}>
                             <img
                                 className={classes.imageIcon}
                                 src={item.iconSrc}
