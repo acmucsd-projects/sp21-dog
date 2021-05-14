@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-export default function LeaderboardListItem({ user, i }) {
+export default function LeaderboardListItem({ user, i, onClick }) {
     const classes = useStyles()
     const labelId = `checkbox-list-secondary-label-${i}`
 
@@ -24,6 +24,7 @@ export default function LeaderboardListItem({ user, i }) {
             style={{
                 display: 'flex',
             }}
+            onClick={onClick}
             button
         >
             <div className={classes.numberDisplay}>
