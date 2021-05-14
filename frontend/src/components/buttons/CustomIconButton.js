@@ -19,12 +19,23 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-export default function CustomIconButton({ src, onClick }) {
+export default function CustomIconButton({ src, onClick, type, className }) {
     const classes = useStyles()
 
     return (
-        <Icon classes={{ root: classes.imageIcon }} onClick={onClick}>
-            <img className={classes.imageIcon} src={src} />
-        </Icon>
+        <button
+            className={className}
+            style={{
+                border: 0,
+                backgroundColor: 'transparent',
+                padding: 0,
+                borderRadius: '15px',
+            }}
+            type={type}
+        >
+            <Icon classes={{ root: classes.imageIcon }} onClick={onClick}>
+                <img className={classes.imageIcon} src={src} />
+            </Icon>
+        </button>
     )
 }

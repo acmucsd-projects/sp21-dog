@@ -1,3 +1,4 @@
+import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import Dialog from '@material-ui/core/Dialog'
 import MuiDialogTitle from '@material-ui/core/DialogTitle'
@@ -17,6 +18,10 @@ import LoginForm from './ModalContent/LoginForm'
 import SignupForm from './ModalContent/SignupForm'
 import { Color } from '../../helpers/Color'
 import JournalForm from './ModalContent/JournalForm'
+import { useTempContext } from '../../contexts/TempContext'
+import { useAppContext } from '../../contexts/AppContext'
+import { Page } from '../../helpers/Page'
+import Alert from '@material-ui/lab/Alert'
 
 const styles = (theme) => ({
     root: {
@@ -26,14 +31,7 @@ const styles = (theme) => ({
 })
 
 const DialogTitle = withStyles(styles)((props) => {
-    const {
-        children,
-        classes,
-        onClose,
-        onSave,
-        noTopSubmitButton,
-        ...other
-    } = props
+    const { children, classes, onClose, buttonOptions, ...other } = props
 
     return (
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -45,7 +43,7 @@ const DialogTitle = withStyles(styles)((props) => {
                 <Typography variant="h6">{children}</Typography>
             </MuiDialogTitle>
             <div style={{ display: 'flex', alignItems: 'center' }}>
-                {noTopSubmitButton ? (
+                {buttonOptions === 'noTopSubmit' ? (
                     <div style={{ margin: '0 16px 0 8px' }}>
                         <CustomIconButton
                             src={
@@ -54,21 +52,25 @@ const DialogTitle = withStyles(styles)((props) => {
                                     : './icons/back-accent.svg'
                             }
                             onClick={onClose}
+                            type="button"
                         />
                     </div>
                 ) : (
-                    <>
-                        <CustomIconButton
-                            src="./icons/back-accent.svg"
-                            onClick={onClose}
-                        />
-                        <div style={{ margin: '0 16px 0 8px' }}>
+                    buttonOptions !== 'noTop' && (
+                        <>
                             <CustomIconButton
-                                src="./icons/confirm.svg"
-                                onClick={onSave}
+                                src="./icons/back-accent.svg"
+                                onClick={onClose}
+                                type="button"
                             />
-                        </div>
-                    </>
+                            <div style={{ margin: '0 16px 0 8px' }}>
+                                <CustomIconButton
+                                    src="./icons/confirm.svg"
+                                    type="submit"
+                                />
+                            </div>
+                        </>
+                    )
                 )}
             </div>
         </div>
@@ -81,61 +83,138 @@ const DialogContent = withStyles((theme) => ({
     },
 }))(MuiDialogContent)
 
-export default function CustomDialog({ type, open, setOpen }) {
+export default function CustomDialog({
+    type,
+    open,
+    setOpen,
+    setUnsavedOpen,
+    closeAll,
+    setEditPasswordOpen,
+    setLoginOpen,
+    setSignupOpen,
+    setLogoutAlertOpen,
+    validate,
+    errorMessage,
+    nextPage,
+    keyName,
+}) {
+    const context = useAppContext()
+    const tempContext = useTempContext()
+
+    const [error, setError] = React.useState(false)
+
+    function equals(obj1, obj2) {
+        return Object.keys(obj1).every((key) => {
+            return obj1[key] === obj2[key]
+        })
+    }
+
     const handleClose = () => {
+        if (
+            setUnsavedOpen !== undefined &&
+            !equals(tempContext.state, context.state)
+        ) {
+            setUnsavedOpen(true)
+        } else {
+            tempContext.setState(context.state)
+            setOpen(false)
+        }
+    }
+
+    const saveAndClose = () => {
         setOpen(false)
+        if (nextPage !== undefined) {
+            context.setState({
+                ...context.state,
+                ...tempContext.state,
+                page: nextPage,
+            })
+        } else {
+            context.setState({ ...context.state, ...tempContext.state })
+        }
     }
 
     const handleSave = () => {
-        setOpen(false)
+        if (validate !== undefined) {
+            if (validate()) {
+                setError(false)
+                saveAndClose()
+            } else {
+                setError(true)
+            }
+        } else {
+            saveAndClose()
+        }
     }
+
+    React.useEffect(() => {
+        tempContext.setState(context.state)
+    }, [context.state.mapOpen])
 
     let title = 'title'
     let content = null
     let backgroundColor = Color.primary
-    let noTopSubmitButton = false
+    let buttonOptions = null
     if (type === 'editProfile') {
         title = 'Edit Profile'
         content = <ProfileForm />
     } else if (type === 'settings') {
         title = 'settings'
-        content = <SettingsForm />
+        content = (
+            <SettingsForm
+                setEditPasswordOpen={setEditPasswordOpen}
+                setLogoutAlertOpen={setLogoutAlertOpen}
+            />
+        )
     } else if (type === 'calendar') {
         title = 'calendar'
         content = <CalendarForm />
-    } else if (type === 'changePassword') {
+    } else if (type === 'editPassword') {
         title = 'change password'
-        content = <ChangePasswordForm />
-        noTopSubmitButton = true
+        content = <ChangePasswordForm setEditPasswordOpen={setOpen} />
+        buttonOptions = 'noTop'
     } else if (type === 'filter') {
         title = 'filter'
-        content = <FilterForm />
+        content = <FilterForm keyName={keyName} />
     } else if (type === 'sort') {
         title = 'sort'
-        content = <SortForm />
+        content = <SortForm keyName={keyName} />
     } else if (type === 'mapLayers') {
         title = 'map layers'
-        content = <MapLayersForm />
+        content = <MapLayersForm keyName={keyName} />
     } else if (type === 'unsaved') {
         title = 'unsaved changes'
-        noTopSubmitButton = true
-        content = <UnsavedChangesAlert />
+        buttonOptions = 'noTop'
+        content = (
+            <UnsavedChangesAlert
+                setUnsavedOpen={setOpen}
+                closeAll={() => {
+                    tempContext.setState(context.state)
+                    closeAll()
+                }}
+            />
+        )
     } else if (type === 'logout') {
         title = 'log out'
-        noTopSubmitButton = true
-        content = <LogoutAlert />
+        buttonOptions = 'noTop'
+        content = (
+            <LogoutAlert
+                setLogoutAlertOpen={setOpen}
+                closeAll={() => closeAll()}
+            />
+        )
     } else if (type === 'login') {
         title = 'welcome back!'
-        noTopSubmitButton = true
-        content = <LoginForm />
+        buttonOptions = 'noTopSubmit'
+        content = <LoginForm setSignupOpen={setSignupOpen} />
     } else if (type === 'signup') {
         title = 'welcome!'
-        noTopSubmitButton = true
-        content = <SignupForm />
+        buttonOptions = 'noTopSubmit'
+        content = <SignupForm setLoginOpen={setLoginOpen} />
         backgroundColor = Color.accent
-    } else if (type === 'journalView') {
+    } else if (type === 'view') {
         title = 'view'
-        content = <JournalForm />
+        content = <JournalForm keyName={keyName} />
     }
 
     return (
@@ -151,16 +230,24 @@ export default function CustomDialog({ type, open, setOpen }) {
                     },
                 }}
             >
-                <DialogTitle
-                    id="edit-profile-title"
-                    onClose={handleClose}
-                    onSave={handleSave}
-                    noTopSubmitButton={noTopSubmitButton}
-                    whiteButtons={backgroundColor != Color.primary}
+                <form
+                    autoComplete="off"
+                    onSubmit={(e) => {
+                        e.preventDefault()
+                        handleSave()
+                    }}
                 >
-                    {title}
-                </DialogTitle>
-                <DialogContent dividers>{content}</DialogContent>
+                    <DialogTitle
+                        id="edit-profile-title"
+                        onClose={handleClose}
+                        buttonOptions={buttonOptions}
+                        whiteButtons={backgroundColor != Color.primary}
+                    >
+                        {title}
+                    </DialogTitle>
+                    {error && <Alert severity="error">{errorMessage}</Alert>}
+                    <DialogContent dividers>{content}</DialogContent>
+                </form>
             </Dialog>
         </>
     )

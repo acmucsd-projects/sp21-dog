@@ -1,10 +1,10 @@
 import { Color } from '../../helpers/Color'
-import CustomDialog from '../modals/CustomDialog'
-import { useState } from 'react'
-import IconButton from '@material-ui/core/IconButton'
-import LanguageIcon from '@material-ui/icons/Language'
-import FilterListIcon from '@material-ui/icons/FilterList'
+import { Page } from '../../helpers/Page'
 import { makeStyles } from '@material-ui/core/styles'
+import SearchbarLeaderboards from './SearchbarContent/SearchbarLeaderboards'
+import SearchbarJournal from './SearchbarContent/SearchbarJournal'
+import SearchbarTasks from './SearchbarContent/SearchbarTasks'
+import { useAppContext } from '../../contexts/AppContext'
 const useStyles = makeStyles({
     dropdown: {
         display: 'flex',
@@ -45,59 +45,18 @@ const useStyles = makeStyles({
 })
 export default function Searchbar() {
     const classes = useStyles()
-    const [filterOpen, setFilterOpen] = useState(false)
-    const [sortOpen, setSortOpen] = useState(false)
+    const context = useAppContext()
     return (
         <div className={classes.dropdown}>
-            <CustomDialog
-                type="filter"
-                open={filterOpen}
-                setOpen={setFilterOpen}
-            />
-            <CustomDialog type="sort" open={sortOpen} setOpen={setSortOpen} />
-            <IconButton
-                className={classes.wrapIconLeft}
-                aria-label="show 4 new mails"
-                color="inherit"
-            >
-                <LanguageIcon
-                    className={classes.icon}
-                    style={{ color: Color.coreTheme }}
-                />
-            </IconButton>
-            <select
-                className={classes.select}
-                defaultValue="Points"
-                name="3242"
-                id="g"
-                // onClick={() => setSortOpen(true)}
-            >
-                <option value="po">Points</option>
-                <option value="fs">Tasks</option>
-            </select>
-            <div className={classes.middle}></div>
-            <select
-                className={classes.select}
-                defaultValue="All Time"
-                name="gfd"
-                id="f"
-                // onClick={() => setFilterOpen(true)}
-            >
-                <option value="fs">All Time</option>
-                <option value="">This Year</option>
-                <option value="">This Month</option>
-                <option value="">This Week</option>
-            </select>
-            <IconButton
-                className={classes.wrapIconRight}
-                aria-label="show 4 new mails"
-                color="inherit"
-            >
-                <FilterListIcon
-                    className={classes.icon}
-                    style={{ color: Color.coreTheme }}
-                />
-            </IconButton>
+            {context.state.page === Page.leaderboards && (
+                <SearchbarLeaderboards classes={classes} />
+            )}
+            {context.state.page === Page.journal && (
+                <SearchbarJournal classes={classes} />
+            )}
+            {context.state.page === Page.tasks && !context.state.mapOpen && (
+                <SearchbarTasks classes={classes} />
+            )}
         </div>
     )
 }

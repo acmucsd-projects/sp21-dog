@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import CustomButton from '../../buttons/CustomButton'
+import { useTempContext } from '../../../contexts/TempContext'
 
 const useStyles = makeStyles((theme) => ({
     formRoot: {
@@ -19,36 +20,59 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-export default function ChangePasswordForm() {
+export default function ChangePasswordForm({ setEditPasswordOpen }) {
     const classes = useStyles()
-    const context = useAppContext()
-
-    const handleSave = () => {}
+    const tempContext = useTempContext()
 
     return (
-        <form className={classes.formRoot} noValidate autoComplete="off">
+        <div className={classes.formRoot}>
             <Typography>Old Password</Typography>
-            <TextField id="password" variant="outlined" type="password" />
+            <TextField
+                id="old-password"
+                variant="outlined"
+                type="password"
+                required
+            />
             <Typography>New Password</Typography>
-            <TextField id="password" variant="outlined" type="password" />
+            <TextField
+                id="new-password"
+                variant="outlined"
+                type="password"
+                required
+                onChange={(e) => {
+                    tempContext.setState({
+                        ...tempContext.state,
+                        password: e.target.value,
+                    })
+                }}
+            />
             <Typography>Confirm New Password</Typography>
-            <TextField id="password" variant="outlined" type="password" />
+            <TextField
+                id="confirm-new-password"
+                variant="outlined"
+                type="password"
+                required
+                onChange={(e) =>
+                    tempContext.setState({
+                        ...tempContext.state,
+                        confirmPassword: e.target.value,
+                    })
+                }
+            />
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <CustomButton
-                    type="settings"
-                    variant="primary"
-                    onClick={handleSave}
-                >
+                <CustomButton type="settings" variant="primary" submit={true}>
                     Confirm
                 </CustomButton>
                 <CustomButton
                     type="settings"
                     variant="secondary"
-                    onClick={handleSave}
+                    onClick={() => {
+                        setEditPasswordOpen(false)
+                    }}
                 >
                     Cancel
                 </CustomButton>
             </div>
-        </form>
+        </div>
     )
 }

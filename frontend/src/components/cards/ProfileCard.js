@@ -6,6 +6,7 @@ import CardContent from '@material-ui/core/CardContent'
 import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 import Avatar from '@material-ui/core/Avatar'
 import ListItemText from '@material-ui/core/ListItemText'
+import { useAppContext } from '../../contexts/AppContext'
 
 const useStyles = makeStyles({
     dropdown: {
@@ -31,8 +32,9 @@ const useStyles = makeStyles({
     },
 })
 
-export default function AvatarCard() {
+export default function ProfileCard() {
     const classes = useStyles()
+    const context = useAppContext()
 
     return (
         <div className={classes.dropdown}>
@@ -64,7 +66,7 @@ export default function AvatarCard() {
                             </ListItemAvatar>
                             <ListItemText
                                 id={0}
-                                primary={'Elizabeth'}
+                                primary={context.state.displayName}
                                 secondary={
                                     <div
                                         style={{
@@ -78,7 +80,7 @@ export default function AvatarCard() {
                                             style={{ marginRight: '8px' }}
                                             src="/icons/nature.svg"
                                         />
-                                        @lizzyh2021
+                                        {`@${context.state.username}`}
                                     </div>
                                 }
                                 primaryTypographyProps={{

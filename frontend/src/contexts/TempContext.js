@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { Page } from '../helpers/Page'
 
-const AppContext = React.createContext()
+const TempContext = React.createContext()
 
-function AppContextProvider({ children }) {
+function TempContextProvider({ children }) {
     const [state, setState] = useState({
         page: Page.home,
         mapOpen: false,
@@ -50,17 +50,17 @@ function AppContextProvider({ children }) {
         },
     })
     const value = { state, setState }
-    return <AppContext.Provider value={value}>{children}</AppContext.Provider>
+    return <TempContext.Provider value={value}>{children}</TempContext.Provider>
 }
 
-function useAppContext() {
-    const context = React.useContext(AppContext)
+function useTempContext() {
+    const context = React.useContext(TempContext)
     if (context === undefined) {
         throw new Error(
-            'useAppContext must be used within a AppContextProvider'
+            'useTempContext must be used within a TempContextProvider'
         )
     }
     return context
 }
 
-export { AppContextProvider, useAppContext }
+export { TempContextProvider, useTempContext }

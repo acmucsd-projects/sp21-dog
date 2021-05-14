@@ -5,17 +5,20 @@ import TopNavigationBar from './components/navs/TopNavigationBar'
 import { ThemeProvider } from '@material-ui/core/styles'
 import { AppContextProvider } from './contexts/AppContext'
 import { theme } from './helpers/Themes.js'
+import { TempContextProvider } from './contexts/TempContext'
 
 function App() {
     return (
         <div className="App">
             <ThemeProvider theme={theme}>
                 <AppContextProvider>
-                    <div className="main-container">
-                        <TopNavigationBar />
-                        <Content />
-                        <BottomNavigationBar />
-                    </div>
+                    <TempContextProvider>
+                        <div className="main-container">
+                            <TopNavigationBar />
+                            <Content />
+                            <BottomNavigationBar />
+                        </div>
+                    </TempContextProvider>
                 </AppContextProvider>
             </ThemeProvider>
         </div>

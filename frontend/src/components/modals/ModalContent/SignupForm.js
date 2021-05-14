@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import CustomButton from '../../buttons/CustomButton'
+import { useTempContext } from '../../../contexts/TempContext'
 
 const useStyles = makeStyles((theme) => ({
     formRoot: {
@@ -19,26 +20,58 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-export default function SignupForm() {
+export default function SignupForm({ setLoginOpen }) {
     const classes = useStyles()
-    const context = useAppContext()
-
-    const handleSave = () => {}
+    const tempContext = useTempContext()
 
     return (
         <>
-            <form className={classes.formRoot} noValidate autoComplete="off">
+            <div className={classes.formRoot}>
                 <Typography>Email</Typography>
-                <TextField id="email" variant="outlined" type="email" />
+                <TextField
+                    id="email"
+                    variant="outlined"
+                    type="email"
+                    required
+                    onChange={(e) =>
+                        tempContext.setState({
+                            ...tempContext,
+                            email: e.target.value,
+                        })
+                    }
+                />
                 <Typography>Password</Typography>
-                <TextField id="password" variant="outlined" type="password" />
+                <TextField
+                    id="password"
+                    variant="outlined"
+                    type="password"
+                    required
+                    onChange={(e) =>
+                        tempContext.setState({
+                            ...tempContext,
+                            password: e.target.value,
+                        })
+                    }
+                />
                 <Typography>Confirm Password</Typography>
-                <TextField id="password" variant="outlined" type="password" />
+                <TextField
+                    id="password"
+                    variant="outlined"
+                    type="password"
+                    required
+                    onChange={(e) =>
+                        tempContext.setState({
+                            ...tempContext.state,
+                            confirmPassword: e.target.value,
+                        })
+                    }
+                />
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <CustomButton
                         type="landing"
                         variant="primary"
                         halfWidth={true}
+                        submit={true}
                     >
                         Sign Up
                     </CustomButton>
@@ -60,11 +93,12 @@ export default function SignupForm() {
                         type="landing"
                         variant="secondary"
                         halfWidth={true}
+                        onClick={() => setLoginOpen(true)}
                     >
                         Log In
                     </CustomButton>
                 </div>
-            </form>
+            </div>
         </>
     )
 }

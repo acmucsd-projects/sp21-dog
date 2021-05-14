@@ -1,6 +1,7 @@
 import CustomButton from '../../buttons/CustomButton'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
+import { useTempContext } from '../../../contexts/TempContext'
 
 const useStyles = makeStyles((theme) => ({
     formRoot: {
@@ -11,8 +12,23 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-export default function MapLayersForm() {
+export default function MapLayersForm({ keyName }) {
     const classes = useStyles()
+    const tempContext = useTempContext()
+    const mapTypeOptions = ['hybrid', 'satelite']
+
+    const handleMapTypeToggle = (i) => {
+        tempContext.setState({
+            ...tempContext.state,
+            [keyName]: {
+                ...tempContext.state[keyName],
+                mapLayers: {
+                    ...tempContext.state[keyName].mapLayers,
+                    mapType: mapTypeOptions[i],
+                },
+            },
+        })
+    }
 
     return (
         <>
@@ -26,10 +42,30 @@ export default function MapLayersForm() {
             >
                 <Typography>Map Type</Typography>
                 <div style={{ display: 'flex' }}>
-                    <CustomButton type="search" selected={true}>
-                        Hybrid
+                    <CustomButton
+                        type="search"
+                        selected={
+                            mapTypeOptions[0] ===
+                            tempContext.state[keyName].mapLayers.mapType
+                        }
+                        onClick={() => {
+                            handleMapTypeToggle(0)
+                        }}
+                    >
+                        {mapTypeOptions[0]}
                     </CustomButton>
-                    <CustomButton type="search">Satelite</CustomButton>
+                    <CustomButton
+                        type="search"
+                        selected={
+                            mapTypeOptions[1] ===
+                            tempContext.state[keyName].mapLayers.mapType
+                        }
+                        onClick={() => {
+                            handleMapTypeToggle(1)
+                        }}
+                    >
+                        {mapTypeOptions[1]}
+                    </CustomButton>
                 </div>
             </div>
 

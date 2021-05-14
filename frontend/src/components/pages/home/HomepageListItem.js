@@ -69,7 +69,7 @@ export default function HomepageListItem({ type, style }) {
         iconSrc = './icons/journal.svg'
         primaryText = 'Keep your best Fitness streak!'
         secondaryText = `Streak: 14 days     Best: 14 days`
-        targetPage = Page.profile
+        targetPage = Page.journal
     } else if (type === 'journal') {
         title = 'journal'
         iconSrc = './icons/journal.svg'
