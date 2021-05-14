@@ -8,7 +8,6 @@ import Icon from '@material-ui/core/Icon'
 import { useAppContext } from '../../contexts/AppContext'
 import Searchbar from './Searchbar'
 import ProfileCard from '../cards/ProfileCard'
-
 const useStyles = makeStyles((theme) => ({
     topNavbar: {
         width: '100%',
