@@ -12,6 +12,11 @@ const useStyles = makeStyles({
         backgroundColor: Color.accent,
         alignItems: 'center',
         width: '100%',
+        // height: '100px',
+    },
+    arrow: {
+        height: '5.97826087vh',
+        width: '10.62801932vw',
     },
     select: {
         width: 'auto',
@@ -24,18 +29,19 @@ const useStyles = makeStyles({
         fontFamily: 'Trebuchet MS',
     },
     icon: {
-        height: '26px',
-        width: '26px',
+        height: '3.532608696vh',
+        width: '6.280193237vw',
     },
     wrapIconRight: {
-        padding: '6px 6px',
+        padding: '1.449275362vw 0.8152173913vh',
         borderRadius: '0px;',
         borderLeft: 'solid 1px',
     },
     wrapIconLeft: {
         borderRadius: '0px;',
+        padding: '1.449275362vw 0.8152173913vh',
         borderRight: 'solid 1px',
-        padding: '6px 6px',
+        // padding: '6px 6px',
     },
     middle: {
         width: '1px',

@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     },
     title: {
         flexGrow: 1,
-        fontSize: 36,
+        fontSize: '5.1vh',
         textTransform: 'capitalize',
         fontFamily: 'Oswald',
         textAlign: 'center',
@@ -62,14 +62,14 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'flex-start',
         alignItems: 'center',
         width: 'auto',
-        height: '91.3%',
+        height: '6.114130435vh',
     },
     profileIconRoot: {
         display: 'flex',
         justifyContent: 'flex-end',
         alignItems: 'center',
         width: 'auto',
-        height: '86.62%',
+        height: '6.114130435vh',
     },
 }))
 

@@ -10,20 +10,20 @@ const useStyles = makeStyles((theme) => ({
     },
     iconRoot: {
         textAlign: 'center',
-        width: '40px',
-        height: '40px',
-        margin: '5px 5px',
+        width: '9.661835749vw',
+        height: '5.434782609vh',
+        margin: '0.6793478261vh 1.207729469vw',
     },
     container: {
         textAlign: 'left',
     },
     biggerText: {
-        fontSize: '18px',
+        fontSize: '2.445652174vh',
         margin: 0,
         fontWeight: 700,
     },
     smallerText: {
-        fontSize: '14px',
+        fontSize: '1.902173913vh',
         fontWeight: 400,
         margin: 0,
     },

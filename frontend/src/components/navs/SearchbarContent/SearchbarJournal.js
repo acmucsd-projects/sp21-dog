@@ -31,22 +31,20 @@ export default function SearchbarJournal({ classes }) {
                 color="inherit"
                 onClick={() => setViewOpen(true)}
             >
-                <VisibilityIcon
-                    className={classes.icon}
-                    style={{ color: Color.coreTheme }}
-                />
+                <img className={classes.icon} src={'./icons/view.svg'} />
             </IconButton>
             <div
                 style={{
                     width: '100%',
+                    fontSize: '2.173913043vh',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
                 }}
             >
-                <ChevronLeftIcon />
+                <ChevronLeftIcon className={classes.arrow} />
                 <p>Last Week (Apr 18 - 24)</p>
-                <ChevronRightIcon />
+                <ChevronRightIcon className={classes.arrow} />
             </div>
             <IconButton
                 className={classes.wrapIconRight}
@@ -54,9 +52,7 @@ export default function SearchbarJournal({ classes }) {
                 color="inherit"
                 onClick={() => setCalendarOpen(true)}
             >
-                <Icon>
-                    <img src={'./icons/calendar.svg'} />
-                </Icon>
+                <img className={classes.icon} src={'./icons/calendar.svg'} />
             </IconButton>
         </>
     )

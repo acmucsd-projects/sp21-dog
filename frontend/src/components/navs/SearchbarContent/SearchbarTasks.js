@@ -32,20 +32,26 @@ export default function SearchbarTasks({ classes }) {
                 color="inherit"
                 onClick={() => setSortOpen(true)}
             >
-                <Icon>
-                    <img src={'./icons/sort.svg'} />
-                </Icon>
+                <img className={classes.icon} src={'./icons/sort.svg'} />
             </IconButton>
-            <p>New Tasks in 23hr 59m</p>
+            <div
+                style={{
+                    width: '100%',
+                    fontSize: '2.173913043vh',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                }}
+            >
+                <p>New Tasks in 23hr 59m</p>
+            </div>
             <IconButton
                 className={classes.wrapIconRight}
                 aria-label="show 4 new mails"
                 color="inherit"
                 onClick={() => setFilterOpen(true)}
             >
-                <Icon>
-                    <img src={'./icons/filter.svg'} />
-                </Icon>
+                <img className={classes.icon} src={'./icons/filter.svg'} />
             </IconButton>
         </>
     )

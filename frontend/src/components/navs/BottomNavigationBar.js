@@ -25,6 +25,8 @@ const useStyles = makeStyles({
     },
     root: {
         width: '100%',
+        minHeight: '50px',
+        height: '8.152173913vh',
         maxWidth: '1000px',
         minWidth: '100px',
         justifyContent: 'space-evenly',
@@ -36,6 +38,7 @@ const useStyles = makeStyles({
     iconRoot: {
         textAlign: 'center',
         width: 'auto',
+        color: 'red',
         height: '100%',
     },
     bottomDesc: {
@@ -71,6 +74,7 @@ export default function BottomNavigationBar() {
     const classes = useStyles()
     const context = useAppContext()
     const tempContext = useTempContext()
+    const [height, setHeight] = React.useState()
     const [value, setValue] = React.useState()
     const [loginOpen, setLoginOpen] = React.useState(false)
     const [signupOpen, setSignupOpen] = React.useState(false)
@@ -145,6 +149,11 @@ export default function BottomNavigationBar() {
         setValue(
             orderedNavItems.map((item) => item.page).indexOf(context.state.page)
         )
+        if (context.state.page == Page.leaderboards) {
+            setHeight('14.94565217%')
+        } else {
+            setHeight('8.152173913%.')
+        }
     }, [context.state.page])
 
     return (
@@ -183,6 +192,7 @@ export default function BottomNavigationBar() {
                             type="landing"
                             variant="primary"
                             onClick={() => {
+                                // context.setState(Page.home)
                                 setSignupOpen(true)
                             }}
                         >

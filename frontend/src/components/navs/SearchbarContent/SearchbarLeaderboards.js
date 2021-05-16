@@ -32,22 +32,20 @@ export default function SearchbarLeaderboards({ classes }) {
                 color="inherit"
                 onClick={() => setViewOpen(true)}
             >
-                <VisibilityIcon
-                    className={classes.icon}
-                    style={{ color: Color.coreTheme }}
-                />
+                <img className={classes.icon} src={'./icons/view.svg'} />
             </IconButton>
             <div
                 style={{
                     width: '100%',
+                    fontSize: '2.173913043vh',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
                 }}
             >
-                <ChevronLeftIcon />
+                <ChevronLeftIcon className={classes.arrow} />
                 <p>Last Week (Apr 18 - 24)</p>
-                <ChevronRightIcon />
+                <ChevronRightIcon className={classes.arrow} />
             </div>
             <IconButton
                 className={classes.wrapIconRight}
@@ -55,9 +53,7 @@ export default function SearchbarLeaderboards({ classes }) {
                 color="inherit"
                 onClick={() => setFilterOpen(true)}
             >
-                <Icon>
-                    <img src={'./icons/filter.svg'} />
-                </Icon>
+                <img className={classes.icon} src={'./icons/filter.svg'} />
             </IconButton>
         </>
     )

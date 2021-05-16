@@ -8,6 +8,7 @@ const useStyles = makeStyles((theme) => ({
     imageIcon: {
         display: 'flex',
         width: 'inherit',
+        marginRight: '7.614696363%',
     },
     numberDisplay: {
         width: '22.946859903%',
@@ -23,6 +24,7 @@ export default function LeaderboardListItem({ user, i, onClick }) {
         <ListItem
             style={{
                 display: 'flex',
+                height: '8.831521739vh',
             }}
             onClick={onClick}
             button
@@ -34,7 +36,7 @@ export default function LeaderboardListItem({ user, i, onClick }) {
                     primaryTypographyProps={{
                         style: {
                             fontFamily: 'Oswald',
-                            fontSize: '18px',
+                            fontSize: '2.445652174vh',
                         },
                     }}
                 />
@@ -49,6 +51,11 @@ export default function LeaderboardListItem({ user, i, onClick }) {
                 <ListItemAvatar>
                     <Avatar
                         alt={`Avatar n°${user.name}`}
+                        style={{
+                            width: '5.434782609vh',
+                            height: '5.434782609vh',
+                            marginRight: '3.8647343vw',
+                        }}
                         src={`/static/images/avatar/${user.name}.jpg`}
                     />
                 </ListItemAvatar>
@@ -68,11 +75,11 @@ export default function LeaderboardListItem({ user, i, onClick }) {
                                     display: 'flex',
                                     width: '34.28%',
                                     height: '34.28%',
+                                    fontSize: '1.902173913vh',
                                 }}
                             >
                                 <img
                                     className={classes.imageIcon}
-                                    style={{ marginRight: '7.614696363%' }}
                                     src="/icons/nature.svg"
                                 />
                                 {`@${user.username}`}
@@ -80,7 +87,7 @@ export default function LeaderboardListItem({ user, i, onClick }) {
                         }
                         primaryTypographyProps={{
                             style: {
-                                fontSize: '18px',
+                                fontSize: '2.445652174vh',
                                 fontWeight: '700',
                             },
                         }}
@@ -94,7 +101,7 @@ export default function LeaderboardListItem({ user, i, onClick }) {
                     primaryTypographyProps={{
                         style: {
                             fontFamily: 'Oswald',
-                            fontSize: '18px',
+                            fontSize: '2.445652174vh',
                         },
                     }}
                 />
