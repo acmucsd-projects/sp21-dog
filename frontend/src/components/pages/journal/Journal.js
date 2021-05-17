@@ -43,29 +43,46 @@ export default function Journal() {
                 >
                     <h3
                         style={{
-                            margin: '4px',
+                            fontSize: '2.54076087vh',
+                            margin: '0.5434682609vh',
                         }}
                     >
                         Streaks
                     </h3>
                 </div>
                 <img
-                    style={{ flex: 1, width: '30px', height: '30px' }}
+                    style={{
+                        flex: 1,
+                        width: '4.076086957vh',
+                        height: '4.076086957vh',
+                    }}
                     src="./icons/community.svg"
                     alt="community stat icon"
                 />
                 <img
-                    style={{ flex: 1, width: '30px', height: '30px' }}
+                    style={{
+                        flex: 1,
+                        width: '4.076086957vh',
+                        height: '4.076086957vh',
+                    }}
                     src="./icons/knowledge.svg"
                     alt="knowledge stat icon"
                 />
                 <img
-                    style={{ flex: 1, width: '30px', height: '30px' }}
+                    style={{
+                        flex: 1,
+                        width: '4.076086957vh',
+                        height: '4.076086957vh',
+                    }}
                     src="./icons/nature.svg"
                     alt="knowledge nature icon"
                 />
                 <img
-                    style={{ flex: 1, width: '30px', height: '30px' }}
+                    style={{
+                        flex: 1,
+                        width: '4.076086957vh',
+                        height: '4.076086957vh',
+                    }}
                     src="./icons/fitness.svg"
                     alt="fitness stat icon"
                 />
@@ -74,7 +91,7 @@ export default function Journal() {
                 style={{
                     backgroundColor: Color.accent,
                     borderRadius: '10px',
-                    marginBottom: '8px',
+                    marginBottom: '1.086956522vh',
                 }}
             >
                 <div
@@ -94,16 +111,21 @@ export default function Journal() {
                     >
                         <h3
                             style={{
-                                margin: '4px',
+                                fontSize: '2.54076087vh',
+                                margin: '0.5434682609vh',
                             }}
                         >
                             Current
                         </h3>
                     </div>
-                    <p style={{ flex: 1 }}>None</p>
-                    <p style={{ flex: 1 }}>6 days</p>
-                    <p style={{ flex: 1 }}>28 days</p>
-                    <p style={{ flex: 1 }}>31 days</p>
+                    <p style={{ fontSize: '2.173913043vh', flex: 1 }}>None</p>
+                    <p style={{ fontSize: '2.173913043vh', flex: 1 }}>6 days</p>
+                    <p style={{ fontSize: '2.173913043vh', flex: 1 }}>
+                        28 days
+                    </p>
+                    <p style={{ fontSize: '2.173913043vh', flex: 1 }}>
+                        31 days
+                    </p>
                 </div>
                 <div
                     style={{
@@ -124,19 +146,26 @@ export default function Journal() {
                     >
                         <h3
                             style={{
-                                margin: '4px',
+                                fontSize: '2.54076087vh',
+                                margin: '0.5434682609vh',
                             }}
                         >
                             Best
                         </h3>
                     </div>
-                    <p style={{ flex: 1 }}>3 days</p>
-                    <p style={{ flex: 1 }}>12 days</p>
-                    <p style={{ flex: 1 }}>29 days</p>
-                    <p style={{ flex: 1 }}>31 days</p>
+                    <p style={{ fontSize: '2.173913043vh', flex: 1 }}>3 days</p>
+                    <p style={{ fontSize: '2.173913043vh', flex: 1 }}>
+                        12 days
+                    </p>
+                    <p style={{ fontSize: '2.173913043vh', flex: 1 }}>
+                        29 days
+                    </p>
+                    <p style={{ fontSize: '2.173913043vh', flex: 1 }}>
+                        31 days
+                    </p>
                 </div>
             </div>
-            <p style={{ fontSize: '14px', textAlign: 'center' }}>
+            <p style={{ fontSize: '1.902173913vh', textAlign: 'center' }}>
                 Complete tasks on consecutive days increase your streaks!
             </p>
         </div>

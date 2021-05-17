@@ -80,11 +80,12 @@ export default function TopNavigationBar() {
 
     return (
         <>
-            <AppBar
-                position="static"
-                style={{ height: 'auto', minHeight: '8.152173913%' }}
-            >
-                {context.state.page == Page.landing && (
+            {context.state.page != Page.landing && (
+                <AppBar
+                    position="static"
+                    style={{ height: 'auto', minHeight: '8.152173913%' }}
+                >
+                    {/* {context.state.page == Page.landing && (
                     <div>
                         <div className={classes.topNavbar}>
                             <div
@@ -118,50 +119,53 @@ export default function TopNavigationBar() {
                             </Typography>
                         </div>
                     </div>
-                )}
-                {context.state.page != Page.landing && (
-                    <div className={classes.topNavbar}>
-                        <div
-                            className={classes.topNavButton}
-                            onClick={() => {
-                                context.setState({
-                                    ...context.state,
-                                    page: Page.home,
-                                })
-                            }}
-                        >
-                            <Icon classes={{ root: classes.logoIconRoot }}>
-                                <img
-                                    className={classes.imageIcon}
-                                    src="/logo.svg"
-                                />
-                            </Icon>
-                        </div>
+                )} */}
+                    {context.state.page != Page.landing && (
+                        <div className={classes.topNavbar}>
+                            <div
+                                className={classes.topNavButton}
+                                onClick={() => {
+                                    context.setState({
+                                        ...context.state,
+                                        page: Page.home,
+                                    })
+                                }}
+                            >
+                                <Icon classes={{ root: classes.logoIconRoot }}>
+                                    <img
+                                        className={classes.imageIcon}
+                                        src="/logo.svg"
+                                    />
+                                </Icon>
+                            </div>
 
-                        <Typography variant="h6" className={classes.title}>
-                            {title}
-                        </Typography>
-                        <div
-                            className={classes.topNavButton}
-                            onClick={() => {
-                                context.setState({
-                                    ...context.state,
-                                    page: Page.profile,
-                                })
-                            }}
-                        >
-                            <Icon classes={{ root: classes.profileIconRoot }}>
-                                <img
-                                    className={classes.imageIcon}
-                                    src="/profilepic.svg"
-                                />
-                            </Icon>
+                            <Typography variant="h6" className={classes.title}>
+                                {title}
+                            </Typography>
+                            <div
+                                className={classes.topNavButton}
+                                onClick={() => {
+                                    context.setState({
+                                        ...context.state,
+                                        page: Page.profile,
+                                    })
+                                }}
+                            >
+                                <Icon
+                                    classes={{ root: classes.profileIconRoot }}
+                                >
+                                    <img
+                                        className={classes.imageIcon}
+                                        src="/profilepic.svg"
+                                    />
+                                </Icon>
+                            </div>
                         </div>
-                    </div>
-                )}
-                <Searchbar />
-                {context.state.page == Page.profile && <ProfileCard />}
-            </AppBar>
+                    )}
+                    <Searchbar />
+                    {context.state.page == Page.profile && <ProfileCard />}
+                </AppBar>
+            )}
         </>
     )
 }

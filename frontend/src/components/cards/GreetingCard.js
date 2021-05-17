@@ -12,7 +12,7 @@ const useStyles = makeStyles({
         minWidth: 275,
         borderRadius: '15px',
         width: '100%',
-        height: '75px',
+        height: '10.19021739vh',
         display: 'flex',
         alignItems: 'center',
     },
@@ -63,15 +63,24 @@ export default function GreetingCard() {
 
     return (
         <Card className={classes.root}>
-            <CardContent>
+            <CardContent style={{ padding: '0px 2.898550725vw' }}>
                 <div
                     style={{
+                        // padding: '0px 0px',
                         display: 'flex',
                         alignItems: 'center',
                     }}
                 >
-                    <ListItemAvatar>
-                        <Avatar alt={`sun`} src={timeImgSrc} />
+                    <ListItemAvatar style={{ height: 'auto' }}>
+                        <Avatar
+                            alt={`sun`}
+                            src={timeImgSrc}
+                            style={{
+                                height: '6.793478261vh',
+                                width: '6.793478261vh',
+                                marginRight: '2.415458937vw',
+                            }}
+                        />
                     </ListItemAvatar>
                     <ListItemText
                         id={0}
@@ -79,8 +88,13 @@ export default function GreetingCard() {
                         secondary={timeMessage}
                         primaryTypographyProps={{
                             style: {
-                                fontSize: '18px',
+                                fontSize: '2.445652714vh',
                                 fontWeight: '700',
+                            },
+                        }}
+                        secondaryTypographyProps={{
+                            style: {
+                                fontSize: '1.902173913vh',
                             },
                         }}
                     />

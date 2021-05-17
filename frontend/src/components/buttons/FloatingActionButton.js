@@ -8,9 +8,10 @@ export default function FloatingActionButton({ onClick, imgSrc, style }) {
             aria-label="map"
             onClick={onClick}
         >
-            <div style={{ display: 'flex' }}>
-                <img src={imgSrc} />
-            </div>
+            <img
+                src={imgSrc}
+                style={{ width: '4.076086957vh', height: '4.076086957vh' }}
+            />
         </Fab>
     )
 }

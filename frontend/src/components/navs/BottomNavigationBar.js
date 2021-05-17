@@ -178,7 +178,7 @@ export default function BottomNavigationBar() {
                 {context.state.page == Page.leaderboards && (
                     <LeaderboardBottom />
                 )}
-                {context.state.page == Page.landing && (
+                {/* {context.state.page == Page.landing && (
                     <div
                         style={{
                             height: '100%',
@@ -208,7 +208,7 @@ export default function BottomNavigationBar() {
                             Log In
                         </CustomButton>
                     </div>
-                )}
+                )} */}
                 {context.state.page != Page.landing && (
                     <div
                         style={{

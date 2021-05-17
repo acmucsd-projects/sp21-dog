@@ -17,19 +17,19 @@ const data = [
     },
     {
         subject: 'Knowledge',
-        A: 98,
+        A: 57,
         B: 130,
         fullMark: 150,
     },
     {
         subject: 'Nature',
-        A: 86,
+        A: 100,
         B: 130,
         fullMark: 150,
     },
     {
         subject: 'Fitness',
-        A: 99,
+        A: 98,
         B: 100,
         fullMark: 150,
     },
@@ -43,24 +43,24 @@ export default function StatsChart() {
 
         if (payload.value === 'Community') {
             imgSrc = './icons/community.svg'
-            yOffset = -10
+            yOffset = -(window.innerHeight * 0.04076086957) / 3
         } else if (payload.value === 'Knowledge') {
             imgSrc = './icons/knowledge.svg'
-            xOffset = 10
+            xOffset = (window.innerWidth * 0.07246376812) / 3
         } else if (payload.value === 'Nature') {
             imgSrc = './icons/nature.svg'
-            yOffset = 10
+            yOffset = (window.innerHeight * 0.04076086957) / 3
         } else if (payload.value === 'Fitness') {
             imgSrc = './icons/fitness.svg'
-            xOffset = -10
+            xOffset = -(window.innerWidth * 0.07246376812) / 3
         }
 
         return (
             <image
-                x={x + xOffset - 15}
-                y={y + yOffset - 15}
-                width={30}
-                height={30}
+                x={x + xOffset - (window.innerHeight * 0.04076086957) / 2}
+                y={y + yOffset - (window.innerHeight * 0.04076086957) / 2}
+                width={'4.076086957vh'}
+                height={'4.076086957vh'}
                 href={imgSrc}
             ></image>
         )

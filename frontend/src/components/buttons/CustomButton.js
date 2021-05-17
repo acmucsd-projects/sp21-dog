@@ -21,7 +21,10 @@ export default function CustomButton(props) {
             buttonStyle = {
                 ...buttonStyle,
                 backgroundColor: Color.coreTheme,
-                // fontSize: '18px',
+                // fontSize: '24px',
+                fontSize: '3.260869565vh',
+                height: '5.842391304vh',
+                width: '53.8647343vw',
                 fontFamily: 'Oswald',
                 fontWeight: 'normal',
                 textAlign: 'center',
@@ -33,6 +36,9 @@ export default function CustomButton(props) {
                 ...buttonStyle,
                 backgroundColor: Color.primary,
                 border: '3px solid ' + Color.coreTheme,
+                fontSize: '3.260869565vh',
+                height: '5.842391304vh',
+                width: '53.8647343vw',
                 fontFamily: 'Oswald',
                 fontWeight: 'normal',
                 // fontSize: '18px',
@@ -47,7 +53,12 @@ export default function CustomButton(props) {
             }
         }
     } else if (props.type === 'tasks') {
-        buttonStyle = { ...buttonStyle, borderRadius: '10px', fontSize: '18px' }
+        buttonStyle = {
+            ...buttonStyle,
+            borderRadius: '10px',
+            fontSize: '2.445652714vh',
+            height: '5.163043478vh',
+        }
         if (props.variant === 'primary') {
             buttonStyle = {
                 ...buttonStyle,
@@ -74,6 +85,8 @@ export default function CustomButton(props) {
             buttonStyle = {
                 ...buttonStyle,
                 backgroundColor: Color.background,
+                height: '5.027173913vh',
+                fontSize: '2.445652174vh',
                 //border: '3px solid ' + Color.background,
             }
         } else if (props.variant === 'warning') {

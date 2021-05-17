@@ -13,7 +13,11 @@ export default function LinearDeterminate() {
 
     return (
         <div className={classes.root}>
-            <LinearProgress variant="determinate" value={30} />
+            <LinearProgress
+                style={{ height: '0.5434782609vh' }}
+                variant="determinate"
+                value={30}
+            />
         </div>
     )
 }

@@ -27,6 +27,10 @@ export default function Tasks() {
                     >
                         <FloatingActionButton
                             imgSrc="./icons/journal.svg"
+                            style={{
+                                width: '7.608695652vh',
+                                height: '7.608695652vh',
+                            }}
                             onClick={() => {
                                 context.setState({
                                     ...context.state,
@@ -39,7 +43,13 @@ export default function Tasks() {
                         className="float"
                         style={{ right: '3%', bottom: '24%' }}
                     >
-                        <FloatingActionButton imgSrc="./icons/maparrow.svg" />
+                        <FloatingActionButton
+                            imgSrc="./icons/maparrow.svg"
+                            style={{
+                                width: '7.608695652vh',
+                                height: '7.608695652vh',
+                            }}
+                        />
                     </div>
                     <div
                         className="float"
@@ -47,6 +57,10 @@ export default function Tasks() {
                     >
                         <FloatingActionButton
                             imgSrc="./icons/layers.svg"
+                            style={{
+                                width: '7.608695652vh',
+                                height: '7.608695652vh',
+                            }}
                             onClick={() => {
                                 setLayersOpen(true)
                             }}
@@ -54,7 +68,10 @@ export default function Tasks() {
                     </div>
                     <div
                         className="float"
-                        style={{ bottom: '13%', width: '83%' }}
+                        style={{
+                            bottom: '13%',
+                            width: '83%',
+                        }}
                     >
                         <MapViewTask />
                     </div>
@@ -68,6 +85,10 @@ export default function Tasks() {
                     >
                         <FloatingActionButton
                             imgSrc="./icons/map.svg"
+                            style={{
+                                width: '7.608695652vh',
+                                height: '7.608695652vh',
+                            }}
                             onClick={() => {
                                 context.setState({
                                     ...context.state,

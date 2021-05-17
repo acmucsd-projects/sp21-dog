@@ -20,7 +20,7 @@ const useStyles = makeStyles({
     root: {
         minWidth: 275,
         width: '100%',
-        height: '98px',
+        height: '13.31521739vh',
         display: 'flex',
         alignItems: 'center',
     },
@@ -39,7 +39,11 @@ export default function ProfileCard() {
     return (
         <div className={classes.dropdown}>
             <Card className={classes.root}>
-                <CardContent style={{ width: '100%' }}>
+                <CardContent
+                    style={{
+                        width: '100%',
+                    }}
+                >
                     <div
                         style={{
                             width: '100%',
@@ -57,8 +61,9 @@ export default function ProfileCard() {
                             <ListItemAvatar>
                                 <Avatar
                                     style={{
-                                        width: '78.13%',
-                                        height: '78.13%',
+                                        width: '10.19021739vh',
+                                        height: '10.19021739vh',
+                                        marginRight: '1.93236715vw',
                                     }}
                                     alt={`profile picture`}
                                     src={`/profilepic.svg`}
@@ -77,7 +82,11 @@ export default function ProfileCard() {
                                     >
                                         <img
                                             className={classes.imageIcon}
-                                            style={{ marginRight: '8px' }}
+                                            style={{
+                                                height: '4.076086957vh',
+                                                width: '4.076086957vh',
+                                                marginRight: '1.93236715vw',
+                                            }}
                                             src="/icons/nature.svg"
                                         />
                                         {`@${context.state.username}`}
@@ -85,13 +94,13 @@ export default function ProfileCard() {
                                 }
                                 primaryTypographyProps={{
                                     style: {
-                                        fontSize: '24px',
+                                        fontSize: '3.260869565vh',
                                         fontWeight: '700',
                                     },
                                 }}
                                 secondaryTypographyProps={{
                                     style: {
-                                        fontSize: '18px',
+                                        fontSize: '2.445652174vh',
                                         color: Color.textColor,
                                     },
                                 }}
@@ -99,8 +108,8 @@ export default function ProfileCard() {
                         </div>
                         <div
                             style={{
-                                width: '57px',
-                                height: '57px',
+                                width: '7.7744565217vh',
+                                height: '7.7744565217vh',
                                 backgroundColor: Color.accent,
                                 borderRadius: '50%',
                                 display: 'flex',
@@ -109,10 +118,20 @@ export default function ProfileCard() {
                                 justifyContent: 'center',
                             }}
                         >
-                            <p style={{ fontSize: '14px', fontWeight: 'bold' }}>
+                            <p
+                                style={{
+                                    fontSize: '1.902173913vh',
+                                    fontWeight: 'bold',
+                                }}
+                            >
                                 Lv
                             </p>
-                            <p style={{ fontSize: '24px', fontWeight: 'bold' }}>
+                            <p
+                                style={{
+                                    fontSize: '3.260869565vh',
+                                    fontWeight: 'bold',
+                                }}
+                            >
                                 35
                             </p>
                         </div>

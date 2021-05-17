@@ -10,22 +10,26 @@ import Typography from '@material-ui/core/Typography'
 
 const useStyles = makeStyles((theme) => ({
     imageIcon: {
-        width: '18px',
-        height: '18px',
+        width: '2.445652714vh',
+        height: '2.445652714vh',
         marginRight: '2%',
     },
 }))
 
 export default function TaskListItem({ mapView, style }) {
     const classes = useStyles()
-    let margin = '15px 0'
+    let margin = '2.038043478vh 0'
     if (mapView) {
-        margin = '8px'
+        margin = '1.086956522vh'
     }
 
     return (
         <Accordion style={{ margin: margin }}>
             <AccordionSummary
+                style={{
+                    padding: '0px 3.8647343vw',
+                    height: 'auto',
+                }}
                 aria-controls="panel2a-content"
                 id="panel2a-header"
             >
@@ -37,9 +41,22 @@ export default function TaskListItem({ mapView, style }) {
                         width: '100%',
                     }}
                 >
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <div
+                        style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                        }}
+                    >
                         <ListItemAvatar>
-                            <Avatar alt={`logo`} src={`/icons/nature.svg`} />
+                            <Avatar
+                                style={{
+                                    height: '5.434782609vh',
+                                    width: '5.434782609vh',
+                                    marginRight: '3.8647343vw',
+                                }}
+                                alt={`logo`}
+                                src={`/icons/nature.svg`}
+                            />
                         </ListItemAvatar>
                         <ListItemText
                             id={0}
@@ -47,8 +64,13 @@ export default function TaskListItem({ mapView, style }) {
                             secondary={'Emerald City Park'}
                             primaryTypographyProps={{
                                 style: {
-                                    fontSize: '18px',
+                                    fontSize: '2.445652174vh',
                                     fontWeight: '700',
+                                },
+                            }}
+                            secondaryTypographyProps={{
+                                style: {
+                                    fontSize: '1.902173913vh',
                                 },
                             }}
                         />
@@ -58,8 +80,8 @@ export default function TaskListItem({ mapView, style }) {
                             textAlign: 'right',
                         }}
                     >
-                        <p>5 pts</p>
-                        <p>0.8 mi</p>
+                        <p style={{ fontSize: '2.173913043vh' }}>5 pts</p>
+                        <p style={{ fontSize: '2.173913043vh' }}>0.8 mi</p>
                     </div>
                 </div>
             </AccordionSummary>
@@ -101,7 +123,13 @@ export default function TaskListItem({ mapView, style }) {
                                         className={classes.imageIcon}
                                         src="/icons/nature.svg"
                                     />
-                                    <p>+5 Nature Pts</p>
+                                    <p
+                                        style={{
+                                            fontSize: '2.173913043vh',
+                                        }}
+                                    >
+                                        +5 Nature Pts
+                                    </p>
                                 </div>
 
                                 <div
@@ -130,8 +158,20 @@ export default function TaskListItem({ mapView, style }) {
                                         />
                                     </div>
                                     <div>
-                                        <p>15823 Fairfield Street</p>
-                                        <p>Emerald City, EC 41852</p>
+                                        <p
+                                            style={{
+                                                fontSize: '2.173913043vh',
+                                            }}
+                                        >
+                                            15823 Fairfield Street
+                                        </p>
+                                        <p
+                                            style={{
+                                                fontSize: '2.173913043vh',
+                                            }}
+                                        >
+                                            Emerald City, EC 41852
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -160,10 +200,20 @@ export default function TaskListItem({ mapView, style }) {
                                         }}
                                     />
                                 </div>
-                                <p>0.8 miles away</p>
+                                <p
+                                    style={{
+                                        fontSize: '2.173913043vh',
+                                    }}
+                                >
+                                    0.8 miles away
+                                </p>
                             </div>
                         </div>
-                        <Typography>
+                        <Typography
+                            style={{
+                                fontSize: '2.173913043vh',
+                            }}
+                        >
                             Go out and see the sunshine! Take a break from your
                             devices and enjoy what nature has to offer.
                         </Typography>

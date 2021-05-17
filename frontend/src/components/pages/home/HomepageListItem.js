@@ -14,7 +14,6 @@ const useStyles = makeStyles({
         minWidth: 275,
         borderRadius: '15px',
         width: '100%',
-        //height: '75px',
         display: 'flex',
         alignItems: 'center',
         '&:hover': {
@@ -33,16 +32,17 @@ const useStyles = makeStyles({
         marginBottom: 12,
     },
     floatingCircle: {
+        zIndex: 1,
         backgroundColor: Color.primary,
         position: 'absolute',
-        width: '45px',
-        height: '45px',
+        width: '6.114130435vh',
+        height: '6.114130435vh',
         transform: 'translateY(-5px)',
         borderRadius: '50%',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        marginLeft: '8px',
+        marginLeft: '1.93236714vw',
         boxShadow:
             '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)',
     },
@@ -105,11 +105,17 @@ export default function HomepageListItem({ type, style }) {
                     style={{
                         display: 'flex',
                         backgroundColor: Color.selection,
-                        height: '37px',
+                        height: '5.027173913vh',
                     }}
                 >
                     <div className={classes.floatingCircle}>
-                        <img src={iconSrc} />
+                        <img
+                            src={iconSrc}
+                            style={{
+                                height: '4.076086957vh',
+                                width: '4.076086957vh',
+                            }}
+                        />
                     </div>
                     <div
                         style={{
@@ -121,7 +127,8 @@ export default function HomepageListItem({ type, style }) {
                     >
                         <h3
                             style={{
-                                marginLeft: '60px',
+                                fontSize: '2.54076087vh',
+                                marginLeft: 'calc(4.07608957vh + 8vw)',
                                 textTransform: 'capitalize',
                             }}
                         >
@@ -134,13 +141,13 @@ export default function HomepageListItem({ type, style }) {
                     <CardContent style={{ padding: 0 }}>
                         <div
                             className="content-wrapper"
-                            style={{ height: '93px' }}
+                            style={{ height: '12.63586957vh' }}
                         >
                             <Map noDrag={true} />
                         </div>
                     </CardContent>
                 ) : (
-                    <CardContent>
+                    <CardContent style={{ padding: '0px 2.898550725vw' }}>
                         <div
                             style={{
                                 display: 'flex',
@@ -149,16 +156,18 @@ export default function HomepageListItem({ type, style }) {
                         >
                             <ListItemText
                                 id={0}
+                                style={{ margin: '0.8152173913vh 0' }}
                                 primary={primaryText}
                                 secondary={secondaryText}
                                 primaryTypographyProps={{
                                     style: {
-                                        fontSize: '18px',
+                                        fontSize: '2.445652174vh',
                                         fontWeight: '700',
                                     },
                                 }}
                                 secondaryTypographyProps={{
                                     style: {
+                                        fontSize: '1.902173913vh',
                                         color: Color.textColor,
                                         whiteSpace: 'pre-wrap',
                                     },

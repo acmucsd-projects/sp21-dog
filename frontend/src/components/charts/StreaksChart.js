@@ -65,9 +65,12 @@ const data = [
 export default function StreaksChart() {
     return (
         <>
-            <h4 style={{ textAlign: 'center' }}>Last Week: Task Points</h4>
+            <h4 style={{ fontSize: '2.173913043vh', textAlign: 'center' }}>
+                Last Week: Task Points
+            </h4>
             <ResponsiveContainer width="100%" height="100%">
                 <LineChart
+                    fontSize="2.173913043vh"
                     width={500}
                     height={300}
                     data={data}
