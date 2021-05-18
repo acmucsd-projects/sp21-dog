@@ -45,6 +45,7 @@ export default function SignupForm({ setLoginOpen }) {
                     id="password"
                     variant="outlined"
                     type="password"
+                    inputProps={{ minLength: 8 }}
                     required
                     onChange={(e) =>
                         tempContext.setState({
@@ -58,6 +59,7 @@ export default function SignupForm({ setLoginOpen }) {
                     id="password"
                     variant="outlined"
                     type="password"
+                    inputProps={{ minLength: 8 }}
                     required
                     onChange={(e) =>
                         tempContext.setState({
