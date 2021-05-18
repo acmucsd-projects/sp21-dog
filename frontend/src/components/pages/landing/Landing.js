@@ -51,6 +51,7 @@ const useStyles = makeStyles({
 
 export default function Landing() {
     const classes = useStyles()
+    
     return (
         <div style={{ width: '100%' }}>
             <div className={classes.top}>

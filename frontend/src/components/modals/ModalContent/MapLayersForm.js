@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
 export default function MapLayersForm({ keyName }) {
     const classes = useStyles()
     const tempContext = useTempContext()
-    const mapTypeOptions = ['default', 'satelite']
+    const mapTypeOptions = ['hybrid', 'satelite']
 
     const handleMapTypeToggle = (i) => {
         tempContext.setState({
