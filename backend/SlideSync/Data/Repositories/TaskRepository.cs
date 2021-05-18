@@ -17,8 +17,8 @@ namespace SlideSync.Data.Repositories {
             return context.Tasks.Find(id);
         }
 
-        public void AddTask(TaskModel task) {
-            context.Tasks.Add(task);
+        public int AddTask(TaskModel task) {
+            return context.Tasks.Add(task).Entity.Id;
         }
 
         public IEnumerable<TaskModel> GetTasksByUserId(int userId) {
@@ -30,6 +30,13 @@ namespace SlideSync.Data.Repositories {
             if (userId == null) return null;
 
             return GetTasksByUserId(userId.Id);
+        }
+        public void UpdateTask(TaskModel task) {
+            context.Tasks.Update(task);
+        }
+
+        public void Save() {
+            context.SaveChanges();
         }
     }
 }
