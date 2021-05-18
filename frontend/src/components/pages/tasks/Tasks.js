@@ -16,7 +16,6 @@ export default function Tasks() {
             viewportLocation: context.state.userLocation,
         })
     }
-
     return (
         <div className="overflow-container">
             <CustomDialog

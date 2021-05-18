@@ -1,4 +1,4 @@
-import AvatarCard from '../../cards/AvatarCard'
+import GreetingCard from '../../cards/GreetingCard'
 import HomepageList from './HomepageList'
 
 export default function Home() {
@@ -6,7 +6,7 @@ export default function Home() {
         <div style={{ width: '100%' }}>
             <div style={{ margin: '10px' }}>
                 <div style={{ marginBottom: '23px' }}>
-                    <AvatarCard />
+                    <GreetingCard />
                 </div>
                 <HomepageList />
             </div>
