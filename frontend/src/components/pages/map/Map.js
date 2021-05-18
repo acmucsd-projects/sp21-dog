@@ -54,7 +54,10 @@ export default function MapView({ noDrag }) {
             mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_API_KEY}
             mapStyle={mapStyle}
         >
-            <Marker latitude={37.75} longitude={-122.43}>
+            <Marker
+                latitude={context.state.userLocation.latitude}
+                longitude={context.state.userLocation.longitude}
+            >
                 <div className="marker">
                     <span>
                         <img
