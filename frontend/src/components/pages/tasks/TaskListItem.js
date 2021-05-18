@@ -7,6 +7,8 @@ import Avatar from '@material-ui/core/Avatar'
 import ListItemText from '@material-ui/core/ListItemText'
 import CustomButton from '../../buttons/CustomButton'
 import Typography from '@material-ui/core/Typography'
+import { useAppContext } from '../../../contexts/AppContext'
+import { Page } from '../../../helpers/Page'
 
 const useStyles = makeStyles((theme) => ({
     imageIcon: {
@@ -17,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 export default function TaskListItem({ mapView, style }) {
+    const context = useAppContext()
     const classes = useStyles()
     let margin = '15px 0'
     if (mapView) {
@@ -74,7 +77,17 @@ export default function TaskListItem({ mapView, style }) {
                             Share
                         </CustomButton>
                         {!mapView && (
-                            <CustomButton type="tasks" variant="secondary">
+                            <CustomButton
+                                type="tasks"
+                                variant="secondary"
+                                onClick={() => {
+                                    context.setState({
+                                        ...context.state,
+                                        page: Page.tasks,
+                                        mapOpen: true,
+                                    })
+                                }}
+                            >
                                 View on Map
                             </CustomButton>
                         )}

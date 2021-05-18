@@ -8,8 +8,14 @@ import CustomDialog from '../../modals/CustomDialog'
 
 export default function Tasks() {
     const [layersOpen, setLayersOpen] = React.useState(false)
-
     const context = useAppContext()
+
+    const handleCenterCamera = () => {
+        context.setState({
+            ...context.state,
+            viewportLocation: context.state.userLocation,
+        })
+    }
     return (
         <div className="overflow-container">
             <CustomDialog
@@ -39,7 +45,12 @@ export default function Tasks() {
                         className="float"
                         style={{ right: '3%', bottom: '24%' }}
                     >
-                        <FloatingActionButton imgSrc="./icons/maparrow.svg" />
+                        <FloatingActionButton
+                            imgSrc="./icons/maparrow.svg"
+                            onClick={() => {
+                                handleCenterCamera()
+                            }}
+                        />
                     </div>
                     <div
                         className="float"
