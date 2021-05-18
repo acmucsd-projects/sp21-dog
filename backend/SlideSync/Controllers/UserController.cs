@@ -146,7 +146,7 @@ namespace SlideSync.Controllers {
             
         }
 
-        private JwtSecurityToken GetAuthorizationHeader(HttpRequest request) {
+        public static JwtSecurityToken GetAuthorizationHeader(HttpRequest request) {
             var tokenHandler = new JwtSecurityTokenHandler();
             var headerToken = AuthenticationHeaderValue.Parse(request.Headers["Authorization"]).Parameter;
             return tokenHandler.ReadJwtToken(headerToken);

@@ -15,7 +15,8 @@ namespace SlideSync.Data.Context {
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<UserModel>()
-                .Property(u => u.Points);
+                .Property(u => u.Points)
+                .HasComputedColumnSql("\"Nature\" + \"Fitness\" + \"Knowledge\" + \"Community\"" , stored: true);
             
             modelBuilder.Entity<UserModel>()
                 .HasMany(u => u.RefreshTokens)
@@ -29,9 +30,6 @@ namespace SlideSync.Data.Context {
 
             modelBuilder.Entity<TaskModel>()
                 .Property(t => t.TaskType)
-                .HasConversion<int>();
-            modelBuilder.Entity<TaskModel>()
-                .Property(t => t.Difficulty)
                 .HasConversion<int>();
 
         }

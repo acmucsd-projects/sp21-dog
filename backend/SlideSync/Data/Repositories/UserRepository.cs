@@ -59,7 +59,11 @@ namespace SlideSync.Data.Repositories {
         }
 
         public void UpdateUser(UserModel user) {
-            context.Entry(user).State = EntityState.Modified;
+            context.Users.Update(user);
+        }
+
+        public void Save() {
+            context.SaveChanges();
         }
     }
 }
