@@ -45,7 +45,7 @@ namespace SlideSync {
             
             services.AddCors(options => {
                 options.AddPolicy("CorsPolicy",
-                    builder => builder.WithOrigins("http://localhost:5000")
+                    builder => builder.WithOrigins("http://localhost")
                         .AllowAnyMethod()
                         .AllowAnyHeader()
                         .AllowCredentials());
