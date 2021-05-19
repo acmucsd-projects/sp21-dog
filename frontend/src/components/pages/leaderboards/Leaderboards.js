@@ -21,7 +21,7 @@ export default function Leaderboards() {
     }, [])
 
     return (
-        <div class="overflow-container" style={{ margin: 0 }}>
+        <div className="overflow-container" style={{ margin: 0 }}>
             <ProfileDialog open={profileOpen} setOpen={setProfileOpen} />
             <div style={{ width: '100%' }}>
                 <LeaderboardList onItemClick={onItemClick} />
