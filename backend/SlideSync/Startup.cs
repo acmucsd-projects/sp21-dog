@@ -44,8 +44,9 @@ namespace SlideSync {
             services.AddControllers().AddNewtonsoftJson();
             
             services.AddCors(options => {
-                options.AddPolicy("CorsPolicy",
-                    builder => builder.WithOrigins("http://localhost")
+                options.AddPolicy("AllowOrigin",
+                    builder => builder
+                        .AllowAnyOrigin()
                         .AllowAnyMethod()
                         .AllowAnyHeader()
                         .AllowCredentials());
@@ -96,6 +97,8 @@ namespace SlideSync {
 
             app.UseAuthentication();
             app.UseAuthorization();
+            
+            app.UseCors();
 
             app.UseEndpoints(endpoints => {
                 endpoints.MapControllers();
