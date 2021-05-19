@@ -80,11 +80,19 @@ export default function BottomNavigationBar() {
         setSignupOpen(!signupOpen)
     }
 
-    const accountValidate = () => {}
+    const registerRequestParams = {
+        url: 'https://taskathon-go.herokuapp.com/api/users/register',
+        body: JSON.stringify({
+            username: tempContext.username,
+            password: tempContext.password,
+        }),
+    }
 
-    const confirmPasswordValidate = () => {
-        console.log(tempContext.state)
-        return tempContext.state.password === tempContext.state.confirmPassword
+    const signupValidate = () => {
+        if (tempContext.state.password === tempContext.state.confirmPassword) {
+            return true
+        }
+        return false
     }
 
     const orderedNavItems = [
@@ -162,7 +170,8 @@ export default function BottomNavigationBar() {
                 setOpen={setSignupOpen}
                 setLoginOpen={customSetLoginSignupOpen}
                 nextPage={Page.home}
-                validate={confirmPasswordValidate}
+                requestParams={registerRequestParams}
+                validate={signupValidate}
                 errorMessage="Passwords do not match"
             />
             <div className={classes.bottomNavbar}>

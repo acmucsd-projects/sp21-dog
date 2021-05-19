@@ -96,12 +96,14 @@ export default function CustomDialog({
     validate,
     errorMessage,
     nextPage,
+    requestParams,
     keyName,
 }) {
     const context = useAppContext()
     const tempContext = useTempContext()
 
     const [error, setError] = React.useState(false)
+    const [loading, setLoading] = React.useState(false)
 
     function equals(obj1, obj2) {
         return Object.keys(obj1).every((key) => {
@@ -118,19 +120,52 @@ export default function CustomDialog({
         } else {
             tempContext.setState(context.state)
             setOpen(false)
+            setLoading(false)
         }
     }
 
     const saveAndClose = () => {
+        const temp = Object.keys(tempContext.state)
+            .filter((key) => !key.toLowerCase().includes('password'))
+            .reduce((obj, key) => {
+                obj[key] = tempContext.state[key]
+                return obj
+            }, {})
         setOpen(false)
+        setLoading(false)
         if (nextPage !== undefined) {
-            context.setState({
-                ...context.state,
-                ...tempContext.state,
-                page: nextPage,
-            })
+            context.setState(
+                {
+                    ...context.state,
+                    ...temp,
+                    page: nextPage,
+                },
+                tempContext.setState({})
+            )
         } else {
-            context.setState({ ...context.state, ...tempContext.state })
+            context.setState(
+                { ...context.state, ...temp },
+                tempContext.setState({})
+            )
+        }
+    }
+
+    const checkRequest = () => {
+        if (requestParams) {
+            setLoading(true)
+            fetch(requestParams.url, {
+                method: 'POST',
+                body: JSON.stringify(requestParams.body),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log(data)
+                    saveAndClose()
+                    setLoading(false)
+                })
+                .catch((err) => {})
+        } else {
+            saveAndClose()
         }
     }
 
@@ -138,12 +173,12 @@ export default function CustomDialog({
         if (validate !== undefined) {
             if (validate()) {
                 setError(false)
-                saveAndClose()
+                checkRequest()
             } else {
                 setError(true)
             }
         } else {
-            saveAndClose()
+            checkRequest()
         }
     }
 
@@ -206,11 +241,11 @@ export default function CustomDialog({
     } else if (type === 'login') {
         title = 'welcome back!'
         buttonOptions = 'noTopSubmit'
-        content = <LoginForm setSignupOpen={setSignupOpen} />
+        content = <LoginForm setSignupOpen={setSignupOpen} loading={loading} />
     } else if (type === 'signup') {
         title = 'welcome!'
         buttonOptions = 'noTopSubmit'
-        content = <SignupForm setLoginOpen={setLoginOpen} />
+        content = <SignupForm setLoginOpen={setLoginOpen} loading={loading} />
         backgroundColor = Color.accent
     } else if (type === 'view') {
         title = 'view'

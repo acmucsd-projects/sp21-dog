@@ -9,6 +9,17 @@ export default function Leaderboards() {
         setProfileOpen(true)
     }
 
+    React.useEffect(() => {
+        fetch('https://taskathon-go.herokuapp.com/api/game/leaderboard', {
+            method: 'GET',
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data)
+            })
+            .catch((err) => {})
+    }, [])
+
     return (
         <div class="overflow-container" style={{ margin: 0 }}>
             <ProfileDialog open={profileOpen} setOpen={setProfileOpen} />

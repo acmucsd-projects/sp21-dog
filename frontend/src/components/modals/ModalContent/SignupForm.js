@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-export default function SignupForm({ setLoginOpen }) {
+export default function SignupForm({ loading, setLoginOpen }) {
     const classes = useStyles()
     const tempContext = useTempContext()
 
@@ -35,7 +35,7 @@ export default function SignupForm({ setLoginOpen }) {
                     required
                     onChange={(e) =>
                         tempContext.setState({
-                            ...tempContext,
+                            ...tempContext.state,
                             email: e.target.value,
                         })
                     }
@@ -49,14 +49,14 @@ export default function SignupForm({ setLoginOpen }) {
                     required
                     onChange={(e) =>
                         tempContext.setState({
-                            ...tempContext,
+                            ...tempContext.state,
                             password: e.target.value,
                         })
                     }
                 />
                 <Typography>Confirm Password</Typography>
                 <TextField
-                    id="password"
+                    id="confirmPassword"
                     variant="outlined"
                     type="password"
                     inputProps={{ minLength: 8 }}
@@ -74,6 +74,7 @@ export default function SignupForm({ setLoginOpen }) {
                         variant="primary"
                         halfWidth={true}
                         submit={true}
+                        disabled={loading}
                     >
                         Sign Up
                     </CustomButton>

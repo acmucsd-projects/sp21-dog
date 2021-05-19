@@ -27,8 +27,11 @@ export default function Profile() {
     }
 
     const confirmPasswordValidate = () => {
-        console.log(tempContext.state)
-        return tempContext.state.password === tempContext.state.confirmPassword
+        if (tempContext.state.password === tempContext.state.confirmPassword) {
+            //fetch here
+            return true
+        }
+        return false
     }
 
     return (

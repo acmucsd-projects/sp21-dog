@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-export default function LoginForm({ setSignupOpen }) {
+export default function LoginForm({ loading, setSignupOpen }) {
     const classes = useStyles()
     const tempContext = useTempContext()
 
@@ -35,7 +35,7 @@ export default function LoginForm({ setSignupOpen }) {
                     required
                     onChange={(e) =>
                         tempContext.setState({
-                            ...tempContext,
+                            ...tempContext.state,
                             email: e.target.value,
                         })
                     }
@@ -47,7 +47,7 @@ export default function LoginForm({ setSignupOpen }) {
                     type="password"
                     onChange={(e) =>
                         tempContext.setState({
-                            ...tempContext,
+                            ...tempContext.state,
                             password: e.target.value,
                         })
                     }
