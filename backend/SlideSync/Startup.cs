@@ -44,9 +44,9 @@ namespace SlideSync {
             services.AddControllers().AddNewtonsoftJson();
             
             services.AddCors(options => {
-                options.AddPolicy("AllowOrigin",
+                options.AddDefaultPolicy(
                     builder => builder
-                        .SetIsOriginAllowed(origin => true)
+                        .SetIsOriginAllowed(_ => true)
                         .AllowAnyMethod()
                         .AllowAnyHeader()
                         .AllowCredentials());
