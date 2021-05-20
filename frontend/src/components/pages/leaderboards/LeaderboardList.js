@@ -2,14 +2,21 @@ import React from 'react'
 import List from '@material-ui/core/List'
 import LeaderboardListItem from './LeaderboardListItem'
 
-export default function LeaderboardList({ onItemClick, data }) {
+export default function LeaderboardList({
+    data,
+    onItemClick,
+    handleShowProfile,
+}) {
     const leaderboardListItems = data.map((user, i) => {
         return (
             <LeaderboardListItem
                 key={i}
                 user={user}
                 i={i}
-                onClick={onItemClick}
+                onClick={() => {
+                    onItemClick()
+                    handleShowProfile(user.username)
+                }}
             />
         )
     })

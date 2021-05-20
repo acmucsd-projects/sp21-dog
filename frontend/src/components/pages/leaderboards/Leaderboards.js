@@ -5,9 +5,24 @@ import ProfileDialog from '../../modals/ProfileDialog'
 export default function Leaderboards() {
     const [profileOpen, setProfileOpen] = React.useState(false)
     const [leaderboardData, setLeaderboardData] = React.useState([])
+    const [profileData, setProfileData] = React.useState()
 
     const onItemClick = () => {
         setProfileOpen(true)
+    }
+
+    const handleShowProfile = (username) => {
+        fetch(
+            `https://cors-anywhere.herokuapp.com/https://taskathon-go.herokuapp.com/api/users/user/${username}`
+        )
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data)
+                setProfileData(data)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
     }
 
     React.useEffect(() => {
@@ -16,19 +31,25 @@ export default function Leaderboards() {
         )
             .then((response) => response.json())
             .then((data) => {
-                console.log(data)
                 setLeaderboardData(data)
             })
-            .catch((err) => {})
+            .catch((err) => {
+                console.log(err)
+            })
     }, [])
 
     return (
         <div className="overflow-container" style={{ margin: 0 }}>
-            <ProfileDialog open={profileOpen} setOpen={setProfileOpen} />
+            <ProfileDialog
+                open={profileOpen}
+                setOpen={setProfileOpen}
+                data={profileData}
+            />
             <div style={{ width: '100%' }}>
                 <LeaderboardList
                     onItemClick={onItemClick}
                     data={leaderboardData}
+                    handleShowProfile={handleShowProfile}
                 />
             </div>
         </div>
