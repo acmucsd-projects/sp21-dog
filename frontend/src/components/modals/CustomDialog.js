@@ -140,12 +140,12 @@ export default function CustomDialog({
                     ...temp,
                     page: nextPage,
                 },
-                tempContext.setState({})
+                tempContext.setState(context.state)
             )
         } else {
             context.setState(
                 { ...context.state, ...temp },
-                tempContext.setState({})
+                tempContext.setState(context.state)
             )
         }
     }

@@ -61,7 +61,7 @@ export default function LeaderboardListItem({ user, i, onClick }) {
                 >
                     <ListItemText
                         id={labelId}
-                        primary={user.name}
+                        primary={`${user.first} ${user.last}`}
                         secondary={
                             <div
                                 style={{
