@@ -58,6 +58,7 @@ export default function LoginForm({ loading, setSignupOpen }) {
                         variant="primary"
                         halfWidth={true}
                         submit={true}
+                        disabled={loading}
                     >
                         Log In
                     </CustomButton>

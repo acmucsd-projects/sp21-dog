@@ -12,6 +12,7 @@ import { Color } from '../../helpers/Color'
 import CustomDialog from '../modals/CustomDialog'
 import { useTempContext } from '../../contexts/TempContext'
 import { objToFormData } from '../../helpers/Utils'
+import { useAuthContext } from '../../contexts/AuthContext'
 
 const useStyles = makeStyles({
     bottomNavbar: {
@@ -71,6 +72,7 @@ const useStyles = makeStyles({
 export default function BottomNavigationBar() {
     const classes = useStyles()
     const context = useAppContext()
+    const auth = useAuthContext()
     const tempContext = useTempContext()
     const [value, setValue] = React.useState()
     const [loginOpen, setLoginOpen] = React.useState(false)
@@ -83,19 +85,35 @@ export default function BottomNavigationBar() {
 
     const registerRequestParams = {
         url: 'https://taskathon-go.herokuapp.com/api/users/register',
-        body: objToFormData({
-            username: tempContext.state.email.split('@')[0],
-            email: tempContext.state.email,
-            password: tempContext.state.password,
-        }),
+        params: {
+            method: 'POST',
+            headers: new Headers({
+                Authorization: 'Bearer ' + auth.state.token,
+            }),
+            body: objToFormData({
+                username: tempContext.state.email.split('@')[0],
+                email: tempContext.state.email,
+                password: tempContext.state.password,
+            }),
+        },
     }
 
     const loginRequestParams = {
         url: 'https://taskathon-go.herokuapp.com/api/users/login',
-        body: objToFormData({
-            username: tempContext.state.username,
-            password: tempContext.state.password,
-        }),
+        params: {
+            method: 'POST',
+            headers: new Headers({
+                Authorization: 'Bearer ' + auth.state.token,
+            }),
+            body: objToFormData({
+                username: tempContext.state.username,
+                password: tempContext.state.password,
+            }),
+        },
+    }
+
+    const saveRequestToken = (data) => {
+        auth.setState({ ...auth.state, token: data.jwt })
     }
 
     const signupValidate = () => {
@@ -174,6 +192,7 @@ export default function BottomNavigationBar() {
                 setSignupOpen={customSetLoginSignupOpen}
                 requestParams={loginRequestParams}
                 nextPage={Page.home}
+                handleRequestData={saveRequestToken}
             />
             <CustomDialog
                 type="signup"

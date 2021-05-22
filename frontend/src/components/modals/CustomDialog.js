@@ -99,6 +99,7 @@ export default function CustomDialog({
     nextPage,
     requestParams,
     keyName,
+    handleRequestData,
 }) {
     const context = useAppContext()
     const tempContext = useTempContext()
@@ -157,10 +158,7 @@ export default function CustomDialog({
     const checkRequest = () => {
         if (requestParams) {
             setLoading(true)
-            fetch(requestParams.url, {
-                method: 'POST',
-                body: requestParams.body,
-            })
+            fetch(requestParams.url, requestParams.params)
                 .then((response) => {
                     if (response.status === 200 || response.status === 201) {
                         saveAndClose()
@@ -169,10 +167,12 @@ export default function CustomDialog({
                         setDialogErrorMessage(response.statusText)
                     }
                     setLoading(false)
-                    response.json()
+                    return response.json()
                 })
                 .then((data) => {
-                    console.log(data)
+                    if (handleRequestData !== undefined) {
+                        handleRequestData(data)
+                    }
                 })
                 .catch((err) => {
                     console.log(err)
