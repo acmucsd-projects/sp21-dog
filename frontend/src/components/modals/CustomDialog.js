@@ -104,6 +104,9 @@ export default function CustomDialog({
     const tempContext = useTempContext()
 
     const [error, setError] = React.useState(false)
+    const [dialogErrorMessage, setDialogErrorMessage] = React.useState(
+        errorMessage
+    )
     const [loading, setLoading] = React.useState(false)
 
     function equals(obj1, obj2) {
@@ -161,8 +164,11 @@ export default function CustomDialog({
                 .then((response) => {
                     if (response.status === 200 || response.status === 201) {
                         saveAndClose()
-                        setLoading(false)
+                    } else {
+                        setError(true)
+                        setDialogErrorMessage(response.statusText)
                     }
+                    setLoading(false)
                     response.json()
                 })
                 .then((data) => {
@@ -183,6 +189,7 @@ export default function CustomDialog({
                 checkRequest()
             } else {
                 setError(true)
+                setDialogErrorMessage(errorMessage)
             }
         } else {
             checkRequest()
@@ -287,7 +294,9 @@ export default function CustomDialog({
                     >
                         {title}
                     </DialogTitle>
-                    {error && <Alert severity="error">{errorMessage}</Alert>}
+                    {error && (
+                        <Alert severity="error">{dialogErrorMessage}</Alert>
+                    )}
                     <DialogContent dividers>{content}</DialogContent>
                 </form>
             </Dialog>

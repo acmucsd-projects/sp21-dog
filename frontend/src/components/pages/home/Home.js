@@ -21,6 +21,13 @@ export default function Home() {
 
     return (
         <div style={{ width: '100%' }}>
+            <button
+                onClick={() => {
+                    console.log(context.state)
+                }}
+            >
+                click
+            </button>
             <div style={{ margin: '10px' }}>
                 <div style={{ marginBottom: '23px' }}>
                     <GreetingCard />
