@@ -80,8 +80,25 @@ namespace SlideSync.Controllers {
         }
 
         [Authorize]
+        [HttpGet("user/{username}/edit")]
+        public IActionResult EditProfile(string username) {
+            var userId = AuthController.GetUserIdFromPrincipal(Request, config.Secret);
+
+            var user = authUnit.Users.GetUserById(userId);
+            // Validate user
+            if (user == null) {
+                return NotFound();
+            }
+
+            if (user.Username != username) {
+                return Unauthorized();
+            }
+            return Ok(mapper.Map<UserPersonalResponse>(user));
+        }
+
+        [Authorize]
         [HttpPost("user/{username}/edit")]
-        public IActionResult EditProfile(string username, [FromForm] UserEditRequest editRequest) {
+        public IActionResult EditProfile(string username, [FromForm] UserEditProfileRequest editProfileRequest) {
             var userId = AuthController.GetUserIdFromPrincipal(Request, config.Secret);
 
             var user = authUnit.Users.GetUserById(userId);
@@ -94,14 +111,37 @@ namespace SlideSync.Controllers {
                 return Unauthorized();
             }
 
-            if (editRequest.Username != user.Username) {
-                if (authUnit.Users.GetUserByUsername(editRequest.Username) != null) {
+            if (editProfileRequest.Username != user.Username) {
+                if (editProfileRequest.Username == string.Empty 
+                    || authUnit.Users.GetUserByUsername(editProfileRequest.Username) != null) {
                     return BadRequest();
                 }
             }
 
             // Apply mapping and update user
-            mapper.Map(editRequest, user);
+            mapper.Map(editProfileRequest, user);
+            authUnit.Users.UpdateUser(user);
+            authUnit.Complete();
+
+            return NoContent();
+        }
+
+        [Authorize]
+        [HttpPost("user/{username}/edit-email")]
+        public IActionResult EditEmail(string username, [FromForm] UserEditEmailRequest editEmailRequest) {
+            var userId = AuthController.GetUserIdFromPrincipal(Request, config.Secret);
+
+            var user = authUnit.Users.GetUserById(userId);
+            // Validate user
+            if (user == null) {
+                return NotFound();
+            }
+            if (user.Username != username) {
+                return Unauthorized();
+            }
+            
+            // Apply mapping and update user
+            mapper.Map(editEmailRequest, user);
             authUnit.Users.UpdateUser(user);
             authUnit.Complete();
 

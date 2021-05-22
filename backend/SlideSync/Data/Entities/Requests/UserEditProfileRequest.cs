@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 
 namespace SlideSync.Data.Entities.Requests {
-    public class UserEditRequest {
+    public class UserEditProfileRequest {
         [Required]
         public string DisplayName { get; set; }
         [Required]
