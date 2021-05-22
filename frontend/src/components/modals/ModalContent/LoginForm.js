@@ -27,16 +27,16 @@ export default function LoginForm({ loading, setSignupOpen }) {
     return (
         <>
             <div className={classes.formRoot}>
-                <Typography>Email</Typography>
+                <Typography>Username</Typography>
                 <TextField
-                    id="email"
+                    id="username"
                     variant="outlined"
-                    type="email"
+                    type="username"
                     required
                     onChange={(e) =>
                         tempContext.setState({
                             ...tempContext.state,
-                            email: e.target.value,
+                            username: e.target.value,
                         })
                     }
                 />

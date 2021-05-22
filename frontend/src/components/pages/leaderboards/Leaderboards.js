@@ -12,9 +12,7 @@ export default function Leaderboards() {
     }
 
     const handleShowProfile = (username) => {
-        fetch(
-            `https://cors-anywhere.herokuapp.com/https://taskathon-go.herokuapp.com/api/users/user/${username}`
-        )
+        fetch(`https://taskathon-go.herokuapp.com/api/users/user/${username}`)
             .then((response) => response.json())
             .then((data) => {
                 console.log(data)
@@ -26,9 +24,7 @@ export default function Leaderboards() {
     }
 
     React.useEffect(() => {
-        fetch(
-            'https://cors-anywhere.herokuapp.com/https://taskathon-go.herokuapp.com/api/game/leaderboard'
-        )
+        fetch('https://taskathon-go.herokuapp.com/api/game/leaderboard')
             .then((response) => response.json())
             .then((data) => {
                 setLeaderboardData(data)

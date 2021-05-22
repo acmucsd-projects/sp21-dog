@@ -11,6 +11,7 @@ import Icon from '@material-ui/core/Icon'
 import { Color } from '../../helpers/Color'
 import CustomDialog from '../modals/CustomDialog'
 import { useTempContext } from '../../contexts/TempContext'
+import { objToFormData } from '../../helpers/Utils'
 
 const useStyles = makeStyles({
     bottomNavbar: {
@@ -82,9 +83,18 @@ export default function BottomNavigationBar() {
 
     const registerRequestParams = {
         url: 'https://taskathon-go.herokuapp.com/api/users/register',
-        body: JSON.stringify({
-            username: tempContext.username,
-            password: tempContext.password,
+        body: objToFormData({
+            username: tempContext.state.email.split('@')[0],
+            email: tempContext.state.email,
+            password: tempContext.state.password,
+        }),
+    }
+
+    const loginRequestParams = {
+        url: 'https://taskathon-go.herokuapp.com/api/users/login',
+        body: objToFormData({
+            username: tempContext.state.username,
+            password: tempContext.state.password,
         }),
     }
 
@@ -162,6 +172,7 @@ export default function BottomNavigationBar() {
                 open={loginOpen}
                 setOpen={setLoginOpen}
                 setSignupOpen={customSetLoginSignupOpen}
+                requestParams={loginRequestParams}
                 nextPage={Page.home}
             />
             <CustomDialog

@@ -22,6 +22,7 @@ import { useTempContext } from '../../contexts/TempContext'
 import { useAppContext } from '../../contexts/AppContext'
 import { Page } from '../../helpers/Page'
 import Alert from '@material-ui/lab/Alert'
+import { testFormData } from '../../helpers/Utils'
 
 const styles = (theme) => ({
     root: {
@@ -155,15 +156,21 @@ export default function CustomDialog({
             setLoading(true)
             fetch(requestParams.url, {
                 method: 'POST',
-                body: JSON.stringify(requestParams.body),
+                body: requestParams.body,
             })
-                .then((response) => response.json())
+                .then((response) => {
+                    if (response.status === 200 || response.status === 201) {
+                        saveAndClose()
+                        setLoading(false)
+                    }
+                    response.json()
+                })
                 .then((data) => {
                     console.log(data)
-                    saveAndClose()
-                    setLoading(false)
                 })
-                .catch((err) => {})
+                .catch((err) => {
+                    console.log(err)
+                })
         } else {
             saveAndClose()
         }

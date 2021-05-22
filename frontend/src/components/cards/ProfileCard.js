@@ -38,8 +38,6 @@ export default function ProfileCard({ data }) {
 
     if (data === undefined) {
         return <div></div>
-    } else {
-        console.log(data)
     }
 
     return (

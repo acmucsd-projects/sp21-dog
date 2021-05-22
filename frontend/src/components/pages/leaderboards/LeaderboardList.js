@@ -21,9 +21,5 @@ export default function LeaderboardList({
         )
     })
 
-    React.useEffect(() => {
-        console.log(data)
-    }, data)
-
     return <List dense>{leaderboardListItems}</List>
 }
