@@ -9,6 +9,7 @@ namespace SlideSync.Data.Entities.Models {
         [Key]
         public int Id { get; set; }
         public string Username { get; set; }
+        public string DisplayName { get; set; }
         public string Password { get; set; }
         public string PasswordSalt { get; set; }
         public string First { get; set; }
@@ -19,6 +20,8 @@ namespace SlideSync.Data.Entities.Models {
             get => Fitness + Nature + Knowledge + Community;
             private set { }
         }
+        
+        public string Bio { get; set; }
 
         public int Fitness { get; set; } = 0;
         public int Nature { get; set; } = 0;

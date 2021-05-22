@@ -78,7 +78,36 @@ namespace SlideSync.Controllers {
 
             return Ok(tasksResponse);
         }
-        
+
+        [Authorize]
+        [HttpPost("user/{username}/edit")]
+        public IActionResult EditProfile(string username, [FromForm] UserEditRequest editRequest) {
+            var userId = AuthController.GetUserIdFromPrincipal(Request, config.Secret);
+
+            var user = authUnit.Users.GetUserById(userId);
+            // Validate user
+            if (user == null) {
+                return NotFound();
+            }
+            
+            if (user.Username != username) {
+                return Unauthorized();
+            }
+
+            if (editRequest.Username != user.Username) {
+                if (authUnit.Users.GetUserByUsername(editRequest.Username) != null) {
+                    return BadRequest();
+                }
+            }
+
+            // Apply mapping and update user
+            mapper.Map(editRequest, user);
+            authUnit.Users.UpdateUser(user);
+            authUnit.Complete();
+
+            return NoContent();
+        }
+
         [AllowAnonymous]
         [HttpPost("register")]
         public IActionResult Register([FromForm] UserRegistrationRequest register) {
@@ -95,6 +124,8 @@ namespace SlideSync.Controllers {
             user.PasswordSalt = cryptoService.Salt;
             
             user.JoinDate = DateTime.Now;
+
+            user.DisplayName = $"{user.First} {user.Last}";
             
             // Save/close DB
             authUnit.Users.AddUser(user);

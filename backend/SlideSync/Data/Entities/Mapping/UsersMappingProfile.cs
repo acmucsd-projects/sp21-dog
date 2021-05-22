@@ -9,6 +9,7 @@ namespace SlideSync.Data.Entities.Mapping {
             CreateMap<UserRegistrationRequest, UserModel>()
                 .ForMember(user => user.Password, opt => opt.Ignore());
             CreateMap<UserModel, UserProfileResponse>();
+            CreateMap<UserEditRequest, UserModel>();
         }
     }
 }
