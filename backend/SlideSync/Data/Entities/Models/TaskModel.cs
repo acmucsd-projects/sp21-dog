@@ -17,6 +17,7 @@ namespace SlideSync.Data.Entities.Models {
         public int Duration => (Completed - Assigned)?.Seconds ?? -1;
         public DateTime Assigned { get; set; }
         public DateTime? Completed { get; set; }
+        public string Title { get; set; }
         public string Description { get; set; }
         
         public float? Latitude { get; set; }

@@ -106,20 +106,25 @@ namespace SlideSync.Controllers {
             for (int i = 0; i < 5; i++) {
                 var type = rand.Next(0, 4);
                 string description = "";
+                string title = "";
 
                 switch (type) {
                     case (int) TaskType.NATURE:
+                        title = "Take a walk";
                         description =
                             "Go out and see the sunshine! Take a break from your devices and enjoy what nature has to offer.";
                         break;
                     case (int) TaskType.FITNESS:
-                        description = "Get out there, get moving!";
+                        title = "Go on a run";
+                        description = "Get out there, get moving! Increasing your Fitness is a great way to stay in shape.";
                         break;
                     case (int) TaskType.COMMUNITY:
+                        title = "Meet new people";
                         description = "It's time to meet new friends! Go out and expand your circle.";
                         break;
                     case (int) TaskType.KNOWLEDGE:
-                        description = "Knowledge is power!";
+                        title = "Visit this institution";
+                        description = "Knowledge is power! Visit this location to increase your Knowledge.";
                         break;
                 }
 
@@ -128,6 +133,7 @@ namespace SlideSync.Controllers {
                 var task = new TaskModel {
                     Assigned = DateTime.Now,
                     Completed = null,
+                    Title = title,
                     Description = description,
                     TaskType = (TaskType) type,
                     Points = 25,
