@@ -21,7 +21,6 @@ using SlideSync.Data.Entities.Responses;
 using SlideSync.Data.Repositories.Contracts;
 
 namespace SlideSync.Controllers {
-    // TODO: Refactor into auth controller
     [ApiController]
     [Route("api/users")]
     public class UserController : ControllerBase {
@@ -82,6 +81,8 @@ namespace SlideSync.Controllers {
         [Authorize]
         [HttpGet("user/{username}/edit")]
         public IActionResult EditProfile(string username) {
+			if (authUnit.Users.GetUserByUsername(username) == null) return NotFound();
+
             var userId = AuthController.GetUserIdFromPrincipal(Request, config.Secret);
 
             var user = authUnit.Users.GetUserById(userId);
@@ -99,6 +100,7 @@ namespace SlideSync.Controllers {
         [Authorize]
         [HttpPost("user/{username}/edit")]
         public IActionResult EditProfile(string username, [FromForm] UserEditProfileRequest editProfileRequest) {
+			if (authUnit.Users.GetUserByUsername(username) == null) return NotFound();
             var userId = AuthController.GetUserIdFromPrincipal(Request, config.Secret);
 
             var user = authUnit.Users.GetUserById(userId);

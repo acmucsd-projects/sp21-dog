@@ -60,7 +60,7 @@ namespace SlideSync.Controllers {
                     MathF.Abs(task.Longitude.Value - longitude) <= 0.0005f) {
 
                     var dbTask = taskRepository.GetTask(task.Id);
-                    if (dbTask.Completed == null) continue;
+                    if (dbTask.Completed != null) continue;
                     
                     dbTask.Completed = DateTime.Now;
                     taskRepository.UpdateTask(dbTask);
