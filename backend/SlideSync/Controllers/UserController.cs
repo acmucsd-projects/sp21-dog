@@ -108,6 +108,38 @@ namespace SlideSync.Controllers {
             return NoContent();
         }
 
+        [Authorize]
+        [HttpPost("user/{username}/edit-password")]
+        public IActionResult EditPassword(string username, [FromForm] UserEditPasswordRequest editRequest) {
+            var userId = AuthController.GetUserIdFromPrincipal(Request, config.Secret);
+
+            var user = authUnit.Users.GetUserById(userId);
+            // Validate user
+            if (user == null) {
+                return NotFound();
+            }
+
+            if (user.Username != username) {
+                return Unauthorized();
+            }
+
+            // Compare existing password
+            var oldHash = cryptoService.Compute(editRequest.OldPassword, user.PasswordSalt);
+            if (!cryptoService.Compare(user.Password, oldHash)) {
+                return BadRequest();
+            }
+
+            // Set new password
+            var newHash = cryptoService.Compute(editRequest.NewPassword);
+            user.Password = newHash;
+            user.PasswordSalt = cryptoService.Salt;
+
+            authUnit.Users.UpdateUser(user);
+            authUnit.Complete();
+            
+            return NoContent();
+        }
+
         [AllowAnonymous]
         [HttpPost("register")]
         public IActionResult Register([FromForm] UserRegistrationRequest register) {
