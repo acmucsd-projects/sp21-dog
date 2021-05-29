@@ -181,7 +181,7 @@ export default function BottomNavigationBar() {
         setValue(
             orderedNavItems.map((item) => item.page).indexOf(context.state.page)
         )
-    }, [context.state.page])
+    }, [context.state.page, auth.state.token])
 
     return (
         <>

@@ -4,6 +4,7 @@ import { useTempContext } from '../../../contexts/TempContext'
 import CustomButton from '../../buttons/CustomButton'
 import CustomDialog from '../../modals/CustomDialog'
 import ProfileContent from './ProfileContent'
+import ProfileCard from '../../cards/ProfileCard'
 
 export default function Profile() {
     const tempContext = useTempContext()
@@ -43,6 +44,7 @@ export default function Profile() {
                 flexDirection: 'column',
             }}
         >
+            {/*<ProfileCard data={data} />*/}
             <CustomDialog
                 type="editProfile"
                 open={editProfileOpen}

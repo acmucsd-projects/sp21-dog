@@ -131,7 +131,7 @@ export default function CustomDialog({
 
     const saveAndClose = () => {
         const temp = Object.keys(tempContext.state)
-            .filter((key) => !key.toLowerCase().includes('password'))
+            .filter((key) => !key.includes('password'))
             .reduce((obj, key) => {
                 obj[key] = tempContext.state[key]
                 return obj
@@ -198,7 +198,7 @@ export default function CustomDialog({
 
     React.useEffect(() => {
         tempContext.setState(context.state)
-    }, [context.state.mapOpen])
+    }, [context.state.mapOpen, open])
 
     let title = 'title'
     let content = null

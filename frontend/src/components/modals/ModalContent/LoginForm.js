@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import CustomButton from '../../buttons/CustomButton'
+import LoopIcon from '@material-ui/icons/Loop'
 import { useTempContext } from '../../../contexts/TempContext'
 
 const useStyles = makeStyles((theme) => ({
@@ -60,7 +61,18 @@ export default function LoginForm({ loading, setSignupOpen }) {
                         submit={true}
                         disabled={loading}
                     >
-                        Log In
+                        {loading === true ? (
+                            <LoopIcon
+                                className="spin"
+                                style={{
+                                    height: 'auto',
+                                    width: '17%',
+                                    padding: 0,
+                                }}
+                            />
+                        ) : (
+                            'Log In'
+                        )}
                     </CustomButton>
                 </div>
                 <hr />

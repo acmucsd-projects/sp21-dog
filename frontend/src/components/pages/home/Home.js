@@ -9,36 +9,6 @@ export default function Home() {
     const context = useAppContext()
     const auth = useAuthContext()
 
-    const refreshableFetch = (url, init) => {
-        const TOKEN_REFRESH_INTERVAL = 900000 // fifteen minutes
-        let timeout = null
-
-        clearTimeout(timeout)
-
-        timeout = setTimeout(
-            () =>
-                refreshableFetch(
-                    'https://taskathon-go.herokuapp.com/api/auth/refresh',
-                    {
-                        headers: new Headers({
-                            authorization: 'Bearer ' + auth.state.token,
-                            credentials: 'include',
-                        }),
-                    }
-                )
-                    .then((response) => response.json)
-                    .then((data) => {
-                        auth.setState({ ...auth.state, token: data.jwt })
-                    })
-                    .then((err) => {
-                        console.log(err)
-                    }),
-            TOKEN_REFRESH_INTERVAL
-        )
-
-        return fetch(url, init)
-    }
-
     React.useEffect(() => {
         navigator.geolocation.getCurrentPosition((position) => {
             context.setState({
@@ -49,15 +19,6 @@ export default function Home() {
                 },
             })
         })
-
-        refreshableFetch('https://taskathon-go.herokuapp.com/api/auth/refresh')
-            .then((response) => response.json)
-            .then((data) => {
-                auth.setState({ ...auth.state, token: data.jwt })
-            })
-            .then((err) => {
-                console.log(err)
-            })
     }, [])
 
     return (
