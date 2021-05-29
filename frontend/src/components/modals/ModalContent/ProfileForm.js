@@ -113,6 +113,7 @@ export default function ProfileForm() {
                 variant="outlined"
                 multiline
                 rows={10}
+                required
                 value={tempContext.state.bio}
                 onChange={(e) =>
                     tempContext.setState({

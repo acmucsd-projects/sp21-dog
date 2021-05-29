@@ -149,8 +149,8 @@ export default function CustomDialog({
             )
         } else {
             context.setState(
-                { ...context.state, ...temp },
-                tempContext.setState(context.state)
+                { ...context.state, ...temp }
+                //tempContext.setState(context.state)
             )
         }
     }
@@ -160,7 +160,11 @@ export default function CustomDialog({
             setLoading(true)
             fetch(requestParams.url, requestParams.params)
                 .then((response) => {
-                    if (response.status === 200 || response.status === 201) {
+                    if (
+                        response.status === 200 ||
+                        response.status === 201 ||
+                        response.status === 204
+                    ) {
                         saveAndClose()
                     } else {
                         setError(true)
@@ -198,7 +202,7 @@ export default function CustomDialog({
 
     React.useEffect(() => {
         tempContext.setState(context.state)
-    }, [context.state.mapOpen, open])
+    }, [context.state.mapOpen])
 
     let title = 'title'
     let content = null

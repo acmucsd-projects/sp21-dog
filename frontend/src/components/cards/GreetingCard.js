@@ -75,7 +75,11 @@ export default function GreetingCard() {
                     </ListItemAvatar>
                     <ListItemText
                         id={0}
-                        primary={`Good ${timeOfDay}, ${context.state.displayName}!`}
+                        primary={`Good ${timeOfDay}, ${
+                            context.state.displayName != null
+                                ? context.state.displayName
+                                : context.state.username
+                        }!`}
                         secondary={timeMessage}
                         primaryTypographyProps={{
                             style: {

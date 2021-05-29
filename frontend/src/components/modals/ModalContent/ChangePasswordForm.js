@@ -75,6 +75,9 @@ export default function ChangePasswordForm({ setEditPasswordOpen }) {
                     Cancel
                 </CustomButton>
             </div>
+            <Typography style={{ textAlign: 'center', color: 'gray' }}>
+                (View Only)
+            </Typography>
         </div>
     )
 }

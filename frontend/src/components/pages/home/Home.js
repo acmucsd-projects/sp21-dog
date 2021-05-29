@@ -1,24 +1,41 @@
 import React from 'react'
 import { useAppContext } from '../../../contexts/AppContext'
-import { useTempContext } from '../../../contexts/TempContext'
+import {
+    TempContextProvider,
+    useTempContext,
+} from '../../../contexts/TempContext'
 import GreetingCard from '../../cards/GreetingCard'
 import HomepageList from './HomepageList'
 import { useAuthContext } from '../../../contexts/AuthContext'
 
 export default function Home() {
     const context = useAppContext()
+    const tempContext = useTempContext()
     const auth = useAuthContext()
 
     React.useEffect(() => {
-        navigator.geolocation.getCurrentPosition((position) => {
-            context.setState({
-                ...context.state,
-                userLocation: {
-                    latitude: position.coords.latitude,
-                    longitude: position.coords.longitude,
-                },
+        fetch(
+            `https://taskathon-go.herokuapp.com/api/users/user/${context.state.username}`
+        )
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(':(')
+                console.log(data)
+                navigator.geolocation.getCurrentPosition((position) => {
+                    context.setState({
+                        ...context.state,
+                        userLocation: {
+                            latitude: position.coords.latitude,
+                            longitude: position.coords.longitude,
+                        },
+                        ...data,
+                    })
+                    tempContext.setState({ ...tempContext.state, ...data })
+                })
             })
-        })
+            .catch((err) => {
+                console.log(err)
+            })
     }, [])
 
     return (

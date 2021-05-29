@@ -70,7 +70,11 @@ export default function ProfileCard({ data }) {
                             </ListItemAvatar>
                             <ListItemText
                                 id={0}
-                                primary={`${data.displayName}`}
+                                primary={
+                                    data.displayName != null
+                                        ? data.displayName
+                                        : data.username
+                                }
                                 secondary={
                                     <div
                                         style={{

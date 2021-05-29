@@ -61,7 +61,11 @@ export default function LeaderboardListItem({ user, i, onClick }) {
                 >
                     <ListItemText
                         id={labelId}
-                        primary={`${user.displayName}`}
+                        primary={
+                            user.displayName != null
+                                ? user.displayName
+                                : user.username
+                        }
                         secondary={
                             <div
                                 style={{
