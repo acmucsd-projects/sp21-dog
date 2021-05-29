@@ -48,8 +48,8 @@ export default function LeaderboardListItem({ user, i, onClick }) {
             >
                 <ListItemAvatar>
                     <Avatar
-                        alt={`Avatar n°${user.name}`}
-                        src={`/static/images/avatar/${user.name}.jpg`}
+                        alt={`Avatar n°${user.displayName}`}
+                        src={`/static/images/avatar/${user.displayName}.jpg`}
                     />
                 </ListItemAvatar>
                 <div
@@ -61,7 +61,7 @@ export default function LeaderboardListItem({ user, i, onClick }) {
                 >
                     <ListItemText
                         id={labelId}
-                        primary={`${user.first} ${user.last}`}
+                        primary={`${user.displayName}`}
                         secondary={
                             <div
                                 style={{

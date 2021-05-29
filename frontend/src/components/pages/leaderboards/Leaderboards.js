@@ -27,6 +27,7 @@ export default function Leaderboards() {
         fetch('https://taskathon-go.herokuapp.com/api/game/leaderboard')
             .then((response) => response.json())
             .then((data) => {
+                console.log(data)
                 setLeaderboardData(data)
             })
             .catch((err) => {

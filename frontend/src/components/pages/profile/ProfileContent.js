@@ -1,16 +1,24 @@
-import { useAppContext } from '../../../contexts/AppContext'
+import { monthName } from '../../../helpers/Utils'
 import LinearDeterminate from './LinearDeterminate'
 import StatsChart from '../../charts/StatsChart'
 
 export default function ProfileContent({ data }) {
-    const context = useAppContext()
+    if (data === undefined) {
+        return <div></div>
+    }
+
+    let joinDate = new Date(data.joinDate)
 
     return (
         <div style={{ height: '100%', fontFamily: 'PT Sans' }}>
-            {context.state.bio.split('\n').map((str) => (
-                <p>{str}</p>
-            ))}
-            <hr style={{ margin: '12px 0' }} />
+            {data.bio != null && (
+                <>
+                    {data.bio.split('\n').map((str) => (
+                        <p>{str}</p>
+                    ))}
+                    <hr style={{ margin: '12px 0' }} />
+                </>
+            )}
             <div
                 style={{
                     display: 'flex',
@@ -32,7 +40,9 @@ export default function ProfileContent({ data }) {
             >
                 <StatsChart />
                 <div style={{ textAlign: 'center' }}>
-                    <p>User since Apr 27, 2021</p>
+                    <p>{`User since ${monthName(
+                        joinDate.getMonth()
+                    )} ${joinDate.getDay()}, ${joinDate.getFullYear()}`}</p>
                     <p>226 Total Points • 57 Tasks Completed</p>
                 </div>
             </div>
