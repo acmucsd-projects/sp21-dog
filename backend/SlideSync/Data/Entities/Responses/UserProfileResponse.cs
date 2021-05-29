@@ -3,8 +3,8 @@ using System;
 namespace SlideSync.Data.Entities.Responses {
     public class UserProfileResponse {
         public string Username { get; set; }
-        public string First { get; set; }
-        public string Last { get; set; }
+        public string DisplayName { get; set; }
+        public string Bio { get; set; }
       
         public int Points { get; set; }
         public int Fitness { get; set; }

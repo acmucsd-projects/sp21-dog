@@ -21,7 +21,6 @@ using SlideSync.Data.Entities.Responses;
 using SlideSync.Data.Repositories.Contracts;
 
 namespace SlideSync.Controllers {
-    // TODO: Refactor into auth controller
     [ApiController]
     [Route("api/users")]
     public class UserController : ControllerBase {
@@ -78,7 +77,111 @@ namespace SlideSync.Controllers {
 
             return Ok(tasksResponse);
         }
-        
+
+        [Authorize]
+        [HttpGet("user/{username}/edit")]
+        public IActionResult EditProfile(string username) {
+			if (authUnit.Users.GetUserByUsername(username) == null) return NotFound();
+
+            var userId = AuthController.GetUserIdFromPrincipal(Request, config.Secret);
+
+            var user = authUnit.Users.GetUserById(userId);
+            // Validate user
+            if (user == null) {
+                return NotFound();
+            }
+
+            if (user.Username != username) {
+                return Unauthorized();
+            }
+            return Ok(mapper.Map<UserPersonalResponse>(user));
+        }
+
+        [Authorize]
+        [HttpPost("user/{username}/edit")]
+        public IActionResult EditProfile(string username, [FromForm] UserEditProfileRequest editProfileRequest) {
+			if (authUnit.Users.GetUserByUsername(username) == null) return NotFound();
+            var userId = AuthController.GetUserIdFromPrincipal(Request, config.Secret);
+
+            var user = authUnit.Users.GetUserById(userId);
+            // Validate user
+            if (user == null) {
+                return NotFound();
+            }
+            
+            if (user.Username != username) {
+                return Unauthorized();
+            }
+
+            if (editProfileRequest.Username != user.Username) {
+                if (editProfileRequest.Username == string.Empty 
+                    || authUnit.Users.GetUserByUsername(editProfileRequest.Username) != null) {
+                    return BadRequest();
+                }
+            }
+
+            // Apply mapping and update user
+            mapper.Map(editProfileRequest, user);
+            authUnit.Users.UpdateUser(user);
+            authUnit.Complete();
+
+            return NoContent();
+        }
+
+        [Authorize]
+        [HttpPost("user/{username}/edit-email")]
+        public IActionResult EditEmail(string username, [FromForm] UserEditEmailRequest editEmailRequest) {
+            var userId = AuthController.GetUserIdFromPrincipal(Request, config.Secret);
+
+            var user = authUnit.Users.GetUserById(userId);
+            // Validate user
+            if (user == null) {
+                return NotFound();
+            }
+            if (user.Username != username) {
+                return Unauthorized();
+            }
+            
+            // Apply mapping and update user
+            mapper.Map(editEmailRequest, user);
+            authUnit.Users.UpdateUser(user);
+            authUnit.Complete();
+
+            return NoContent();
+        }
+
+        [Authorize]
+        [HttpPost("user/{username}/edit-password")]
+        public IActionResult EditPassword(string username, [FromForm] UserEditPasswordRequest editRequest) {
+            var userId = AuthController.GetUserIdFromPrincipal(Request, config.Secret);
+
+            var user = authUnit.Users.GetUserById(userId);
+            // Validate user
+            if (user == null) {
+                return NotFound();
+            }
+
+            if (user.Username != username) {
+                return Unauthorized();
+            }
+
+            // Compare existing password
+            var oldHash = cryptoService.Compute(editRequest.OldPassword, user.PasswordSalt);
+            if (!cryptoService.Compare(user.Password, oldHash)) {
+                return BadRequest();
+            }
+
+            // Set new password
+            var newHash = cryptoService.Compute(editRequest.NewPassword);
+            user.Password = newHash;
+            user.PasswordSalt = cryptoService.Salt;
+
+            authUnit.Users.UpdateUser(user);
+            authUnit.Complete();
+            
+            return NoContent();
+        }
+
         [AllowAnonymous]
         [HttpPost("register")]
         public IActionResult Register([FromForm] UserRegistrationRequest register) {
@@ -95,6 +198,8 @@ namespace SlideSync.Controllers {
             user.PasswordSalt = cryptoService.Salt;
             
             user.JoinDate = DateTime.Now;
+
+            user.DisplayName = $"{user.First} {user.Last}";
             
             // Save/close DB
             authUnit.Users.AddUser(user);
