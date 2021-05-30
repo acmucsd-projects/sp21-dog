@@ -22,6 +22,8 @@ namespace SlideSync.Data.Entities.Models {
         
         public float? Latitude { get; set; }
         public float? Longitude { get; set; }
+        public string Address { get; set; }
+        public string Text { get; set; }
         public UserModel User { get; set; }
     }
 }
