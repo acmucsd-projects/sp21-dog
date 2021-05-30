@@ -1,4 +1,4 @@
-/*import React from 'react'
+import React from 'react'
 import { Page } from '../../helpers/Page'
 import { Color } from '../../helpers/Color'
 import { makeStyles } from '@material-ui/core/styles'
@@ -168,4 +168,4 @@ export default function TopNavigationBar() {
             </AppBar>
         </>
     )
-}*/
+}
