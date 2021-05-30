@@ -5,7 +5,9 @@ namespace SlideSync.Data.Entities.Responses {
         public string Username { get; set; }
         public string DisplayName { get; set; }
         public string Bio { get; set; }
-      
+
+        public int TasksCompleted { get; set; }
+        public int Level => ((int) Math.Sqrt(625 + 100 * Points) - 25) / 50 + 1;
         public int Points { get; set; }
         public int Fitness { get; set; }
         public int Nature { get; set; }

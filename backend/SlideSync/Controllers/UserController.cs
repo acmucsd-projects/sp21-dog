@@ -52,8 +52,11 @@ namespace SlideSync.Controllers {
                 return NotFound();
             }
 
+            var tasksCompleted = taskRepository.GetTasksByUserId(user.Id).Count(t => t.Completed != null);
+
             // Return user info
             var userReadDto = mapper.Map<UserProfileResponse>(user);
+            userReadDto.TasksCompleted = tasksCompleted;
             return Ok(userReadDto);
         }
         
@@ -199,7 +202,7 @@ namespace SlideSync.Controllers {
             
             user.JoinDate = DateTime.Now;
 
-            user.DisplayName = $"{user.First} {user.Last}";
+            user.DisplayName = register.Username;
             
             // Save/close DB
             authUnit.Users.AddUser(user);
