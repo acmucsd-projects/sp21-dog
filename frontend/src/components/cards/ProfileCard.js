@@ -35,7 +35,6 @@ const useStyles = makeStyles({
 
 export default function ProfileCard({ data }) {
     const classes = useStyles()
-    const context = useAppContext()
 
     if (data === undefined) {
         return <div></div>

@@ -10,7 +10,6 @@ import Landing from './landing/Landing'
 import { usePageContext } from '../../contexts/PageContext'
 
 const Content = () => {
-    const context = useAppContext()
     const pageContext = usePageContext()
 
     let backgroundColor = Color.primary

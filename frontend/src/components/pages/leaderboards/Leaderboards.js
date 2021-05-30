@@ -36,7 +36,10 @@ export default function Leaderboards() {
     }, [])
 
     return (
-        <div className="overflow-container" style={{ margin: 0 }}>
+        <div
+            className="overflow-container"
+            style={{ margin: 0, height: '99%' }}
+        >
             <ProfileDialog
                 open={profileOpen}
                 setOpen={setProfileOpen}
