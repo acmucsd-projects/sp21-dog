@@ -605,6 +605,7 @@ transfer-encoding: chunked</pre></td>
 Request Parameters
 | Name | Required | Description |
 | :--- | :---: | :--- | 
+| taskId | Yes | Id of task to check
 | latitude | Yes | Latitude of user
 | longitude | Yes | Longitude of user
 
@@ -638,7 +639,7 @@ Responses
 date: Wed05 May 2021 03:30:17 GMT 
 server: Kestrel 
 content-length: int</pre></td>
-<td>Object containing key 'completedTasks' whose value is a list of task </td>
+<td>Object containing key 'completedTasks' whose value is a list of task response objects</td>
 </tr>
 <tr>
     <td>401</td>
