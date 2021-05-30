@@ -5,6 +5,7 @@ import { useAppContext } from '../../../contexts/AppContext'
 import FloatingActionButton from '../../buttons/FloatingActionButton'
 import MapViewTask from '../map/MapViewTask'
 import CustomDialog from '../../modals/CustomDialog'
+import Alert from '@material-ui/lab/Alert'
 import { useAuthContext } from '../../../contexts/AuthContext'
 import { useTasksContext } from '../../../contexts/TasksContext'
 import { useLocationContext } from '../../../contexts/LocationContext'
@@ -13,7 +14,7 @@ import { usePageContext } from '../../../contexts/PageContext'
 
 export default function Tasks() {
     const [layersOpen, setLayersOpen] = React.useState(false)
-    const context = useAppContext()
+    const [errorOpen, setErrorOpen] = React.useState(true)
     const pageContext = usePageContext()
     const auth = useAuthContext()
     const tasksContext = useTasksContext()
@@ -67,6 +68,19 @@ export default function Tasks() {
                 setOpen={setLayersOpen}
                 keyName={'mapOptions'}
             />
+            {errorOpen && (
+                <div className="alert-container">
+                    <Alert
+                        className="overlay fadeIn"
+                        severity="error"
+                        onClose={() => {
+                            setErrorOpen(false)
+                        }}
+                    >
+                        You must be at the location to complete a task
+                    </Alert>
+                </div>
+            )}
             {pageContext.state.mapOpen ? (
                 <>
                     <Map />
@@ -127,7 +141,10 @@ export default function Tasks() {
                 </>
             ) : (
                 <div style={{ width: '100%', padding: '0 10px' }}>
-                    <TasksList tasks={tasksContext.state.tasks} />
+                    <TasksList
+                        tasks={tasksContext.state.tasks}
+                        setErrorOpen={setErrorOpen}
+                    />
                     <div
                         className="float"
                         style={{ right: '3%', bottom: '15%' }}

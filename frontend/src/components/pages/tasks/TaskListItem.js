@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-export default function TaskListItem({ id, task, mapView }) {
+export default function TaskListItem({ id, task, mapView, setErrorOpen }) {
     const pageContext = usePageContext()
     const classes = useStyles()
     const locationContext = useLocationContext()
@@ -38,6 +38,10 @@ export default function TaskListItem({ id, task, mapView }) {
     }
 
     const stats = ['Fitness', 'Nature', 'Knowledge', 'Community']
+
+    const handleCompleteTask = () => {
+        setErrorOpen(true)
+    }
 
     function equals(obj1, obj2) {
         return Object.keys(obj1).every((key) => {
@@ -139,13 +143,10 @@ export default function TaskListItem({ id, task, mapView }) {
                             display: 'flex',
                         }}
                     >
-                        <CustomButton type="tasks" variant="primary">
-                            Share
-                        </CustomButton>
                         {!mapView && task.completed == null && (
                             <CustomButton
                                 type="tasks"
-                                variant="secondary"
+                                variant="primary"
                                 onClick={() => {
                                     pageContext.setState({
                                         ...pageContext.state,
@@ -168,6 +169,13 @@ export default function TaskListItem({ id, task, mapView }) {
                                 View on Map
                             </CustomButton>
                         )}
+                        <CustomButton
+                            type="tasks"
+                            variant="secondary"
+                            onClick={handleCompleteTask}
+                        >
+                            Complete Task
+                        </CustomButton>
                     </div>
                     <div>
                         <div
