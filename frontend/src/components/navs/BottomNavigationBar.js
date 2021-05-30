@@ -199,7 +199,6 @@ export default function BottomNavigationBar() {
                 open={signupOpen}
                 setOpen={setSignupOpen}
                 setLoginOpen={customSetLoginSignupOpen}
-                nextPage={Page.home}
                 requestParams={registerRequestParams}
                 validate={signupValidate}
                 errorMessage="Passwords do not match"

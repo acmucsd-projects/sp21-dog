@@ -64,6 +64,8 @@ export default function MapView({ noDrag }) {
                 tasksContext.state.tasks.map((task, i) => {
                     return (
                         <Marker
+                            key={task.id}
+                            id={task.id}
                             latitude={task.latitude}
                             longitude={task.longitude}
                         >

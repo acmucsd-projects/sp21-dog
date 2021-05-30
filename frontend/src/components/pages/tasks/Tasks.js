@@ -24,10 +24,7 @@ export default function Tasks() {
     }
 
     React.useEffect(() => {
-        if (
-            tasksContext.state.tasks == null ||
-            tasksContext.state.tasks.length === 0
-        ) {
+        if (tasksContext.state.tasks.length === 0) {
             fetch(
                 `https://taskathon-go.herokuapp.com/api/game/generate?latitude=${locationContext.state.userLocation.latitude}&longitude=${locationContext.state.userLocation.longitude}`,
                 {

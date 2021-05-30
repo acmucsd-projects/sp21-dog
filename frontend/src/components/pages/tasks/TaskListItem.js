@@ -100,7 +100,7 @@ export default function TaskListItem({ task, mapView, handleCompleteTask }) {
                         <ListItemText
                             id={0}
                             primary={task.title}
-                            secondary={'Emerald City Park'}
+                            secondary={task.text}
                             primaryTypographyProps={{
                                 style: {
                                     fontSize: '18px',
@@ -216,8 +216,9 @@ export default function TaskListItem({ task, mapView, handleCompleteTask }) {
                                         />
                                     </div>
                                     <div>
-                                        <p>15823 Fairfield Street</p>
-                                        <p>Emerald City, EC 41852</p>
+                                        {task.address.split('\n').map((str) => (
+                                            <p>{str}</p>
+                                        ))}
                                     </div>
                                 </div>
                             </div>
@@ -252,7 +253,7 @@ export default function TaskListItem({ task, mapView, handleCompleteTask }) {
                             )}
                         </div>
                         <Typography>{task.description}</Typography>
-                        {task.completed == null && (
+                        {/*task.completed == null && (
                             <div
                                 style={{
                                     display: 'flex',
@@ -269,7 +270,7 @@ export default function TaskListItem({ task, mapView, handleCompleteTask }) {
                                     Complete Task
                                 </CustomButton>
                             </div>
-                        )}
+                            )*/}
                     </div>
                 </div>
             </AccordionDetails>

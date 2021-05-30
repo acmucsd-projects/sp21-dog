@@ -25,12 +25,13 @@ export default function Home() {
             )
                 .then((response) => response.json())
                 .then((data) => {
+                    console.log(data)
                     navigator.geolocation.watchPosition(function (position) {
                         context.setState({
                             ...context.state,
                             ...data,
                         })
-                        locationContext.setState({
+                        /*locationContext.setState({
                             ...locationContext.state,
                             userLocation: {
                                 latitude: position.coords.latitude,
@@ -40,7 +41,7 @@ export default function Home() {
                                 latitude: position.coords.latitude,
                                 longitude: position.coords.longitude,
                             },
-                        })
+                        })*/
                         tempContext.setState({ ...tempContext.state, ...data })
                         fetch(
                             `https://taskathon-go.herokuapp.com/api/users/user/${context.state.username}/tasks`,
