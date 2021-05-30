@@ -53,6 +53,9 @@ namespace SlideSync.Controllers {
             var dbTask = taskRepository.GetTask(taskId);
             if (dbTask == null) return BadRequest();
 
+            if (dbTask.Assigned < DateTime.Today) return Ok(response);
+
+            // If within 50 meters (roughly)
             if (MathF.Abs(dbTask.Latitude.Value - latitude) <= 0.0005f &&
                 MathF.Abs(dbTask.Longitude.Value - longitude) <= 0.0005f) {
                 if (dbTask.Completed != null) return Ok(response);
@@ -169,7 +172,8 @@ namespace SlideSync.Controllers {
                         Title = title,
                         Description = description,
                         TaskType = (TaskType) type,
-                        Points = 25,
+                        Points = Math.Min(25 + (int) (75 * MathF.Sqrt(MathF.Pow(latitude - taskLoc.X, 2) +
+                                                 MathF.Pow(longitude - taskLoc.Y, 2)) / 5) * 5, 50),
                         Latitude = taskLoc.X,
                         Longitude = taskLoc.Y,
                         Address = address,
