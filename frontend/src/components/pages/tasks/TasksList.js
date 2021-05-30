@@ -26,9 +26,7 @@ export default function TaskList({ tasks }) {
             </Accordion>
             {tasks != null &&
                 tasks.map((task) => {
-                    return (
-                        <TaskListItem key={task.id} id={task.id} task={task} />
-                    )
+                    return <TaskListItem id={task.id} task={task} />
                 })}
             <Accordion style={{ display: 'none' }}>
                 <AccordionSummary />

@@ -13,6 +13,7 @@ import CustomDialog from '../modals/CustomDialog'
 import { useTempContext } from '../../contexts/TempContext'
 import { objToFormData } from '../../helpers/Utils'
 import { useAuthContext } from '../../contexts/AuthContext'
+import { usePageContext } from '../../contexts/PageContext'
 
 const useStyles = makeStyles({
     bottomNavbar: {
@@ -72,6 +73,7 @@ const useStyles = makeStyles({
 export default function BottomNavigationBar() {
     const classes = useStyles()
     const context = useAppContext()
+    const pageContext = usePageContext()
     const auth = useAuthContext()
     const tempContext = useTempContext()
     const [value, setValue] = React.useState()
@@ -150,6 +152,7 @@ export default function BottomNavigationBar() {
                 key={i}
                 disableRipple={false}
                 classes={itemClasses}
+                disabled={context.state.displayName == null}
                 icon={
                     <div
                         style={{
@@ -167,8 +170,8 @@ export default function BottomNavigationBar() {
                     </div>
                 }
                 onClick={() => {
-                    context.setState({
-                        ...context.state,
+                    pageContext.setState({
+                        ...pageContext.state,
                         page: item.page,
                         mapOpen: false,
                     })
@@ -179,9 +182,11 @@ export default function BottomNavigationBar() {
 
     React.useEffect(() => {
         setValue(
-            orderedNavItems.map((item) => item.page).indexOf(context.state.page)
+            orderedNavItems
+                .map((item) => item.page)
+                .indexOf(pageContext.state.page)
         )
-    }, [context.state.page, auth.state.token])
+    }, [pageContext.state.page, auth.state.token])
 
     return (
         <>
@@ -204,10 +209,10 @@ export default function BottomNavigationBar() {
                 errorMessage="Passwords do not match"
             />
             <div className={classes.bottomNavbar}>
-                {context.state.page == Page.leaderboards && (
+                {pageContext.state.page == Page.leaderboards && (
                     <LeaderboardBottom />
                 )}
-                {context.state.page == Page.landing && (
+                {pageContext.state.page == Page.landing && (
                     <div
                         style={{
                             height: '100%',
@@ -237,7 +242,7 @@ export default function BottomNavigationBar() {
                         </CustomButton>
                     </div>
                 )}
-                {context.state.page != Page.landing && (
+                {pageContext.state.page != Page.landing && (
                     <div
                         style={{
                             height: '100%',

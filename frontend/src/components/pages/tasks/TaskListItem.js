@@ -11,6 +11,7 @@ import { useAppContext } from '../../../contexts/AppContext'
 import { Page } from '../../../helpers/Page'
 import { useLocationContext } from '../../../contexts/LocationContext'
 import { useTasksContext } from '../../../contexts/TasksContext'
+import { usePageContext } from '../../../contexts/PageContext'
 
 const useStyles = makeStyles((theme) => ({
     imageIcon: {
@@ -26,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 export default function TaskListItem({ id, task, mapView }) {
-    const context = useAppContext()
+    const pageContext = usePageContext()
     const classes = useStyles()
     const locationContext = useLocationContext()
     const tasksContext = useTasksContext()
@@ -146,8 +147,8 @@ export default function TaskListItem({ id, task, mapView }) {
                                 type="tasks"
                                 variant="secondary"
                                 onClick={() => {
-                                    context.setState({
-                                        ...context.state,
+                                    pageContext.setState({
+                                        ...pageContext.state,
                                         page: Page.tasks,
                                         mapOpen: true,
                                     })

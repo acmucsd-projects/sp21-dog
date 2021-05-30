@@ -9,10 +9,12 @@ import { useAuthContext } from '../../../contexts/AuthContext'
 import { useTasksContext } from '../../../contexts/TasksContext'
 import { useLocationContext } from '../../../contexts/LocationContext'
 import { Page } from '../../../helpers/Page'
+import { usePageContext } from '../../../contexts/PageContext'
 
 export default function Tasks() {
     const [layersOpen, setLayersOpen] = React.useState(false)
     const context = useAppContext()
+    const pageContext = usePageContext()
     const auth = useAuthContext()
     const tasksContext = useTasksContext()
     const locationContext = useLocationContext()
@@ -41,13 +43,20 @@ export default function Tasks() {
                         ...tasksContext.state,
                         tasks: data,
                     })
-                    context.setState({ ...context.state, page: Page.tasks })
+                    pageContext.setState({
+                        ...pageContext.state,
+                        page: Page.tasks,
+                    })
                 })
                 .catch((err) => {
                     console.log(err)
                 })
+        } else {
+            tasksContext.setState({
+                ...tasksContext.state,
+                selectedId: null,
+            })
         }
-        console.log(tasksContext.state.tasks)
     }, [])
 
     return (
@@ -58,7 +67,7 @@ export default function Tasks() {
                 setOpen={setLayersOpen}
                 keyName={'mapOptions'}
             />
-            {context.state.mapOpen ? (
+            {pageContext.state.mapOpen ? (
                 <>
                     <Map />
                     <div
@@ -68,8 +77,8 @@ export default function Tasks() {
                         <FloatingActionButton
                             imgSrc="./icons/journal.svg"
                             onClick={() => {
-                                context.setState({
-                                    ...context.state,
+                                pageContext.setState({
+                                    ...pageContext.state,
                                     mapOpen: false,
                                 })
                             }}
@@ -126,8 +135,8 @@ export default function Tasks() {
                         <FloatingActionButton
                             imgSrc="./icons/map.svg"
                             onClick={() => {
-                                context.setState({
-                                    ...context.state,
+                                pageContext.setState({
+                                    ...pageContext.state,
                                     mapOpen: true,
                                 })
                             }}

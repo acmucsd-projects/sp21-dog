@@ -19,14 +19,12 @@ export default function Home() {
     const locationContext = useLocationContext()
 
     React.useEffect(() => {
-        console.log()
         if (tasksContext.state.tasks.length === 0 && auth.state.token) {
             fetch(
                 `https://taskathon-go.herokuapp.com/api/users/user/${context.state.username}`
             )
                 .then((response) => response.json())
                 .then((data) => {
-                    console.log(data)
                     navigator.geolocation.watchPosition(function (position) {
                         context.setState({
                             ...context.state,

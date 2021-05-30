@@ -5,8 +5,6 @@ const TempContext = React.createContext()
 
 function TempContextProvider({ children }) {
     const [state, setState] = useState({
-        page: Page.home,
-        mapOpen: false,
         displayName: '',
         username: '',
         email: '',

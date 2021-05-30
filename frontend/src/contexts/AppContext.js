@@ -5,8 +5,6 @@ const AppContext = React.createContext()
 
 function AppContextProvider({ children }) {
     const [state, setState] = useState({
-        page: Page.landing,
-        mapOpen: false,
         fetchError: false,
         displayName: '',
         username: '',
