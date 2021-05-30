@@ -6,11 +6,13 @@ import FloatingActionButton from '../../buttons/FloatingActionButton'
 import MapViewTask from '../map/MapViewTask'
 import CustomDialog from '../../modals/CustomDialog'
 import { useAuthContext } from '../../../contexts/AuthContext'
+import { useTasksContext } from '../../../contexts/TasksContext'
 
 export default function Tasks() {
     const [layersOpen, setLayersOpen] = React.useState(false)
     const context = useAppContext()
     const auth = useAuthContext()
+    const tasksContext = useTasksContext()
 
     const handleCenterCamera = () => {
         context.setState({
@@ -94,7 +96,7 @@ export default function Tasks() {
                 </>
             ) : (
                 <div style={{ width: '100%', padding: '0 10px' }}>
-                    <TasksList />
+                    <TasksList tasks={tasksContext.state.tasks} />
                     <div
                         className="float"
                         style={{ right: '3%', bottom: '15%' }}

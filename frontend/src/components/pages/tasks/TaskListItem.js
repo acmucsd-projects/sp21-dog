@@ -23,16 +23,46 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-export default function TaskListItem({
-    mapView,
-    completed,
-    handleCompleteTask,
-}) {
+export default function TaskListItem({ task, mapView, handleCompleteTask }) {
     const context = useAppContext()
     const classes = useStyles()
+
     let margin = '15px 0'
     if (mapView) {
         margin = '8px'
+    }
+
+    const stats = ['Fitness', 'Nature', 'Knowledge', 'Community']
+
+    function equals(obj1, obj2) {
+        return Object.keys(obj1).every((key) => {
+            return obj1[key] === obj2[key]
+        })
+    }
+
+    const distance = (userLocation, taskLocation) => {
+        if (equals(userLocation, taskLocation)) {
+            return 0
+        } else {
+            var radlat1 = (Math.PI * userLocation.latitude) / 180
+            var radlat2 = (Math.PI * taskLocation.latitude) / 180
+            var theta = userLocation.longitude - taskLocation.longitude
+            var radtheta = (Math.PI * theta) / 180
+            var dist =
+                Math.sin(radlat1) * Math.sin(radlat2) +
+                Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta)
+            if (dist > 1) {
+                dist = 1
+            }
+            dist = Math.acos(dist)
+            dist = (dist * 180) / Math.PI
+            dist = dist * 60 * 1.1515
+            return dist
+        }
+    }
+
+    if (task == null) {
+        return <div></div>
     }
 
     return (
@@ -40,7 +70,7 @@ export default function TaskListItem({
             <AccordionSummary
                 aria-controls="panel2a-content"
                 id="panel2a-header"
-                className={completed === true ? classes.completed : null}
+                className={task.completed != null ? classes.completed : null}
             >
                 <div
                     style={{
@@ -52,11 +82,16 @@ export default function TaskListItem({
                 >
                     <div style={{ display: 'flex', alignItems: 'center' }}>
                         <ListItemAvatar>
-                            <Avatar alt={`logo`} src={`/icons/nature.svg`} />
+                            <Avatar
+                                alt={`logo`}
+                                src={`/icons/${stats[
+                                    task.taskType
+                                ].toLowerCase()}.svg`}
+                            />
                         </ListItemAvatar>
                         <ListItemText
                             id={0}
-                            primary={'Take a walk'}
+                            primary={task.title}
                             secondary={'Emerald City Park'}
                             primaryTypographyProps={{
                                 style: {
@@ -71,15 +106,21 @@ export default function TaskListItem({
                             textAlign: 'right',
                         }}
                     >
-                        {completed === true ? (
+                        {task.completed != null ? (
                             <img
                                 src="icons/complete.svg"
                                 alt="task complete icon"
                             />
                         ) : (
                             <>
-                                <p>5 pts</p>
-                                <p>0.8 mi</p>
+                                <p>{`${task.points} pts`}</p>
+                                <p>
+                                    {distance(context.state.userLocation, {
+                                        latitude: task.latitude,
+                                        longitude: task.longitude,
+                                    })}{' '}
+                                    mi
+                                </p>
                             </>
                         )}
                     </div>
@@ -95,7 +136,7 @@ export default function TaskListItem({
                         <CustomButton type="tasks" variant="primary">
                             Share
                         </CustomButton>
-                        {!mapView && !completed && (
+                        {!mapView && task.completed == null && (
                             <CustomButton
                                 type="tasks"
                                 variant="secondary"
@@ -103,6 +144,10 @@ export default function TaskListItem({
                                     context.setState({
                                         ...context.state,
                                         page: Page.tasks,
+                                        viewportLocation: {
+                                            latitude: task.latitude,
+                                            longitude: task.longitude,
+                                        },
                                         mapOpen: true,
                                     })
                                 }}
@@ -131,9 +176,13 @@ export default function TaskListItem({
                                 >
                                     <img
                                         className={classes.imageIcon}
-                                        src="/icons/nature.svg"
+                                        src={`/icons/${stats[
+                                            task.taskType
+                                        ].toLowerCase()}.svg`}
                                     />
-                                    <p>+5 Nature Pts</p>
+                                    <p>{`+${task.points} ${
+                                        stats[task.taskType]
+                                    } Pts`}</p>
                                 </div>
 
                                 <div
@@ -167,7 +216,7 @@ export default function TaskListItem({
                                     </div>
                                 </div>
                             </div>
-                            {!completed && (
+                            {task.completed == null && (
                                 <div
                                     style={{
                                         flex: 1,
@@ -197,11 +246,8 @@ export default function TaskListItem({
                                 </div>
                             )}
                         </div>
-                        <Typography>
-                            Go out and see the sunshine! Take a break from your
-                            devices and enjoy what nature has to offer.
-                        </Typography>
-                        {completed !== true && (
+                        <Typography>{task.description}</Typography>
+                        {task.completed == null && (
                             <div
                                 style={{
                                     display: 'flex',

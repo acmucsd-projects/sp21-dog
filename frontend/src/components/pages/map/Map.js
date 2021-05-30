@@ -1,9 +1,11 @@
 import React from 'react'
 import ReactMapGL, { Marker, FlyToInterpolator } from 'react-map-gl'
 import { useAppContext } from '../../../contexts/AppContext'
+import { useTasksContext } from '../../../contexts/TasksContext'
 
 export default function MapView({ noDrag }) {
     const context = useAppContext()
+    const tasksContext = useTasksContext()
 
     let mapStyle = 'mapbox://styles/mapbox/streets-v11'
     if (context.state.mapOptions.mapLayers.mapType === 'satelite') {
@@ -21,6 +23,8 @@ export default function MapView({ noDrag }) {
             context.state.userLocation.longitude,
         zoom: 15,
     })
+
+    const stats = ['Fitness', 'Nature', 'Knowledge', 'Community']
 
     React.useEffect(() => {
         if (context.state.viewportLocation.latitude !== null) {
@@ -54,24 +58,31 @@ export default function MapView({ noDrag }) {
             mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_API_KEY}
             mapStyle={mapStyle}
         >
-            <Marker
-                latitude={context.state.userLocation.latitude}
-                longitude={context.state.userLocation.longitude}
-            >
-                <div className="marker">
-                    <span>
-                        <img
-                            style={{
-                                transform: 'rotateZ(135deg)',
-                                width: '80%',
-                                height: '80%',
-                            }}
-                            src="./icons/nature.svg"
-                            alt="map marker"
-                        />
-                    </span>
-                </div>
-            </Marker>
+            {tasksContext.state.tasks != null &&
+                tasksContext.state.tasks.map((task, i) => {
+                    return (
+                        <Marker
+                            latitude={task.latitude}
+                            longitude={task.longitude}
+                        >
+                            <div className="marker">
+                                <span>
+                                    <img
+                                        style={{
+                                            transform: 'rotateZ(135deg)',
+                                            width: '80%',
+                                            height: '80%',
+                                        }}
+                                        src={`./icons/${
+                                            stats[task.taskType]
+                                        }.svg`}
+                                        alt="map marker"
+                                    />
+                                </span>
+                            </div>
+                        </Marker>
+                    )
+                })}
         </ReactMapGL>
     )
 }

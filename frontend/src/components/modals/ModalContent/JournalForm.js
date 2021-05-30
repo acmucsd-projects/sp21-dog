@@ -160,6 +160,9 @@ export default function JournalForm({ keyName }) {
                     </CustomButton>
                 </div>
             </div>
+            <Typography style={{ textAlign: 'center', color: 'gray' }}>
+                (View Only)
+            </Typography>
         </>
     )
 }
