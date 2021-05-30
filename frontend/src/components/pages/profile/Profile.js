@@ -40,19 +40,6 @@ export default function Profile() {
         return false
     }
 
-    const editEmailParams = {
-        url: `https://taskathon-go.herokuapp.com/api/users/user/${context.state.username}/edit-email`,
-        params: {
-            method: 'POST',
-            headers: new Headers({
-                Authorization: 'Bearer ' + auth.state.token,
-            }),
-            body: objToFormData({
-                email: tempContext.state.email,
-            }),
-        },
-    }
-
     const editProfileParams = {
         url: `https://taskathon-go.herokuapp.com/api/users/user/${context.state.username}/edit`,
         params: {
@@ -82,6 +69,29 @@ export default function Profile() {
         },
     }*/
 
+    React.useEffect(() => {
+        fetch(
+            `https://taskathon-go.herokuapp.com/api/users/user/${context.state.username}/edit`,
+            {
+                method: 'GET',
+                headers: new Headers({
+                    Authorization: 'Bearer ' + auth.state.token,
+                }),
+            }
+        )
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data)
+                context.setState({
+                    ...context.state,
+                    email: data.email || '',
+                })
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }, [])
+
     return (
         <div
             className="overflow-container"
@@ -91,6 +101,7 @@ export default function Profile() {
                 flexDirection: 'column',
             }}
         >
+            {/*<ProfileCard data={data} />*/}
             <CustomDialog
                 type="editProfile"
                 open={editProfileOpen}

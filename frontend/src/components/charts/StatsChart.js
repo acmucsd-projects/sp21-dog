@@ -8,34 +8,30 @@ import {
 } from 'recharts'
 import { Color } from '../../helpers/Color'
 
-const data = [
-    {
-        subject: 'Community',
-        A: 120,
-        B: 110,
-        fullMark: 150,
-    },
-    {
-        subject: 'Knowledge',
-        A: 98,
-        B: 130,
-        fullMark: 150,
-    },
-    {
-        subject: 'Nature',
-        A: 86,
-        B: 130,
-        fullMark: 150,
-    },
-    {
-        subject: 'Fitness',
-        A: 99,
-        B: 100,
-        fullMark: 150,
-    },
-]
+export default function StatsChart({ stats }) {
+    const data = [
+        {
+            subject: 'Community',
+            A: stats.community,
+            fullMark: 200,
+        },
+        {
+            subject: 'Knowledge',
+            A: stats.knowledge,
+            fullMark: 200,
+        },
+        {
+            subject: 'Nature',
+            A: stats.nature,
+            fullMark: 200,
+        },
+        {
+            subject: 'Fitness',
+            A: stats.fitness,
+            fullMark: 200,
+        },
+    ]
 
-export default function StatsChart() {
     let imgSrc = null
     function customTick({ payload, x, y }) {
         let xOffset = 0

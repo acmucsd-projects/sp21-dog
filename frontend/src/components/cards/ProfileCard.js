@@ -40,6 +40,10 @@ export default function ProfileCard({ data }) {
         return <div></div>
     }
 
+    if (data === undefined) {
+        return <div></div>
+    }
+
     return (
         <div className={classes.dropdown}>
             <Card className={classes.root}>
@@ -124,7 +128,7 @@ export default function ProfileCard({ data }) {
                                 Lv
                             </p>
                             <p style={{ fontSize: '24px', fontWeight: 'bold' }}>
-                                35
+                                {data.level}
                             </p>
                         </div>
                     </div>

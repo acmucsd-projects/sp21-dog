@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SlideSync.Data.Context;
 
 namespace SlideSync.Migrations
 {
     [DbContext(typeof(GameDbContext))]
-    partial class GameDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210530012004_RemoveNameFirstLastColumns")]
+    partial class RemoveNameFirstLastColumns
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,9 +60,6 @@ namespace SlideSync.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("Address")
-                        .HasColumnType("text");
-
                     b.Property<DateTime>("Assigned")
                         .HasColumnType("timestamp without time zone");
 
@@ -81,9 +80,6 @@ namespace SlideSync.Migrations
 
                     b.Property<int>("TaskType")
                         .HasColumnType("integer");
-
-                    b.Property<string>("Text")
-                        .HasColumnType("text");
 
                     b.Property<string>("Title")
                         .HasColumnType("text");
@@ -112,9 +108,6 @@ namespace SlideSync.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("DisplayName")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Email")
                         .HasColumnType("text");
 
                     b.Property<int>("FactionId")

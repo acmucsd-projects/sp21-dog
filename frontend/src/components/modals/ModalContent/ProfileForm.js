@@ -90,7 +90,7 @@ export default function ProfileForm() {
                     })
                 }
             />
-            <Typography>Region</Typography>
+            {/*<Typography>Region</Typography>
             <FormControl variant="outlined" className={classes.formControl}>
                 <Select
                     labelId="region-label"
@@ -106,7 +106,7 @@ export default function ProfileForm() {
                 >
                     {regionMenuItems}
                 </Select>
-            </FormControl>
+                </FormControl>*/}
             <Typography>Bio</Typography>
             <TextField
                 id="bio"
