@@ -99,10 +99,6 @@ export default function Profile() {
                     ...context.state,
                     email: data.email || '',
                 })
-                tempContext.setState({
-                    ...tempContext.state,
-                    email: data.email || '',
-                })
             })
             .catch((err) => {
                 console.log(err)

@@ -121,7 +121,7 @@ export default function ProfileCard({ data }) {
                                 Lv
                             </p>
                             <p style={{ fontSize: '24px', fontWeight: 'bold' }}>
-                                35
+                                {data.level}
                             </p>
                         </div>
                     </div>
