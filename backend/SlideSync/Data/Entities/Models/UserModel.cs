@@ -12,8 +12,6 @@ namespace SlideSync.Data.Entities.Models {
         public string DisplayName { get; set; }
         public string Password { get; set; }
         public string PasswordSalt { get; set; }
-        public string First { get; set; }
-        public string Last { get; set; }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public int Points {
