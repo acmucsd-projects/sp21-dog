@@ -570,7 +570,9 @@ Responses
         "completed": null,
         "description": "Go out and see the sunshine! Take a break from your devices and enjoy what nature has to offer.",
         "latitude": 29.653173,
-        "longitude": 29.993027
+        "longitude": 29.993027,
+        "address": "16150 Bernardo Heights Pkwy",
+        "text": "Bernardo Heights Community Center"
     },
     ...,
 ]</pre></td>
