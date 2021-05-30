@@ -8,14 +8,10 @@ function AppContextProvider({ children }) {
         page: Page.landing,
         mapOpen: false,
         fetchError: false,
-        displayName: 'Elizabeth',
-        username: 'lizzyh2021',
-        email: 'lizzyh2021@gmail.com',
-        region: 'United States',
-        bio:
-            'Hey there!!\nMy name is Elizabeth and I love going out on adventures! When I’m not out hiking or mountain climbing, I like to hangout with friends at the park. Everyone should always enjoy nature at some point during their day!',
-        userLocation: { latitude: 37.75, longitude: -122.43 },
-        viewportLocation: { latitude: null, longitude: null },
+        displayName: '',
+        username: '',
+        email: '',
+        bio: '',
         leaderboardOptions: {
             view: {
                 displayData: 'points',

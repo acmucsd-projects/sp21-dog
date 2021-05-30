@@ -9,6 +9,7 @@ import CustomButton from '../../buttons/CustomButton'
 import Typography from '@material-ui/core/Typography'
 import { useAppContext } from '../../../contexts/AppContext'
 import { Page } from '../../../helpers/Page'
+import { useLocationContext } from '../../../contexts/LocationContext'
 
 const useStyles = makeStyles((theme) => ({
     imageIcon: {
@@ -26,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
 export default function TaskListItem({ task, mapView, handleCompleteTask }) {
     const context = useAppContext()
     const classes = useStyles()
+    const locationContext = useLocationContext()
 
     let margin = '15px 0'
     if (mapView) {
@@ -66,7 +68,7 @@ export default function TaskListItem({ task, mapView, handleCompleteTask }) {
         return <div></div>
     }
 
-    const miles = distance(context.state.userLocation, {
+    const miles = distance(locationContext.state.userLocation, {
         latitude: task.latitude,
         longitude: task.longitude,
     })
@@ -144,11 +146,14 @@ export default function TaskListItem({ task, mapView, handleCompleteTask }) {
                                     context.setState({
                                         ...context.state,
                                         page: Page.tasks,
+                                        mapOpen: true,
+                                    })
+                                    locationContext.setState({
+                                        ...locationContext.state,
                                         viewportLocation: {
                                             latitude: task.latitude,
                                             longitude: task.longitude,
                                         },
-                                        mapOpen: true,
                                     })
                                 }}
                             >

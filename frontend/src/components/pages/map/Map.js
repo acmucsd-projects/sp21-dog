@@ -1,11 +1,13 @@
 import React from 'react'
 import ReactMapGL, { Marker, FlyToInterpolator } from 'react-map-gl'
 import { useAppContext } from '../../../contexts/AppContext'
+import { useLocationContext } from '../../../contexts/LocationContext'
 import { useTasksContext } from '../../../contexts/TasksContext'
 
 export default function MapView({ noDrag }) {
     const context = useAppContext()
     const tasksContext = useTasksContext()
+    const locationContext = useLocationContext()
 
     let mapStyle = 'mapbox://styles/mapbox/streets-v11'
     if (context.state.mapOptions.mapLayers.mapType === 'satelite') {
@@ -16,19 +18,19 @@ export default function MapView({ noDrag }) {
         width: '100%',
         height: '100%',
         latitude:
-            context.state.viewportLocation.latitude ||
-            context.state.userLocation.latitude,
+            locationContext.state.viewportLocation.latitude ||
+            locationContext.state.userLocation.latitude,
         longitude:
-            context.state.viewportLocation.longitude ||
-            context.state.userLocation.longitude,
+            locationContext.state.viewportLocation.longitude ||
+            locationContext.state.userLocation.longitude,
         zoom: 15,
     })
 
     const stats = ['Fitness', 'Nature', 'Knowledge', 'Community']
 
     React.useEffect(() => {
-        if (context.state.viewportLocation.latitude !== null) {
-            const newLoc = context.state.viewportLocation
+        if (locationContext.state.viewportLocation.latitude !== null) {
+            const newLoc = locationContext.state.viewportLocation
             setViewport({
                 ...viewport,
                 latitude: newLoc.latitude,
@@ -36,12 +38,12 @@ export default function MapView({ noDrag }) {
                 transitionDuration: 500,
                 transitionInterpolator: new FlyToInterpolator(),
             })
-            context.setState({
-                ...context.state,
+            locationContext.setState({
+                ...locationContext.state,
                 viewportLocation: { latitude: null, longitude: null },
             })
         }
-    }, [context.state.viewportLocation])
+    }, [locationContext.state.viewportLocation])
 
     return (
         <ReactMapGL

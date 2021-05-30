@@ -7,17 +7,19 @@ import MapViewTask from '../map/MapViewTask'
 import CustomDialog from '../../modals/CustomDialog'
 import { useAuthContext } from '../../../contexts/AuthContext'
 import { useTasksContext } from '../../../contexts/TasksContext'
+import { useLocationContext } from '../../../contexts/LocationContext'
 
 export default function Tasks() {
     const [layersOpen, setLayersOpen] = React.useState(false)
     const context = useAppContext()
     const auth = useAuthContext()
     const tasksContext = useTasksContext()
+    const locationContext = useLocationContext()
 
     const handleCenterCamera = () => {
         context.setState({
             ...context.state,
-            viewportLocation: context.state.userLocation,
+            viewportLocation: locationContext.state.userLocation,
         })
     }
 

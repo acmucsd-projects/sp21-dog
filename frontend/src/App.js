@@ -8,23 +8,26 @@ import { theme } from './helpers/Themes.js'
 import { TempContextProvider } from './contexts/TempContext'
 import { AuthContextProvider } from './contexts/AuthContext'
 import { TasksContextProvider } from './contexts/TasksContext'
+import { LocationContextProvider } from './contexts/LocationContext'
 
 function App() {
     return (
         <div className="App">
             <ThemeProvider theme={theme}>
                 <AppContextProvider>
-                    <TasksContextProvider>
-                        <AuthContextProvider>
-                            <TempContextProvider>
-                                <div className="main-container">
-                                    <TopNavigationBar />
-                                    <Content />
-                                    <BottomNavigationBar />
-                                </div>
-                            </TempContextProvider>
-                        </AuthContextProvider>
-                    </TasksContextProvider>
+                    <AuthContextProvider>
+                        <TempContextProvider>
+                            <div className="main-container">
+                                <TopNavigationBar />
+                                <LocationContextProvider>
+                                    <TasksContextProvider>
+                                        <Content />
+                                    </TasksContextProvider>
+                                </LocationContextProvider>
+                                <BottomNavigationBar />
+                            </div>
+                        </TempContextProvider>
+                    </AuthContextProvider>
                 </AppContextProvider>
             </ThemeProvider>
         </div>

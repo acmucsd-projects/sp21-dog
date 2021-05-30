@@ -9,12 +9,14 @@ import HomepageList from './HomepageList'
 import { useAuthContext } from '../../../contexts/AuthContext'
 import { useTasksContext } from '../../../contexts/TasksContext'
 import { objToFormData } from '../../../helpers/Utils'
+import { useLocationContext } from '../../../contexts/LocationContext'
 
 export default function Home() {
     const context = useAppContext()
     const tempContext = useTempContext()
     const tasksContext = useTasksContext()
     const auth = useAuthContext()
+    const locationContext = useLocationContext()
 
     React.useEffect(() => {
         if (auth.state.token) {
@@ -23,15 +25,21 @@ export default function Home() {
             )
                 .then((response) => response.json())
                 .then((data) => {
-                    console.log(data)
-                    navigator.geolocation.getCurrentPosition((position) => {
+                    navigator.geolocation.watchPosition(function (position) {
                         context.setState({
                             ...context.state,
+                            ...data,
+                        })
+                        locationContext.setState({
+                            ...locationContext.state,
                             userLocation: {
                                 latitude: position.coords.latitude,
                                 longitude: position.coords.longitude,
                             },
-                            ...data,
+                            viewportLocation: {
+                                latitude: position.coords.latitude,
+                                longitude: position.coords.longitude,
+                            },
                         })
                         tempContext.setState({ ...tempContext.state, ...data })
 
