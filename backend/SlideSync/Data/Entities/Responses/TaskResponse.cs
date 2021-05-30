@@ -13,5 +13,7 @@ namespace SlideSync.Data.Entities.Responses {
         public string Description { get; set; }
         public float? Latitude { get; set; }
         public float? Longitude { get; set; }
+        public string Address { get; set; }
+        public string Text { get; set; }
     }
 }
