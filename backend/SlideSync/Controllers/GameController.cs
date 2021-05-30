@@ -43,49 +43,41 @@ namespace SlideSync.Controllers {
         }
 
         [HttpGet("check")]
-        public IActionResult CheckTasks(float latitude, float longitude) {
+        public IActionResult CheckTask(int taskId, float latitude, float longitude) {
             var userId = AuthController.GetUserIdFromPrincipal(Request, config["JWT:Secret"]);
             var user = userRepository.GetUserById(userId);
             if (user == null) return BadRequest();
 
             var response = new TaskCompletionResponse();
 
-            var tasksToday = mapper.Map<IEnumerable<TaskResponse>>(
-                                                                   taskRepository.GetTasksByUserId(userId)
-                                                                       .Where(t => DateTime.Compare(t.Assigned,
-                                                                                  DateTime.Today) >= 0));
+            var dbTask = taskRepository.GetTask(taskId);
+            if (dbTask == null) return BadRequest();
 
-            foreach (var task in tasksToday) {
-                if (!task.Latitude.HasValue) continue;
-                if (!task.Longitude.HasValue) continue;
+            if (MathF.Abs(dbTask.Latitude.Value - latitude) <= 0.0005f &&
+                MathF.Abs(dbTask.Longitude.Value - longitude) <= 0.0005f) {
+                if (dbTask.Completed != null) return Ok(response);
 
-                if (MathF.Abs(task.Latitude.Value - latitude) <= 0.0005f &&
-                    MathF.Abs(task.Longitude.Value - longitude) <= 0.0005f) {
-                    var dbTask = taskRepository.GetTask(task.Id);
-                    if (dbTask.Completed != null) continue;
+                // Mark task as completed by adding completion date
+                dbTask.Completed = DateTime.Now;
+                taskRepository.UpdateTask(dbTask);
 
-                    dbTask.Completed = DateTime.Now;
-                    taskRepository.UpdateTask(dbTask);
-
-                    switch (task.TaskType) {
-                        case TaskType.NATURE:
-                            user.Nature += task.Points;
-                            break;
-                        case TaskType.KNOWLEDGE:
-                            user.Knowledge += task.Points;
-                            break;
-                        case TaskType.FITNESS:
-                            user.Fitness += task.Points;
-                            break;
-                        case TaskType.COMMUNITY:
-                            user.Community += task.Points;
-                            break;
-                    }
-
-                    userRepository.UpdateUser(user);
-
-                    response.CompletedTasks.Add(task);
+                switch (dbTask.TaskType) {
+                    case TaskType.NATURE:
+                        user.Nature += dbTask.Points;
+                        break;
+                    case TaskType.KNOWLEDGE:
+                        user.Knowledge += dbTask.Points;
+                        break;
+                    case TaskType.FITNESS:
+                        user.Fitness += dbTask.Points;
+                        break;
+                    case TaskType.COMMUNITY:
+                        user.Community += dbTask.Points;
+                        break;
                 }
+
+                userRepository.UpdateUser(user);
+                response.CompletedTasks.Add(mapper.Map<TaskResponse>(dbTask));
             }
 
             taskRepository.Save();
