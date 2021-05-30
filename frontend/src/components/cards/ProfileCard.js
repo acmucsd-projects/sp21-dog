@@ -70,7 +70,11 @@ export default function ProfileCard({ data }) {
                             </ListItemAvatar>
                             <ListItemText
                                 id={0}
-                                primary={`${data.first} ${data.last}`}
+                                primary={
+                                    data.displayName != null
+                                        ? data.displayName
+                                        : data.username
+                                }
                                 secondary={
                                     <div
                                         style={{
@@ -117,7 +121,7 @@ export default function ProfileCard({ data }) {
                                 Lv
                             </p>
                             <p style={{ fontSize: '24px', fontWeight: 'bold' }}>
-                                35
+                                {data.level}
                             </p>
                         </div>
                     </div>
