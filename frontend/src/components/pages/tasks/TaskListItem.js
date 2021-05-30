@@ -101,6 +101,7 @@ export default function TaskListItem({ id, task, mapView }) {
                         </ListItemAvatar>
                         <ListItemText
                             id={0}
+                            style={{ maxWidth: '80%' }}
                             primary={task.title}
                             secondary={task.text}
                             primaryTypographyProps={{

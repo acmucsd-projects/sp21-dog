@@ -8,6 +8,7 @@ import CustomDialog from '../../modals/CustomDialog'
 import { useAuthContext } from '../../../contexts/AuthContext'
 import { useTasksContext } from '../../../contexts/TasksContext'
 import { useLocationContext } from '../../../contexts/LocationContext'
+import { Page } from '../../../helpers/Page'
 
 export default function Tasks() {
     const [layersOpen, setLayersOpen] = React.useState(false)
@@ -40,11 +41,13 @@ export default function Tasks() {
                         ...tasksContext.state,
                         tasks: data,
                     })
+                    context.setState({ ...context.state, page: Page.tasks })
                 })
                 .catch((err) => {
                     console.log(err)
                 })
         }
+        console.log(tasksContext.state.tasks)
     }, [])
 
     return (
