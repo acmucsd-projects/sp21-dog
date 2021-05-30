@@ -4,7 +4,7 @@ const TasksContext = React.createContext()
 
 function TasksContextProvider({ children }) {
     const [state, setState] = useState({
-        tasks: null,
+        tasks: [],
     })
     const value = { state, setState }
 

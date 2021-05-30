@@ -19,7 +19,8 @@ export default function Home() {
     const locationContext = useLocationContext()
 
     React.useEffect(() => {
-        if (auth.state.token) {
+        console.log()
+        if (tasksContext.state.tasks.length === 0 && auth.state.token) {
             fetch(
                 `https://taskathon-go.herokuapp.com/api/users/user/${context.state.username}`
             )
@@ -31,7 +32,7 @@ export default function Home() {
                             ...context.state,
                             ...data,
                         })
-                        /*locationContext.setState({
+                        locationContext.setState({
                             ...locationContext.state,
                             userLocation: {
                                 latitude: position.coords.latitude,
@@ -41,7 +42,7 @@ export default function Home() {
                                 latitude: position.coords.latitude,
                                 longitude: position.coords.longitude,
                             },
-                        })*/
+                        })
                         tempContext.setState({ ...tempContext.state, ...data })
                         fetch(
                             `https://taskathon-go.herokuapp.com/api/users/user/${context.state.username}/tasks`,

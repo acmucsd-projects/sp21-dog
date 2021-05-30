@@ -45,6 +45,7 @@ export default function Tasks() {
                     console.log(err)
                 })
         }
+        console.log(tasksContext.state.tasks)
     }, [])
 
     return (
