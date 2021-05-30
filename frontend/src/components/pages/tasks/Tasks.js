@@ -17,29 +17,37 @@ export default function Tasks() {
     const locationContext = useLocationContext()
 
     const handleCenterCamera = () => {
-        context.setState({
-            ...context.state,
+        locationContext.setState({
+            ...locationContext.state,
             viewportLocation: locationContext.state.userLocation,
         })
     }
 
     React.useEffect(() => {
-        fetch(
-            `https://taskathon-go.herokuapp.com/api/users/user/${context.state.username}/tasks`,
-            {
-                headers: new Headers({
-                    authorization: 'Bearer ' + auth.state.token,
-                    credentials: 'include',
-                }),
-            }
-        )
-            .then((response) => response.json())
-            .then((data) => {
-                console.log(data)
-            })
-            .catch((err) => {
-                console.log(err)
-            })
+        if (
+            tasksContext.state.tasks == null ||
+            tasksContext.state.tasks.length === 0
+        ) {
+            fetch(
+                `https://taskathon-go.herokuapp.com/api/game/generate?latitude=${locationContext.state.userLocation.latitude}&longitude=${locationContext.state.userLocation.longitude}`,
+                {
+                    method: 'GET',
+                    headers: new Headers({
+                        Authorization: 'Bearer ' + auth.state.token,
+                    }),
+                }
+            )
+                .then((response) => response.json())
+                .then((data) => {
+                    tasksContext.setState({
+                        ...tasksContext.state,
+                        tasks: data,
+                    })
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+        }
     }, [])
 
     return (

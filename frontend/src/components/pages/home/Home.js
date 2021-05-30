@@ -42,9 +42,8 @@ export default function Home() {
                             },
                         })
                         tempContext.setState({ ...tempContext.state, ...data })
-
                         fetch(
-                            `https://taskathon-go.herokuapp.com/api/game/generate?latitude=${position.coords.latitude}&${position.coords.longitude}`,
+                            `https://taskathon-go.herokuapp.com/api/users/user/${context.state.username}/tasks`,
                             {
                                 method: 'GET',
                                 headers: new Headers({
@@ -54,11 +53,37 @@ export default function Home() {
                         )
                             .then((response) => response.json())
                             .then((data) => {
-                                console.log(data)
-                                tasksContext.setState({
-                                    ...tasksContext,
-                                    tasks: data,
-                                })
+                                if (data.length > 0) {
+                                    if (data.length > 20) {
+                                        data = data.slice(0, 20)
+                                    }
+                                    tasksContext.setState({
+                                        ...tasksContext.state,
+                                        tasks: data,
+                                    })
+                                } else {
+                                    fetch(
+                                        `https://taskathon-go.herokuapp.com/api/game/generate?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`,
+                                        {
+                                            method: 'GET',
+                                            headers: new Headers({
+                                                Authorization:
+                                                    'Bearer ' +
+                                                    auth.state.token,
+                                            }),
+                                        }
+                                    )
+                                        .then((response) => response.json())
+                                        .then((data) => {
+                                            tasksContext.setState({
+                                                ...tasksContext.state,
+                                                tasks: data,
+                                            })
+                                        })
+                                        .catch((err) => {
+                                            console.log(err)
+                                        })
+                                }
                             })
                             .catch((err) => {
                                 console.log(err)

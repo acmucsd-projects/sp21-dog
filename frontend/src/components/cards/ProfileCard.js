@@ -7,6 +7,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 import Avatar from '@material-ui/core/Avatar'
 import ListItemText from '@material-ui/core/ListItemText'
 import { useAppContext } from '../../contexts/AppContext'
+import ReactCountryFlag from 'react-country-flag'
 
 const useStyles = makeStyles({
     dropdown: {
@@ -81,12 +82,15 @@ export default function ProfileCard({ data }) {
                                             display: 'flex',
                                             width: '50%',
                                             height: '50%',
+                                            alignItems: 'center',
                                         }}
                                     >
-                                        <img
-                                            className={classes.imageIcon}
-                                            style={{ marginRight: '8px' }}
-                                            src="/icons/nature.svg"
+                                        <ReactCountryFlag
+                                            countryCode="US"
+                                            style={{
+                                                marginRight: '7.614696363%',
+                                            }}
+                                            svg
                                         />
                                         {`@${data.username}`}
                                     </div>

@@ -3,6 +3,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 import Avatar from '@material-ui/core/Avatar'
 import { makeStyles } from '@material-ui/core/styles'
+import ReactCountryFlag from 'react-country-flag'
 
 const useStyles = makeStyles((theme) => ({
     imageIcon: {
@@ -18,6 +19,11 @@ const useStyles = makeStyles((theme) => ({
 export default function LeaderboardListItem({ user, i, onClick }) {
     const classes = useStyles()
     const labelId = `checkbox-list-secondary-label-${i}`
+
+    let pointsLabel = `${user.points} pts`
+    if (pointsLabel >= 1000) {
+        pointsLabel = `${user.points / 1000}k pts`
+    }
 
     return (
         <ListItem
@@ -72,12 +78,13 @@ export default function LeaderboardListItem({ user, i, onClick }) {
                                     display: 'flex',
                                     width: '34.28%',
                                     height: '34.28%',
+                                    alignItems: 'center',
                                 }}
                             >
-                                <img
-                                    className={classes.imageIcon}
+                                <ReactCountryFlag
+                                    countryCode="US"
                                     style={{ marginRight: '7.614696363%' }}
-                                    src="/icons/nature.svg"
+                                    svg
                                 />
                                 {`@${user.username}`}
                             </div>
@@ -94,7 +101,7 @@ export default function LeaderboardListItem({ user, i, onClick }) {
             <div className={classes.numberDisplay}>
                 <ListItemText
                     id={labelId}
-                    primary={`${user.points / 10000}k pts`}
+                    primary={pointsLabel}
                     primaryTypographyProps={{
                         style: {
                             fontFamily: 'Oswald',
