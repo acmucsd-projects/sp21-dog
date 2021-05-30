@@ -12,7 +12,6 @@ namespace SlideSync.Data.Entities.Models {
         public string DisplayName { get; set; }
         public string Password { get; set; }
         public string PasswordSalt { get; set; }
-        
         public string Email { get; set; }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]

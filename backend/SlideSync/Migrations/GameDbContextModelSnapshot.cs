@@ -107,7 +107,7 @@ namespace SlideSync.Migrations
 
                     b.Property<string>("DisplayName")
                         .HasColumnType("text");
-
+                        
                     b.Property<string>("Email")
                         .HasColumnType("text");
 
