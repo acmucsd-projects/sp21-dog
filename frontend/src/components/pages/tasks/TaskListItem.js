@@ -57,6 +57,7 @@ export default function TaskListItem({ task, mapView, handleCompleteTask }) {
             dist = Math.acos(dist)
             dist = (dist * 180) / Math.PI
             dist = dist * 60 * 1.1515
+            dist = Math.round(dist * 100) / 100
             return dist
         }
     }
@@ -64,6 +65,11 @@ export default function TaskListItem({ task, mapView, handleCompleteTask }) {
     if (task == null) {
         return <div></div>
     }
+
+    const miles = distance(context.state.userLocation, {
+        latitude: task.latitude,
+        longitude: task.longitude,
+    })
 
     return (
         <Accordion style={{ margin: margin }}>
@@ -114,13 +120,7 @@ export default function TaskListItem({ task, mapView, handleCompleteTask }) {
                         ) : (
                             <>
                                 <p>{`${task.points} pts`}</p>
-                                <p>
-                                    {distance(context.state.userLocation, {
-                                        latitude: task.latitude,
-                                        longitude: task.longitude,
-                                    })}{' '}
-                                    mi
-                                </p>
+                                <p>{`${miles} mi`}</p>
                             </>
                         )}
                     </div>
@@ -242,7 +242,7 @@ export default function TaskListItem({ task, mapView, handleCompleteTask }) {
                                             }}
                                         />
                                     </div>
-                                    <p>0.8 miles away</p>
+                                    <p>{`${miles} miles away`}</p>
                                 </div>
                             )}
                         </div>
