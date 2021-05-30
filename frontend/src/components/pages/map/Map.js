@@ -1,6 +1,5 @@
 import React from 'react'
-import ReactMapGL, { Marker, FlyToInterpolator } from '!react-map-gl'
-import 'mapbox-gl/dist/mapbox-gl.css';
+import ReactMapGL, { Marker, FlyToInterpolator } from 'react-map-gl'
 import { useAppContext } from '../../../contexts/AppContext'
 
 export default function MapView({ noDrag }) {
