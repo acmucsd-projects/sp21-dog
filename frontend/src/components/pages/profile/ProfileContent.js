@@ -26,7 +26,9 @@ export default function ProfileContent({ data }) {
                     alignItems: 'center',
                 }}
             >
-                <h3 style={{ fontSize: '18px', margin: '8px 0' }}>Level 35</h3>
+                <h3
+                    style={{ fontSize: '18px', margin: '8px 0' }}
+                >{`Level ${data.level}`}</h3>
                 <p>30 Points to next level</p>
             </div>
             <LinearDeterminate />
@@ -38,12 +40,15 @@ export default function ProfileContent({ data }) {
                     justifyContent: 'space-between',
                 }}
             >
-                <StatsChart />
+                <StatsChart stats={data} />
                 <div style={{ textAlign: 'center' }}>
                     <p>{`User since ${monthName(
                         joinDate.getMonth()
                     )} ${joinDate.getDay()}, ${joinDate.getFullYear()}`}</p>
-                    <p>226 Total Points • 57 Tasks Completed</p>
+                    <p>
+                        {`${data.points} Total Points • ${data.tasksCompleted} Tasks
+                        Completed`}
+                    </p>
                 </div>
             </div>
         </div>
