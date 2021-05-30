@@ -59,6 +59,7 @@ export default function ProfileForm() {
             <TextField
                 id="display-name"
                 variant="outlined"
+                required
                 value={context.state.displayName}
             />
             <Typography>Username</Typography>

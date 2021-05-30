@@ -95,6 +95,9 @@ export default function SettingsForm({
                             Log Out
                         </CustomButton>
                     </div>
+                    <Typography style={{ textAlign: 'center', color: 'gray' }}>
+                        (View Only)
+                    </Typography>
                 </div>
             )}
         </>

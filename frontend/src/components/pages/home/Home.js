@@ -19,7 +19,6 @@ export default function Home() {
         )
             .then((response) => response.json())
             .then((data) => {
-                console.log(':(')
                 console.log(data)
                 navigator.geolocation.getCurrentPosition((position) => {
                     context.setState({
