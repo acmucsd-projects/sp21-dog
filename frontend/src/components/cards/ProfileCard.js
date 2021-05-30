@@ -62,8 +62,8 @@ export default function ProfileCard({ data }) {
                             <ListItemAvatar>
                                 <Avatar
                                     style={{
-                                        width: '78.13%',
-                                        height: '78.13%',
+                                        width: '88.13%',
+                                        height: '88.13%',
                                     }}
                                     alt={`profile picture`}
                                     src={`/profilepic.svg`}

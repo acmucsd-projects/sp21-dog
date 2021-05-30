@@ -54,8 +54,8 @@ export default function LeaderboardListItem({ user, i, onClick }) {
             >
                 <ListItemAvatar>
                     <Avatar
-                        alt={`Avatar n°${user.displayName}`}
-                        src={`/static/images/avatar/${user.displayName}.jpg`}
+                        alt={`Profile picture for ${user.displayName}`}
+                        src={'profilepic.svg'}
                     />
                 </ListItemAvatar>
                 <div
