@@ -117,6 +117,7 @@ export default function CustomButton(props) {
             variant="contained"
             disableElevation
             onClick={props.onClick}
+            disabled={props.disabled}
         >
             {props.children}
         </Button>
@@ -126,6 +127,7 @@ export default function CustomButton(props) {
             variant="contained"
             disableElevation
             onClick={props.onClick}
+            disabled={props.disabled}
             type="submit"
         >
             {props.children}

@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import CustomButton from '../../buttons/CustomButton'
+import LoopIcon from '@material-ui/icons/Loop'
 import { useTempContext } from '../../../contexts/TempContext'
 
 const useStyles = makeStyles((theme) => ({
@@ -20,23 +21,23 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-export default function LoginForm({ setSignupOpen }) {
+export default function LoginForm({ loading, setSignupOpen }) {
     const classes = useStyles()
     const tempContext = useTempContext()
 
     return (
         <>
             <div className={classes.formRoot}>
-                <Typography>Email</Typography>
+                <Typography>Username</Typography>
                 <TextField
-                    id="email"
+                    id="username"
                     variant="outlined"
-                    type="email"
+                    type="username"
                     required
                     onChange={(e) =>
                         tempContext.setState({
-                            ...tempContext,
-                            email: e.target.value,
+                            ...tempContext.state,
+                            username: e.target.value,
                         })
                     }
                 />
@@ -47,7 +48,7 @@ export default function LoginForm({ setSignupOpen }) {
                     type="password"
                     onChange={(e) =>
                         tempContext.setState({
-                            ...tempContext,
+                            ...tempContext.state,
                             password: e.target.value,
                         })
                     }
@@ -58,8 +59,20 @@ export default function LoginForm({ setSignupOpen }) {
                         variant="primary"
                         halfWidth={true}
                         submit={true}
+                        disabled={loading}
                     >
-                        Log In
+                        {loading === true ? (
+                            <LoopIcon
+                                className="spin"
+                                style={{
+                                    height: 'auto',
+                                    width: '17%',
+                                    padding: 0,
+                                }}
+                            />
+                        ) : (
+                            'Log In'
+                        )}
                     </CustomButton>
                 </div>
                 <hr />

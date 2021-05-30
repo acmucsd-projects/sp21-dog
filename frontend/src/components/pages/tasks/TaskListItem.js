@@ -16,9 +16,18 @@ const useStyles = makeStyles((theme) => ({
         height: '18px',
         marginRight: '2%',
     },
+    completed: {
+        background:
+            'linear-gradient(90deg, rgba(255,255,255,1) 65%, #44C179 100%)',
+        transition: 'width 2s, height 2s, background-color 2s, transform 2s',
+    },
 }))
 
-export default function TaskListItem({ mapView, style }) {
+export default function TaskListItem({
+    mapView,
+    completed,
+    handleCompleteTask,
+}) {
     const context = useAppContext()
     const classes = useStyles()
     let margin = '15px 0'
@@ -31,6 +40,7 @@ export default function TaskListItem({ mapView, style }) {
             <AccordionSummary
                 aria-controls="panel2a-content"
                 id="panel2a-header"
+                className={completed === true ? classes.completed : null}
             >
                 <div
                     style={{
@@ -61,8 +71,17 @@ export default function TaskListItem({ mapView, style }) {
                             textAlign: 'right',
                         }}
                     >
-                        <p>5 pts</p>
-                        <p>0.8 mi</p>
+                        {completed === true ? (
+                            <img
+                                src="icons/complete.svg"
+                                alt="task complete icon"
+                            />
+                        ) : (
+                            <>
+                                <p>5 pts</p>
+                                <p>0.8 mi</p>
+                            </>
+                        )}
                     </div>
                 </div>
             </AccordionSummary>
@@ -76,7 +95,7 @@ export default function TaskListItem({ mapView, style }) {
                         <CustomButton type="tasks" variant="primary">
                             Share
                         </CustomButton>
-                        {!mapView && (
+                        {!mapView && !completed && (
                             <CustomButton
                                 type="tasks"
                                 variant="secondary"
@@ -148,38 +167,58 @@ export default function TaskListItem({ mapView, style }) {
                                     </div>
                                 </div>
                             </div>
-                            <div
-                                style={{
-                                    flex: 1,
-                                    display: 'flex',
-                                    height: '100%',
-                                }}
-                            >
+                            {!completed && (
                                 <div
                                     style={{
-                                        backgroundColor: 'white',
-                                        borderRadius: '50%',
+                                        flex: 1,
                                         display: 'flex',
-                                        justifyContent: 'center',
-                                        alignItems: 'center',
+                                        height: '100%',
                                     }}
-                                    className={classes.imageIcon}
                                 >
-                                    <img
-                                        src="/icons/location.svg"
+                                    <div
                                         style={{
-                                            width: '70%',
-                                            height: '70%',
+                                            backgroundColor: 'white',
+                                            borderRadius: '50%',
+                                            display: 'flex',
+                                            justifyContent: 'center',
+                                            alignItems: 'center',
                                         }}
-                                    />
+                                        className={classes.imageIcon}
+                                    >
+                                        <img
+                                            src="/icons/location.svg"
+                                            style={{
+                                                width: '70%',
+                                                height: '70%',
+                                            }}
+                                        />
+                                    </div>
+                                    <p>0.8 miles away</p>
                                 </div>
-                                <p>0.8 miles away</p>
-                            </div>
+                            )}
                         </div>
                         <Typography>
                             Go out and see the sunshine! Take a break from your
                             devices and enjoy what nature has to offer.
                         </Typography>
+                        {completed !== true && (
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    marginTop: '3%',
+                                }}
+                            >
+                                <CustomButton
+                                    type="tasks"
+                                    variant="secondary"
+                                    halfWidth={true}
+                                    onClick={handleCompleteTask}
+                                >
+                                    Complete Task
+                                </CustomButton>
+                            </div>
+                        )}
                     </div>
                 </div>
             </AccordionDetails>

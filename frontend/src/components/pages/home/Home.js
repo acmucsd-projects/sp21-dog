@@ -1,10 +1,13 @@
 import React from 'react'
 import { useAppContext } from '../../../contexts/AppContext'
+import { useTempContext } from '../../../contexts/TempContext'
 import GreetingCard from '../../cards/GreetingCard'
 import HomepageList from './HomepageList'
+import { useAuthContext } from '../../../contexts/AuthContext'
 
 export default function Home() {
     const context = useAppContext()
+    const auth = useAuthContext()
 
     React.useEffect(() => {
         navigator.geolocation.getCurrentPosition((position) => {

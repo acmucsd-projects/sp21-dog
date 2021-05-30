@@ -2,7 +2,7 @@ import { useAppContext } from '../../../contexts/AppContext'
 import LinearDeterminate from './LinearDeterminate'
 import StatsChart from '../../charts/StatsChart'
 
-export default function ProfileContent() {
+export default function ProfileContent({ data }) {
     const context = useAppContext()
 
     return (

@@ -5,10 +5,12 @@ import { useAppContext } from '../../../contexts/AppContext'
 import FloatingActionButton from '../../buttons/FloatingActionButton'
 import MapViewTask from '../map/MapViewTask'
 import CustomDialog from '../../modals/CustomDialog'
+import { useAuthContext } from '../../../contexts/AuthContext'
 
 export default function Tasks() {
     const [layersOpen, setLayersOpen] = React.useState(false)
     const context = useAppContext()
+    const auth = useAuthContext()
 
     const handleCenterCamera = () => {
         context.setState({
@@ -16,6 +18,26 @@ export default function Tasks() {
             viewportLocation: context.state.userLocation,
         })
     }
+
+    React.useEffect(() => {
+        fetch(
+            `https://taskathon-go.herokuapp.com/api/users/user/${context.state.username}/tasks`,
+            {
+                headers: new Headers({
+                    authorization: 'Bearer ' + auth.state.token,
+                    credentials: 'include',
+                }),
+            }
+        )
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }, [])
+
     return (
         <div className="overflow-container">
             <CustomDialog

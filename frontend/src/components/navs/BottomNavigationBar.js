@@ -11,6 +11,8 @@ import Icon from '@material-ui/core/Icon'
 import { Color } from '../../helpers/Color'
 import CustomDialog from '../modals/CustomDialog'
 import { useTempContext } from '../../contexts/TempContext'
+import { objToFormData } from '../../helpers/Utils'
+import { useAuthContext } from '../../contexts/AuthContext'
 
 const useStyles = makeStyles({
     bottomNavbar: {
@@ -70,6 +72,7 @@ const useStyles = makeStyles({
 export default function BottomNavigationBar() {
     const classes = useStyles()
     const context = useAppContext()
+    const auth = useAuthContext()
     const tempContext = useTempContext()
     const [value, setValue] = React.useState()
     const [loginOpen, setLoginOpen] = React.useState(false)
@@ -80,11 +83,44 @@ export default function BottomNavigationBar() {
         setSignupOpen(!signupOpen)
     }
 
-    const accountValidate = () => {}
+    const registerRequestParams = {
+        url: 'https://taskathon-go.herokuapp.com/api/users/register',
+        params: {
+            method: 'POST',
+            headers: new Headers({
+                Authorization: 'Bearer ' + auth.state.token,
+            }),
+            body: objToFormData({
+                username: tempContext.state.email.split('@')[0],
+                email: tempContext.state.email,
+                password: tempContext.state.password,
+            }),
+        },
+    }
 
-    const confirmPasswordValidate = () => {
-        console.log(tempContext.state)
-        return tempContext.state.password === tempContext.state.confirmPassword
+    const loginRequestParams = {
+        url: 'https://taskathon-go.herokuapp.com/api/users/login',
+        params: {
+            method: 'POST',
+            headers: new Headers({
+                Authorization: 'Bearer ' + auth.state.token,
+            }),
+            body: objToFormData({
+                username: tempContext.state.username,
+                password: tempContext.state.password,
+            }),
+        },
+    }
+
+    const saveRequestToken = (data) => {
+        auth.setState({ ...auth.state, token: data.jwt })
+    }
+
+    const signupValidate = () => {
+        if (tempContext.state.password === tempContext.state.confirmPassword) {
+            return true
+        }
+        return false
     }
 
     const orderedNavItems = [
@@ -145,7 +181,7 @@ export default function BottomNavigationBar() {
         setValue(
             orderedNavItems.map((item) => item.page).indexOf(context.state.page)
         )
-    }, [context.state.page])
+    }, [context.state.page, auth.state.token])
 
     return (
         <>
@@ -154,7 +190,9 @@ export default function BottomNavigationBar() {
                 open={loginOpen}
                 setOpen={setLoginOpen}
                 setSignupOpen={customSetLoginSignupOpen}
+                requestParams={loginRequestParams}
                 nextPage={Page.home}
+                handleRequestData={saveRequestToken}
             />
             <CustomDialog
                 type="signup"
@@ -162,7 +200,8 @@ export default function BottomNavigationBar() {
                 setOpen={setSignupOpen}
                 setLoginOpen={customSetLoginSignupOpen}
                 nextPage={Page.home}
-                validate={confirmPasswordValidate}
+                requestParams={registerRequestParams}
+                validate={signupValidate}
                 errorMessage="Passwords do not match"
             />
             <div className={classes.bottomNavbar}>

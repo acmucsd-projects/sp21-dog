@@ -32,9 +32,13 @@ const useStyles = makeStyles({
     },
 })
 
-export default function ProfileCard() {
+export default function ProfileCard({ data }) {
     const classes = useStyles()
     const context = useAppContext()
+
+    if (data === undefined) {
+        return <div></div>
+    }
 
     return (
         <div className={classes.dropdown}>
@@ -66,7 +70,7 @@ export default function ProfileCard() {
                             </ListItemAvatar>
                             <ListItemText
                                 id={0}
-                                primary={context.state.displayName}
+                                primary={`${data.first} ${data.last}`}
                                 secondary={
                                     <div
                                         style={{
@@ -80,7 +84,7 @@ export default function ProfileCard() {
                                             style={{ marginRight: '8px' }}
                                             src="/icons/nature.svg"
                                         />
-                                        {`@${context.state.username}`}
+                                        {`@${data.username}`}
                                     </div>
                                 }
                                 primaryTypographyProps={{
