@@ -45,7 +45,6 @@ export default function Tasks() {
                     console.log(err)
                 })
         }
-        console.log(tasksContext.state.tasks)
     }, [])
 
     return (
@@ -99,7 +98,19 @@ export default function Tasks() {
                         className="float"
                         style={{ bottom: '13%', width: '83%' }}
                     >
-                        <MapViewTask />
+                        {tasksContext.state.selectedId != null && (
+                            <MapViewTask
+                                task={
+                                    tasksContext.state.tasks[
+                                        tasksContext.state.tasks.findIndex(
+                                            (task) =>
+                                                task.id ===
+                                                tasksContext.state.selectedId
+                                        )
+                                    ]
+                                }
+                            />
+                        )}
                     </div>
                 </>
             ) : (

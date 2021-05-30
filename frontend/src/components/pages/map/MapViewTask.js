@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-export default function MapViewTask() {
+export default function MapViewTask({ task }) {
     const classes = useStyles()
 
     return (
@@ -24,7 +24,7 @@ export default function MapViewTask() {
                 <AccordionSummary />
                 <AccordionDetails />
             </Accordion>
-            <TaskListItem mapView={true} />
+            <TaskListItem mapView={true} task={task} />
             <Accordion style={{ display: 'none' }}>
                 <AccordionSummary />
                 <AccordionDetails />

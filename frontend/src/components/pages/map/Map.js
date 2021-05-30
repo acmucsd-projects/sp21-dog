@@ -68,6 +68,12 @@ export default function MapView({ noDrag }) {
                             id={task.id}
                             latitude={task.latitude}
                             longitude={task.longitude}
+                            onClick={() => {
+                                tasksContext.setState({
+                                    ...tasksContext.state,
+                                    selectedId: task.id,
+                                })
+                            }}
                         >
                             <div className="marker">
                                 <span>

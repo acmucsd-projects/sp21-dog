@@ -83,6 +83,10 @@ p {
     transform: rotateZ(-135deg);
 }
 
+.marker:hover {
+    display: pointer;
+}
+
 .float {
     position: fixed;
 }

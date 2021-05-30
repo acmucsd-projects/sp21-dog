@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography'
 import { useAppContext } from '../../../contexts/AppContext'
 import { Page } from '../../../helpers/Page'
 import { useLocationContext } from '../../../contexts/LocationContext'
+import { useTasksContext } from '../../../contexts/TasksContext'
 
 const useStyles = makeStyles((theme) => ({
     imageIcon: {
@@ -24,10 +25,11 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-export default function TaskListItem({ task, mapView, handleCompleteTask }) {
+export default function TaskListItem({ id, task, mapView }) {
     const context = useAppContext()
     const classes = useStyles()
     const locationContext = useLocationContext()
+    const tasksContext = useTasksContext()
 
     let margin = '15px 0'
     if (mapView) {
@@ -154,6 +156,10 @@ export default function TaskListItem({ task, mapView, handleCompleteTask }) {
                                             latitude: task.latitude,
                                             longitude: task.longitude,
                                         },
+                                    })
+                                    tasksContext.setState({
+                                        ...tasksContext.state,
+                                        selectedId: id,
                                     })
                                 }}
                             >

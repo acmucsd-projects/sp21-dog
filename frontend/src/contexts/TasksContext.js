@@ -5,6 +5,7 @@ const TasksContext = React.createContext()
 function TasksContextProvider({ children }) {
     const [state, setState] = useState({
         tasks: [],
+        selectedId: null,
     })
     const value = { state, setState }
 
