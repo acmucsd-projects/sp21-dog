@@ -113,10 +113,17 @@ p {
     justify-content: center;
 }
 
-.overlay {
+.overlayBottom {
     position: fixed;
     z-index: 1;
     bottom: 10%;
+    animation: shake 0.5s;
+}
+
+.overlayTop {
+    position: fixed;
+    z-index: 1;
+    top: 10%;
     animation: shake 0.5s;
 }
 
