@@ -19,6 +19,7 @@ export default function Journal() {
             <div
                 style={{
                     height: '45%',
+                    width: '43vw',
                     flex: 1,
                 }}
             >

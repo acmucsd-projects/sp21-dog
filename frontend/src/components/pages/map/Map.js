@@ -23,7 +23,10 @@ export default function MapView({ noDrag }) {
                     })
                 }
             }}
-            mapboxApiAccessToken={mapboxApiKey}
+            // mapboxApiAccessToken={mapboxApiKey}
+            mapboxApiAccessToken={
+                'pk.eyJ1IjoibmlzaGFudGJhbGFqaSIsImEiOiJja2xkOGl3cjcxc21yMndtdmxtZWpxeGRuIn0.isOPq2BjpvuzwjZMXW1yWA'
+            }
             mapStyle="mapbox://styles/mapbox/streets-v11"
         >
             <Marker latitude={37.75} longitude={-122.43}>

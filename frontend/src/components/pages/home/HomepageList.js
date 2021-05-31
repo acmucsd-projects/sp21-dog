@@ -19,10 +19,8 @@ export default function HomepageList() {
         return (
             <>
                 <div style={{ display: 'flex' }}>{listItems[0]}</div>
-                <div style={{ display: 'flex' }}>
-                    {listItems[1]}
-                    {listItems[2]}
-                </div>
+                <div style={{ display: 'flex' }}>{listItems[1]}</div>
+                <div style={{ display: 'flex' }}>{listItems[2]}</div>
                 <div style={{ display: 'flex' }}>{listItems[3]}</div>
             </>
         )

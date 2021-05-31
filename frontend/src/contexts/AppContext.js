@@ -5,8 +5,8 @@ const AppContext = React.createContext()
 
 function AppContextProvider({ children }) {
     const [state, setState] = useState({
-        desktopView: false, // Desktop landing page is not finished yet
-        page: Page.landing,
+        desktopView: true, // Desktop landing page is not finished yet
+        page: Page.home,
         mapOpen: false,
         displayName: 'Elizabeth',
         username: 'lizzyh2021',

@@ -96,7 +96,13 @@ export default function Content() {
                                 </div>
                             )}
                             {context.state.page === Page.home && (
-                                <div style={{ display: 'flex', width: '100%' }}>
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        width: '100%',
+                                        // flexWrap: 'wrap',
+                                    }}
+                                >
                                     <Home />
                                     <hr />
                                     <Journal />

@@ -11,7 +11,7 @@ import { useAppContext } from '../../../contexts/AppContext'
 
 const useStyles = makeStyles({
     root: {
-        minWidth: 275,
+        minWidth: '43vw',
         borderRadius: '15px',
         width: '100%',
         display: 'flex',
@@ -21,7 +21,7 @@ const useStyles = makeStyles({
         },
     },
     unclickable: {
-        minWidth: 275,
+        minWidth: '30vw',
         borderRadius: '15px',
         width: '100%',
         display: 'flex',
