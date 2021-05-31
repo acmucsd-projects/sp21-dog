@@ -14,6 +14,7 @@ import { useTempContext } from '../../contexts/TempContext'
 import { objToFormData } from '../../helpers/Utils'
 import { useAuthContext } from '../../contexts/AuthContext'
 import { usePageContext } from '../../contexts/PageContext'
+import Alert from '@material-ui/lab/Alert'
 
 const useStyles = makeStyles({
     bottomNavbar: {
@@ -79,6 +80,7 @@ export default function BottomNavigationBar() {
     const [value, setValue] = React.useState()
     const [loginOpen, setLoginOpen] = React.useState(false)
     const [signupOpen, setSignupOpen] = React.useState(false)
+    const [signupSuccess, setSignupSuccess] = React.useState(false)
 
     const customSetLoginSignupOpen = (open) => {
         setLoginOpen(!loginOpen)
@@ -115,6 +117,7 @@ export default function BottomNavigationBar() {
     }
 
     const saveRequestToken = (data) => {
+        setSignupSuccess(false)
         auth.setState({ ...auth.state, token: data.jwt })
     }
 
@@ -190,6 +193,19 @@ export default function BottomNavigationBar() {
 
     return (
         <>
+            {signupSuccess && (
+                <div className="alert-container">
+                    <Alert
+                        className="overlayTop fadeIn"
+                        severity="success"
+                        onClose={() => {
+                            setSignupSuccess(false)
+                        }}
+                    >
+                        Successfully signed up!
+                    </Alert>
+                </div>
+            )}
             <CustomDialog
                 type="login"
                 open={loginOpen}
@@ -207,6 +223,9 @@ export default function BottomNavigationBar() {
                 requestParams={registerRequestParams}
                 validate={signupValidate}
                 errorMessage="Passwords do not match"
+                handleRequestData={() => {
+                    setSignupSuccess(true)
+                }}
             />
             <div className={classes.bottomNavbar}>
                 {pageContext.state.page == Page.leaderboards && (

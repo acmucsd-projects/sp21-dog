@@ -71,7 +71,7 @@ export default function Tasks() {
             {errorOpen && (
                 <div className="alert-container">
                     <Alert
-                        className="overlay fadeIn"
+                        className="overlayBottom fadeIn"
                         severity="error"
                         onClose={() => {
                             setErrorOpen(false)
