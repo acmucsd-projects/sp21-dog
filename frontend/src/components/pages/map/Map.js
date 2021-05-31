@@ -58,10 +58,7 @@ export default function MapView({ noDrag }) {
                     })
                 }
             }}
-            // mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_API_KEY}
-            mapboxApiAccessToken={
-                'pk.eyJ1IjoibmlzaGFudGJhbGFqaSIsImEiOiJja2xkOGl3cjcxc21yMndtdmxtZWpxeGRuIn0.isOPq2BjpvuzwjZMXW1yWA'
-            }
+            mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_API_KEY}
             mapStyle={mapStyle}
         >
             <Marker
