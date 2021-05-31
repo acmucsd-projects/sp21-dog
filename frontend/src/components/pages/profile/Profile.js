@@ -55,43 +55,6 @@ export default function Profile() {
         },
     }
 
-    /*const editPasswordParams = {
-        url: `https://taskathon-go.herokuapp.com/api/users/user/${context.state.username}/edit-password`,
-        params: {
-            method: 'POST',
-            headers: new Headers({
-                Authorization: 'Bearer ' + auth.state.token,
-            }),
-            body: objToFormData({
-                oldPassword: null,
-                newPassword: 'password',
-            }),
-        },
-    }*/
-
-    React.useEffect(() => {
-        fetch(
-            `https://taskathon-go.herokuapp.com/api/users/user/${context.state.username}/edit`,
-            {
-                method: 'GET',
-                headers: new Headers({
-                    Authorization: 'Bearer ' + auth.state.token,
-                }),
-            }
-        )
-            .then((response) => response.json())
-            .then((data) => {
-                console.log(data)
-                context.setState({
-                    ...context.state,
-                    email: data.email || '',
-                })
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-    }, [])
-
     return (
         <div
             className="overflow-container"

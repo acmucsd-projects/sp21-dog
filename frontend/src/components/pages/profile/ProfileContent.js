@@ -10,7 +10,7 @@ export default function ProfileContent({ data }) {
     let joinDate = new Date(data.joinDate)
 
     return (
-        <div style={{ height: '100%', fontFamily: 'PT Sans' }}>
+        <div style={{ height: '100%', fontFamily: 'PT Sans, Trebuchet MS' }}>
             {data.bio != null && (
                 <>
                     {data.bio.split('\n').map((str) => (

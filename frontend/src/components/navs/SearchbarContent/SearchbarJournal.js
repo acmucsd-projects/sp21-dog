@@ -50,9 +50,8 @@ export default function SearchbarJournal({ classes }) {
             </div>
             <IconButton
                 className={classes.wrapIconRight}
-                aria-label="show 4 new mails"
                 color="inherit"
-                onClick={() => setCalendarOpen(true)}
+                //onClick={() => setCalendarOpen(true)}
             >
                 <Icon>
                     <img src={'./icons/calendar.svg'} />

@@ -171,38 +171,37 @@ export default function TaskListItem({ id, task, mapView, setErrorOpen }) {
             </AccordionSummary>
             <AccordionDetails>
                 <div style={{ width: '100%' }}>
-                    {task.completed == null && (
+                    {task.completed == null && !mapView && (
                         <div
                             style={{
                                 display: 'flex',
                             }}
                         >
-                            {!mapView && (
-                                <CustomButton
-                                    type="tasks"
-                                    variant="primary"
-                                    onClick={() => {
-                                        pageContext.setState({
-                                            ...pageContext.state,
-                                            page: Page.tasks,
-                                            mapOpen: true,
-                                        })
-                                        locationContext.setState({
-                                            ...locationContext.state,
-                                            viewportLocation: {
-                                                latitude: task.latitude,
-                                                longitude: task.longitude,
-                                            },
-                                        })
-                                        tasksContext.setState({
-                                            ...tasksContext.state,
-                                            selectedId: id,
-                                        })
-                                    }}
-                                >
-                                    View on Map
-                                </CustomButton>
-                            )}
+                            <CustomButton
+                                type="tasks"
+                                variant="primary"
+                                onClick={() => {
+                                    pageContext.setState({
+                                        ...pageContext.state,
+                                        page: Page.tasks,
+                                        mapOpen: true,
+                                    })
+                                    locationContext.setState({
+                                        ...locationContext.state,
+                                        viewportLocation: {
+                                            latitude: task.latitude,
+                                            longitude: task.longitude,
+                                        },
+                                    })
+                                    tasksContext.setState({
+                                        ...tasksContext.state,
+                                        selectedId: id,
+                                    })
+                                }}
+                            >
+                                View on Map
+                            </CustomButton>
+
                             <CustomButton
                                 type="tasks"
                                 variant="secondary"
