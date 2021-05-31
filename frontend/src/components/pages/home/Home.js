@@ -79,6 +79,17 @@ export default function Home() {
                     navigator.geolocation.getCurrentPosition(function (
                         position
                     ) {
+                        locationContext.setState({
+                            ...locationContext.state,
+                            userLocation: {
+                                latitude: position.coords.latitude,
+                                longitude: position.coords.longitude,
+                            },
+                            viewportLocation: {
+                                latitude: position.coords.latitude,
+                                longitude: position.coords.longitude,
+                            },
+                        })
                         fetch(
                             `https://taskathon-go.herokuapp.com/api/users/user/${context.state.username}/edit`,
                             {
@@ -115,10 +126,6 @@ export default function Home() {
             locationContext.setState({
                 ...locationContext.state,
                 userLocation: {
-                    latitude: position.coords.latitude,
-                    longitude: position.coords.longitude,
-                },
-                viewportLocation: {
                     latitude: position.coords.latitude,
                     longitude: position.coords.longitude,
                 },
