@@ -14,7 +14,7 @@ import { usePageContext } from '../../../contexts/PageContext'
 
 export default function Tasks() {
     const [layersOpen, setLayersOpen] = React.useState(false)
-    const [errorOpen, setErrorOpen] = React.useState(true)
+    const [errorOpen, setErrorOpen] = React.useState(false)
     const pageContext = usePageContext()
     const auth = useAuthContext()
     const tasksContext = useTasksContext()
@@ -77,7 +77,7 @@ export default function Tasks() {
                             setErrorOpen(false)
                         }}
                     >
-                        You must be at the location to complete a task
+                        You must be at the location to complete a task!
                     </Alert>
                 </div>
             )}

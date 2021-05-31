@@ -1,3 +1,4 @@
+import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Accordion from '@material-ui/core/Accordion'
 import AccordionSummary from '@material-ui/core/AccordionSummary'
@@ -12,6 +13,7 @@ import { Page } from '../../../helpers/Page'
 import { useLocationContext } from '../../../contexts/LocationContext'
 import { useTasksContext } from '../../../contexts/TasksContext'
 import { usePageContext } from '../../../contexts/PageContext'
+import { useAuthContext } from '../../../contexts/AuthContext'
 
 const useStyles = makeStyles((theme) => ({
     imageIcon: {
@@ -31,6 +33,7 @@ export default function TaskListItem({ id, task, mapView, setErrorOpen }) {
     const classes = useStyles()
     const locationContext = useLocationContext()
     const tasksContext = useTasksContext()
+    const auth = useAuthContext()
 
     let margin = '15px 0'
     if (mapView) {
@@ -40,7 +43,37 @@ export default function TaskListItem({ id, task, mapView, setErrorOpen }) {
     const stats = ['Fitness', 'Nature', 'Knowledge', 'Community']
 
     const handleCompleteTask = () => {
-        setErrorOpen(true)
+        fetch(
+            `https://taskathon-go.herokuapp.com/api/game/check?taskId=${task.id}&latitude=${locationContext.state.userLocation.latitude}&longitude=${locationContext.state.userLocation.longitude}`,
+            {
+                method: 'GET',
+                headers: new Headers({
+                    Authorization: 'Bearer ' + auth.state.token,
+                }),
+            }
+        )
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data)
+
+                if (data.completed == null) {
+                    setErrorOpen(true)
+                } else {
+                    let updatedTasks = tasksContext.state.tasks
+                    updatedTasks[
+                        updatedTasks.findIndex((task) => task.id)
+                    ].completed = data.completed
+                    console.log(updatedTasks)
+                    tasksContext.setState({
+                        ...tasksContext.state,
+                        tasks: updatedTasks,
+                    })
+                    setErrorOpen(false)
+                }
+            })
+            .catch((err) => {
+                console.log(err)
+            })
     }
 
     function equals(obj1, obj2) {
@@ -138,45 +171,47 @@ export default function TaskListItem({ id, task, mapView, setErrorOpen }) {
             </AccordionSummary>
             <AccordionDetails>
                 <div style={{ width: '100%' }}>
-                    <div
-                        style={{
-                            display: 'flex',
-                        }}
-                    >
-                        {!mapView && task.completed == null && (
+                    {task.completed == null && (
+                        <div
+                            style={{
+                                display: 'flex',
+                            }}
+                        >
+                            {!mapView && (
+                                <CustomButton
+                                    type="tasks"
+                                    variant="primary"
+                                    onClick={() => {
+                                        pageContext.setState({
+                                            ...pageContext.state,
+                                            page: Page.tasks,
+                                            mapOpen: true,
+                                        })
+                                        locationContext.setState({
+                                            ...locationContext.state,
+                                            viewportLocation: {
+                                                latitude: task.latitude,
+                                                longitude: task.longitude,
+                                            },
+                                        })
+                                        tasksContext.setState({
+                                            ...tasksContext.state,
+                                            selectedId: id,
+                                        })
+                                    }}
+                                >
+                                    View on Map
+                                </CustomButton>
+                            )}
                             <CustomButton
                                 type="tasks"
-                                variant="primary"
-                                onClick={() => {
-                                    pageContext.setState({
-                                        ...pageContext.state,
-                                        page: Page.tasks,
-                                        mapOpen: true,
-                                    })
-                                    locationContext.setState({
-                                        ...locationContext.state,
-                                        viewportLocation: {
-                                            latitude: task.latitude,
-                                            longitude: task.longitude,
-                                        },
-                                    })
-                                    tasksContext.setState({
-                                        ...tasksContext.state,
-                                        selectedId: id,
-                                    })
-                                }}
+                                variant="secondary"
+                                onClick={handleCompleteTask}
                             >
-                                View on Map
+                                Complete Task
                             </CustomButton>
-                        )}
-                        <CustomButton
-                            type="tasks"
-                            variant="secondary"
-                            onClick={handleCompleteTask}
-                        >
-                            Complete Task
-                        </CustomButton>
-                    </div>
+                        </div>
+                    )}
                     <div>
                         <div
                             style={{
@@ -269,24 +304,6 @@ export default function TaskListItem({ id, task, mapView, setErrorOpen }) {
                             )}
                         </div>
                         <Typography>{task.description}</Typography>
-                        {/*task.completed == null && (
-                            <div
-                                style={{
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    marginTop: '3%',
-                                }}
-                            >
-                                <CustomButton
-                                    type="tasks"
-                                    variant="secondary"
-                                    halfWidth={true}
-                                    onClick={handleCompleteTask}
-                                >
-                                    Complete Task
-                                </CustomButton>
-                            </div>
-                            )*/}
                     </div>
                 </div>
             </AccordionDetails>
