@@ -10,30 +10,29 @@ import { AuthContextProvider } from './contexts/AuthContext'
 import { TasksContextProvider } from './contexts/TasksContext'
 import { LocationContextProvider } from './contexts/LocationContext'
 import { PageContextProvider } from './contexts/PageContext'
+import { provider, ProviderComposer } from './helpers/ProviderComposer'
 
 function App() {
     return (
-        <div className="App">
-            <ThemeProvider theme={theme}>
-                <AppContextProvider>
-                    <PageContextProvider>
-                        <AuthContextProvider>
-                            <TempContextProvider>
-                                <div className="main-container">
-                                    <TopNavigationBar />
-                                    <LocationContextProvider>
-                                        <TasksContextProvider>
-                                            <Content />
-                                        </TasksContextProvider>
-                                    </LocationContextProvider>
-                                    <BottomNavigationBar />
-                                </div>
-                            </TempContextProvider>
-                        </AuthContextProvider>
-                    </PageContextProvider>
-                </AppContextProvider>
-            </ThemeProvider>
-        </div>
+        <ProviderComposer
+            providers={[
+                provider(ThemeProvider, { theme: theme }),
+                provider(AppContextProvider),
+                provider(PageContextProvider),
+                provider(AuthContextProvider),
+                provider(TempContextProvider),
+                provider(LocationContextProvider),
+                provider(TasksContextProvider),
+            ]}
+        >
+            <div className="App">
+                <div className="main-container">
+                    <TopNavigationBar />
+                    <Content />
+                    <BottomNavigationBar />
+                </div>
+            </div>
+        </ProviderComposer>
     )
 }
 
