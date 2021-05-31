@@ -9,7 +9,7 @@ export default function MapView({ noDrag }) {
     const tasksContext = useTasksContext()
     const locationContext = useLocationContext()
 
-    let mapStyle = 'mapbox://styles/mapbox/streets-v11'
+    let mapStyle = 'mapbox://styles/mapbox/navigation-day-v1'
     if (context.state.mapOptions.mapLayers.mapType === 'satelite') {
         mapStyle = 'mapbox://styles/mapbox/satellite-streets-v11'
     }
