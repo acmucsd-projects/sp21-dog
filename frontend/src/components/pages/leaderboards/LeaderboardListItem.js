@@ -85,7 +85,7 @@ export default function LeaderboardListItem({ user, i, onClick }) {
                                     display: 'flex',
                                     width: '34.28%',
                                     height: '34.28%',
-                                    fontSize: '1.902173913vh'
+                                    fontSize: '1.902173913vh',
                                     alignItems: 'center',
                                 }}
                             >

@@ -162,11 +162,12 @@ export default function TopNavigationBar() {
                         </div>
                     </div>
                 )}*/}
-                <Searchbar />
-                {pageContext.state.page == Page.profile && (
-                    <ProfileCard data={context.state} />
-                )}
-            </AppBar>
+                    <Searchbar />
+                    {pageContext.state.page == Page.profile && (
+                        <ProfileCard data={context.state} />
+                    )}
+                </AppBar>
+            )}
         </>
     )
 }

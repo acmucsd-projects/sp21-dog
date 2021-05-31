@@ -113,7 +113,7 @@ export default function TaskListItem({ id, task, mapView, setErrorOpen }) {
         longitude: task.longitude,
     })
 
-    return (
+    /*return (
         <Accordion style={{ margin: margin }}>
             <AccordionSummary
                 style={{
@@ -330,7 +330,7 @@ export default function TaskListItem({ id, task, mapView, setErrorOpen }) {
                                         />
                                     </div>
                                     <p>{`${miles} miles away`}</p>
-                                </div>
+                                </div>)}
                                 <p
                                     style={{
                                         fontSize: '2.173913043vh',
@@ -351,5 +351,6 @@ export default function TaskListItem({ id, task, mapView, setErrorOpen }) {
                 </div>
             </AccordionDetails>
         </Accordion>
-    )
+    )*/
+    return <div></div>
 }

@@ -145,24 +145,6 @@ export default function Landing() {
                 />
                 What's Taskathon Go?
             </div>
-            {/* <div className={classes.bottom}>
-                <p className={classes.paragraph}>
-                    Taskathon Go! is a brand new way to experience the world
-                </p>
-                <p className={classes.paragraph}>
-                    Every day, there's a new set of tasks to explore in your
-                    area. You can complete tasks by exercising outdoors,
-                    partaking in community events, and visiting nearby shops and
-                    restaurants.
-                </p>
-                <p className={classes.paragraph}>
-                    Compete with your friends and other users. Top the worldwide
-                    leaderboards and gain points for your profile!
-                </p>
-                <p className={classes.paragraph}>
-                    Sign up to join the Taskathon family today!
-                </p>
-            </div> */}
         </div>
     )
 }
