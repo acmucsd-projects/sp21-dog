@@ -48,18 +48,14 @@ namespace SlideSync.Controllers {
             var user = userRepository.GetUserById(userId);
             if (user == null) return BadRequest();
 
-            var response = new TaskCompletionResponse();
-
             var dbTask = taskRepository.GetTask(taskId);
             if (dbTask == null) return BadRequest();
 
-            if (dbTask.Assigned < DateTime.Today) return Ok(response);
+            if (dbTask.Assigned < DateTime.Today) return Ok(dbTask);
 
             // If within 50 meters (roughly)
             if (MathF.Abs(dbTask.Latitude.Value - latitude) <= 0.0005f &&
                 MathF.Abs(dbTask.Longitude.Value - longitude) <= 0.0005f) {
-                if (dbTask.Completed != null) return Ok(response);
-
                 // Mark task as completed by adding completion date
                 dbTask.Completed = DateTime.Now;
                 taskRepository.UpdateTask(dbTask);
@@ -80,13 +76,12 @@ namespace SlideSync.Controllers {
                 }
 
                 userRepository.UpdateUser(user);
-                response.CompletedTasks.Add(mapper.Map<TaskResponse>(dbTask));
             }
 
             taskRepository.Save();
             userRepository.Save();
 
-            return Ok(response);
+            return Ok(mapper.Map<TaskResponse>(dbTask));
         }
 
         [HttpGet("generate")]
