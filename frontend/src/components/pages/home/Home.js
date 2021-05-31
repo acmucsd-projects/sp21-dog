@@ -76,7 +76,9 @@ export default function Home() {
             )
                 .then((response) => response.json())
                 .then((userData) => {
-                    navigator.geolocation.watchPosition(function (position) {
+                    navigator.geolocation.getCurrentPosition(function (
+                        position
+                    ) {
                         locationContext.setState({
                             ...locationContext.state,
                             userLocation: {
@@ -120,6 +122,15 @@ export default function Home() {
                     console.log(err)
                 })
         }
+        navigator.geolocation.watchPosition(function (position) {
+            locationContext.setState({
+                ...locationContext.state,
+                userLocation: {
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude,
+                },
+            })
+        })
     }, [auth.state.token])
 
     return (
