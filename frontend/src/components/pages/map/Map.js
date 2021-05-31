@@ -35,6 +35,7 @@ export default function MapView({ noDrag }) {
                 ...viewport,
                 latitude: newLoc.latitude,
                 longitude: newLoc.longitude,
+                zoom: 13,
                 transitionDuration: 500,
                 transitionInterpolator: new FlyToInterpolator(),
             })
@@ -57,9 +58,29 @@ export default function MapView({ noDrag }) {
                     })
                 }
             }}
-            mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_API_KEY}
+            // mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_API_KEY}
+            mapboxApiAccessToken={
+                'pk.eyJ1IjoibmlzaGFudGJhbGFqaSIsImEiOiJja2xkOGl3cjcxc21yMndtdmxtZWpxeGRuIn0.isOPq2BjpvuzwjZMXW1yWA'
+            }
             mapStyle={mapStyle}
         >
+            <Marker
+                latitude={locationContext.state.userLocation.latitude}
+                longitude={locationContext.state.userLocation.longitude}
+            >
+                <div className="">
+                    <span>
+                        <img
+                            style={{
+                                width: '25%',
+                                height: '25%',
+                                // transform: 'translate(-5%, -5%)',
+                            }}
+                            src={`./icons/me.svg`}
+                        />
+                    </span>
+                </div>
+            </Marker>
             {tasksContext.state.tasks != null &&
                 tasksContext.state.tasks.map((task, i) => {
                     return (
