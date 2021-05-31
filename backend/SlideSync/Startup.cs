@@ -5,17 +5,11 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Configuration.EnvironmentVariables;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
 using SlideSync.Config;
 using SlideSync.Data.Context;
 using SlideSync.Data.Repositories;
@@ -40,11 +34,13 @@ namespace SlideSync {
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
+            
             services.AddControllers().AddNewtonsoftJson();
             
             services.AddCors(options => {
-                options.AddPolicy("CorsPolicy",
-                    builder => builder.WithOrigins("http://localhost:5000")
+                options.AddDefaultPolicy(
+                    builder => builder
+                        .SetIsOriginAllowed(_ => true)
                         .AllowAnyMethod()
                         .AllowAnyHeader()
                         .AllowCredentials());
@@ -70,7 +66,7 @@ namespace SlideSync {
             
             // Configure Unit of Work
             services.AddDbContext<GameDbContext>(options => {
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"));
             });
 
             services.AddTransient<ITokenRepository, TokenRepository>();
@@ -95,6 +91,8 @@ namespace SlideSync {
 
             app.UseAuthentication();
             app.UseAuthorization();
+            
+            app.UseCors();
 
             app.UseEndpoints(endpoints => {
                 endpoints.MapControllers();

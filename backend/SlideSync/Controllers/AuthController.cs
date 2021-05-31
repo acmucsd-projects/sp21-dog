@@ -23,7 +23,7 @@ namespace SlideSync.Controllers {
         private readonly JwtConfig config;
         private readonly IAuthUnit authUnit;
         public static readonly string refreshTokenCookie = "refreshToken";
-        
+
         public AuthController(IOptions<JwtConfig> config, IAuthUnit authUnit) {
             this.config = config.Value;
             this.authUnit = authUnit;
@@ -84,7 +84,7 @@ namespace SlideSync.Controllers {
             if (authToken == null || refreshToken == null) return null;
             
             // Validate auth token
-            var principal = GetPrincipal(authToken);
+            var principal = GetPrincipal(authToken, config.Secret);
             if (principal == null) {
                 return null;
             }
@@ -112,7 +112,7 @@ namespace SlideSync.Controllers {
             return new AuthenticationModel(user, authToken, existingRefreshToken);
         }
         
-        private ClaimsPrincipal GetPrincipal(string token) {
+        public static ClaimsPrincipal GetPrincipal(string token, string secret) {
             var handler = new JwtSecurityTokenHandler();
 
             try {
@@ -121,13 +121,31 @@ namespace SlideSync.Controllers {
                     ValidateIssuerSigningKey = true,
                     ValidateAudience = false,
                     ValidateIssuer = false,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.Secret))
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret))
                 }, out _);
                 
                 return claimsPrincipal;
             } catch {
                 return null;
             }
+        }
+
+        /// <summary>
+        /// Gets user id from the claims principal of a jwt token
+        /// </summary>
+        /// <param name="request">Http request</param>
+        /// <returns>-1 if principal did not include user id</returns>
+        public static int GetUserIdFromPrincipal(HttpRequest request, string secret) {
+            var principal = GetPrincipal(AuthenticationHeaderValue.Parse(request.Headers["Authorization"]).Parameter, secret);
+
+            // Try to get name id from claim
+            var claim = principal?.Claims.FirstOrDefault(c => c.Type is ClaimTypes.NameIdentifier);
+            if (claim == null) {
+                return -1;
+            }
+
+            // Get user
+            return int.Parse(claim.Value);
         }
         
         private void SetCookie(RefreshToken refreshToken) {

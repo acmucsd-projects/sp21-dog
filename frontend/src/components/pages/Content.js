@@ -7,18 +7,19 @@ import Profile from './profile/Profile'
 import Tasks from './tasks/Tasks'
 import Home from './home/Home'
 import Landing from './landing/Landing'
+import { usePageContext } from '../../contexts/PageContext'
 
 const Content = () => {
-    const context = useAppContext()
+    const pageContext = usePageContext()
 
     let backgroundColor = Color.primary
-    if (context.state.page === Page.tasks) {
-        if (context.state.mapOpen) {
+    if (pageContext.state.page === Page.tasks) {
+        if (pageContext.state.mapOpen) {
             backgroundColor = Color.primary
         } else {
             backgroundColor = Color.coreTheme
         }
-    } else if (context.state.page === Page.home) {
+    } else if (pageContext.state.page === Page.home) {
         backgroundColor = Color.accent
     }
 
@@ -27,12 +28,12 @@ const Content = () => {
             className="content-wrapper"
             style={{ backgroundColor: backgroundColor }}
         >
-            {context.state.page === Page.landing && <Landing />}
-            {context.state.page === Page.profile && <Profile />}
-            {context.state.page === Page.leaderboards && <Leaderboards />}
-            {context.state.page === Page.home && <Home />}
-            {context.state.page === Page.tasks && <Tasks />}
-            {context.state.page === Page.journal && <Journal />}
+            {pageContext.state.page === Page.landing && <Landing />}
+            {pageContext.state.page === Page.profile && <Profile />}
+            {pageContext.state.page === Page.leaderboards && <Leaderboards />}
+            {pageContext.state.page === Page.home && <Home />}
+            {pageContext.state.page === Page.tasks && <Tasks />}
+            {pageContext.state.page === Page.journal && <Journal />}
         </div>
     )
 }

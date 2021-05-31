@@ -8,24 +8,22 @@ namespace SlideSync.Data.Entities.Models {
         KNOWLEDGE,
         COMMUNITY
     }
-
-    public enum Difficulty {
-        EASY = 0,
-        MEDIUM,
-        HARD,
-        INSANE
-    }
     
     public class TaskModel {
         [Key]
         public int Id { get; set; }
         public TaskType TaskType { get; set; }
-        public Difficulty Difficulty { get; set; }
         public int Points { get; set; }
         public int Duration => (Completed - Assigned)?.Seconds ?? -1;
         public DateTime Assigned { get; set; }
         public DateTime? Completed { get; set; }
+        public string Title { get; set; }
         public string Description { get; set; }
+        
+        public float? Latitude { get; set; }
+        public float? Longitude { get; set; }
+        public string Address { get; set; }
+        public string Text { get; set; }
         public UserModel User { get; set; }
     }
 }

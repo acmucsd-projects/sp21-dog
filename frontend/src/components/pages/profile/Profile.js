@@ -4,10 +4,16 @@ import { useTempContext } from '../../../contexts/TempContext'
 import CustomButton from '../../buttons/CustomButton'
 import CustomDialog from '../../modals/CustomDialog'
 import ProfileContent from './ProfileContent'
+import ProfileCard from '../../cards/ProfileCard'
+import { objToFormData } from '../../../helpers/Utils'
+import { useAuthContext } from '../../../contexts/AuthContext'
 
 export default function Profile() {
+    const context = useAppContext()
     const tempContext = useTempContext()
+    const auth = useAuthContext()
 
+    const [profileData, setProfileData] = React.useState()
     const [editProfileOpen, setEditProfileOpen] = React.useState(false)
     const [editPasswordOpen, setEditPasswordOpen] = React.useState(false)
     const [settingsOpen, setSettingsOpen] = React.useState(false)
@@ -27,8 +33,26 @@ export default function Profile() {
     }
 
     const confirmPasswordValidate = () => {
-        console.log(tempContext.state)
-        return tempContext.state.password === tempContext.state.confirmPassword
+        if (tempContext.state.password === tempContext.state.confirmPassword) {
+            //fetch here
+            return true
+        }
+        return false
+    }
+
+    const editProfileParams = {
+        url: `https://taskathon-go.herokuapp.com/api/users/user/${context.state.username}/edit`,
+        params: {
+            method: 'POST',
+            headers: new Headers({
+                Authorization: 'Bearer ' + auth.state.token,
+            }),
+            body: objToFormData({
+                displayName: tempContext.state.displayName,
+                username: tempContext.state.username,
+                bio: tempContext.state.bio,
+            }),
+        },
     }
 
     return (
@@ -40,11 +64,13 @@ export default function Profile() {
                 flexDirection: 'column',
             }}
         >
+            {/*<ProfileCard data={data} />*/}
             <CustomDialog
                 type="editProfile"
                 open={editProfileOpen}
                 setOpen={setEditProfileOpen}
                 setUnsavedOpen={setUnsavedOpen}
+                requestParams={editProfileParams}
             />
             <CustomDialog
                 type="settings"
@@ -53,6 +79,7 @@ export default function Profile() {
                 setEditPasswordOpen={customSetEditPasswordOpen}
                 setUnsavedOpen={setUnsavedOpen}
                 setLogoutAlertOpen={setLogoutAlertOpen}
+                //requestParams={editEmailParams}
             />
             <CustomDialog
                 type="editPassword"
@@ -60,6 +87,7 @@ export default function Profile() {
                 setOpen={customSetEditPasswordOpen}
                 validate={confirmPasswordValidate}
                 errorMessage="Old password is incorrect or passwords do not match"
+                //requestParams={editPasswordParams}
             />
             <CustomDialog
                 type="unsaved"
@@ -97,7 +125,7 @@ export default function Profile() {
                     Settings
                 </CustomButton>
             </div>
-            <ProfileContent />
+            <ProfileContent data={context.state} />
         </div>
     )
 }

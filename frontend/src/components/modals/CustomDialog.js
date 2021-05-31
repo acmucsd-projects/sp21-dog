@@ -23,6 +23,8 @@ import { useTempContext } from '../../contexts/TempContext'
 import { useAppContext } from '../../contexts/AppContext'
 import { Page } from '../../helpers/Page'
 import Alert from '@material-ui/lab/Alert'
+import { testFormData } from '../../helpers/Utils'
+import { usePageContext } from '../../contexts/PageContext'
 
 const styles = (theme) => ({
     root: {
@@ -113,12 +115,19 @@ export default function CustomDialog({
     validate,
     errorMessage,
     nextPage,
+    requestParams,
     keyName,
+    handleRequestData,
 }) {
     const context = useAppContext()
     const tempContext = useTempContext()
+    const pageContext = usePageContext()
 
     const [error, setError] = React.useState(false)
+    const [dialogErrorMessage, setDialogErrorMessage] = React.useState(
+        errorMessage
+    )
+    const [loading, setLoading] = React.useState(false)
 
     function equals(obj1, obj2) {
         return Object.keys(obj1).every((key) => {
@@ -135,19 +144,67 @@ export default function CustomDialog({
         } else {
             tempContext.setState(context.state)
             setOpen(false)
+            setLoading(false)
         }
     }
 
     const saveAndClose = () => {
+        const temp = Object.keys(tempContext.state)
+            .filter((key) => !key.includes('password'))
+            .reduce((obj, key) => {
+                obj[key] = tempContext.state[key]
+                return obj
+            }, {})
         setOpen(false)
+        setLoading(false)
         if (nextPage !== undefined) {
-            context.setState({
-                ...context.state,
-                ...tempContext.state,
+            context.setState(
+                {
+                    ...context.state,
+                    ...temp,
+                },
+                tempContext.setState(context.state)
+            )
+            pageContext.setState({
+                ...pageContext.state,
                 page: nextPage,
             })
         } else {
-            context.setState({ ...context.state, ...tempContext.state })
+            context.setState(
+                { ...context.state, ...temp }
+                //tempContext.setState(context.state)
+            )
+        }
+    }
+
+    const checkRequest = () => {
+        if (requestParams) {
+            setLoading(true)
+            fetch(requestParams.url, requestParams.params)
+                .then((response) => {
+                    if (
+                        response.status === 200 ||
+                        response.status === 201 ||
+                        response.status === 204
+                    ) {
+                        saveAndClose()
+                    } else {
+                        setError(true)
+                        setDialogErrorMessage(response.statusText)
+                    }
+                    setLoading(false)
+                    return response.json()
+                })
+                .then((data) => {
+                    if (handleRequestData !== undefined) {
+                        handleRequestData(data)
+                    }
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+        } else {
+            saveAndClose()
         }
     }
 
@@ -155,18 +212,19 @@ export default function CustomDialog({
         if (validate !== undefined) {
             if (validate()) {
                 setError(false)
-                saveAndClose()
+                checkRequest()
             } else {
                 setError(true)
+                setDialogErrorMessage(errorMessage)
             }
         } else {
-            saveAndClose()
+            checkRequest()
         }
     }
 
     React.useEffect(() => {
         tempContext.setState(context.state)
-    }, [context.state.mapOpen])
+    }, [pageContext.state.mapOpen])
 
     let title = 'title'
     let content = null
@@ -223,11 +281,11 @@ export default function CustomDialog({
     } else if (type === 'login') {
         title = 'welcome back!'
         buttonOptions = 'noTopSubmit'
-        content = <LoginForm setSignupOpen={setSignupOpen} />
+        content = <LoginForm setSignupOpen={setSignupOpen} loading={loading} />
     } else if (type === 'signup') {
         title = 'welcome!'
         buttonOptions = 'noTopSubmit'
-        content = <SignupForm setLoginOpen={setLoginOpen} />
+        content = <SignupForm setLoginOpen={setLoginOpen} loading={loading} />
         backgroundColor = Color.accent
     } else if (type === 'view') {
         title = 'view'
@@ -266,7 +324,9 @@ export default function CustomDialog({
                     >
                         {title}
                     </DialogTitle>
-                    {error && <Alert severity="error">{errorMessage}</Alert>}
+                    {error && (
+                        <Alert severity="error">{dialogErrorMessage}</Alert>
+                    )}
                     <DialogContent dividers>{content}</DialogContent>
                 </form>
             </Dialog>

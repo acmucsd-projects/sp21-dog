@@ -3,7 +3,7 @@ import { Color } from './Color'
 
 export const theme = createMuiTheme({
     typography: {
-        fontFamily: 'PT Sans',
+        fontFamily: 'PT Sans, Trebuchet MS',
     },
     overrides: {
         MuiAppBar: {

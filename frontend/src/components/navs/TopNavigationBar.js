@@ -8,6 +8,7 @@ import Icon from '@material-ui/core/Icon'
 import { useAppContext } from '../../contexts/AppContext'
 import Searchbar from './Searchbar'
 import ProfileCard from '../cards/ProfileCard'
+import { usePageContext } from '../../contexts/PageContext'
 
 const useStyles = makeStyles((theme) => ({
     topNavbar: {
@@ -76,7 +77,8 @@ const useStyles = makeStyles((theme) => ({
 export default function TopNavigationBar() {
     const classes = useStyles()
     const context = useAppContext()
-    const title = context.state.page
+    const pageContext = usePageContext()
+    const title = pageContext.state.page
 
     return (
         <>
@@ -85,14 +87,14 @@ export default function TopNavigationBar() {
                     position="static"
                     style={{ height: 'auto', minHeight: '8.152173913%' }}
                 >
-                    {/* {context.state.page == Page.landing && (
+                    {/* {pageContext.state.page == Page.landing && (
                     <div>
                         <div className={classes.topNavbar}>
                             <div
                                 className={classes.topNavButton}
                                 onClick={() => {
-                                    context.setState({
-                                        ...context.state,
+                                    pageContext.setState({
+                                        ...pageContext.state,
                                         page: Page.landing,
                                     })
                                 }}
@@ -119,53 +121,52 @@ export default function TopNavigationBar() {
                             </Typography>
                         </div>
                     </div>
-                )} */}
-                    {context.state.page != Page.landing && (
-                        <div className={classes.topNavbar}>
-                            <div
-                                className={classes.topNavButton}
-                                onClick={() => {
-                                    context.setState({
-                                        ...context.state,
-                                        page: Page.home,
-                                    })
-                                }}
-                            >
-                                <Icon classes={{ root: classes.logoIconRoot }}>
-                                    <img
-                                        className={classes.imageIcon}
-                                        src="/logo.svg"
-                                    />
-                                </Icon>
-                            </div>
-
-                            <Typography variant="h6" className={classes.title}>
-                                {title}
-                            </Typography>
-                            <div
-                                className={classes.topNavButton}
-                                onClick={() => {
-                                    context.setState({
-                                        ...context.state,
-                                        page: Page.profile,
-                                    })
-                                }}
-                            >
-                                <Icon
-                                    classes={{ root: classes.profileIconRoot }}
-                                >
-                                    <img
-                                        className={classes.imageIcon}
-                                        src="/profilepic.svg"
-                                    />
-                                </Icon>
-                            </div>
+                )}
+                {pageContext.state.page != Page.landing && (
+                    <div className={classes.topNavbar}>
+                        <div
+                            className={classes.topNavButton}
+                            onClick={() => {
+                                pageContext.setState({
+                                    ...pageContext.state,
+                                    page: Page.home,
+                                })
+                            }}
+                        >
+                            <Icon classes={{ root: classes.logoIconRoot }}>
+                                <img
+                                    className={classes.imageIcon}
+                                    src="/logo.svg"
+                                />
+                            </Icon>
                         </div>
-                    )}
-                    <Searchbar />
-                    {context.state.page == Page.profile && <ProfileCard />}
-                </AppBar>
-            )}
+
+                        <Typography variant="h6" className={classes.title}>
+                            {title}
+                        </Typography>
+                        <div
+                            className={classes.topNavButton}
+                            onClick={() => {
+                                pageContext.setState({
+                                    ...pageContext.state,
+                                    page: Page.profile,
+                                })
+                            }}
+                        >
+                            <Icon classes={{ root: classes.profileIconRoot }}>
+                                <img
+                                    className={classes.imageIcon}
+                                    src="/profilepic.svg"
+                                />
+                            </Icon>
+                        </div>
+                    </div>
+                )}*/}
+                <Searchbar />
+                {pageContext.state.page == Page.profile && (
+                    <ProfileCard data={context.state} />
+                )}
+            </AppBar>
         </>
     )
 }

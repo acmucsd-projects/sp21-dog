@@ -11,7 +11,7 @@ const DialogContent = withStyles((theme) => ({
     },
 }))(MuiDialogContent)
 
-export default function ProfileDialog({ open, setOpen }) {
+export default function ProfileDialog({ open, setOpen, data }) {
     const handleClose = () => {
         setOpen(false)
     }
@@ -29,9 +29,9 @@ export default function ProfileDialog({ open, setOpen }) {
                 },
             }}
         >
-            <ProfileCard />
+            <ProfileCard data={data} />
             <DialogContent dividers>
-                <ProfileContent />
+                <ProfileContent data={data} />
             </DialogContent>
         </Dialog>
     )

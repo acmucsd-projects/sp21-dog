@@ -5,11 +5,61 @@ import { useAppContext } from '../../../contexts/AppContext'
 import FloatingActionButton from '../../buttons/FloatingActionButton'
 import MapViewTask from '../map/MapViewTask'
 import CustomDialog from '../../modals/CustomDialog'
+import Alert from '@material-ui/lab/Alert'
+import { useAuthContext } from '../../../contexts/AuthContext'
+import { useTasksContext } from '../../../contexts/TasksContext'
+import { useLocationContext } from '../../../contexts/LocationContext'
+import { Page } from '../../../helpers/Page'
+import { usePageContext } from '../../../contexts/PageContext'
 
 export default function Tasks() {
     const [layersOpen, setLayersOpen] = React.useState(false)
+    const [errorOpen, setErrorOpen] = React.useState(false)
+    const pageContext = usePageContext()
+    const auth = useAuthContext()
+    const tasksContext = useTasksContext()
+    const locationContext = useLocationContext()
 
-    const context = useAppContext()
+    const handleCenterCamera = () => {
+        locationContext.setState({
+            ...locationContext.state,
+            viewportLocation: locationContext.state.userLocation,
+        })
+    }
+
+    React.useEffect(() => {
+        if (tasksContext.state.tasks.length === 0) {
+            fetch(
+                `https://taskathon-go.herokuapp.com/api/game/generate?latitude=${locationContext.state.userLocation.latitude}&longitude=${locationContext.state.userLocation.longitude}`,
+                {
+                    method: 'GET',
+                    headers: new Headers({
+                        Authorization: 'Bearer ' + auth.state.token,
+                    }),
+                }
+            )
+                .then((response) => response.json())
+                .then((data) => {
+                    tasksContext.setState({
+                        ...tasksContext.state,
+                        tasks: data,
+                    })
+                    pageContext.setState({
+                        ...pageContext.state,
+                        page: Page.tasks,
+                    })
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+        } else {
+            tasksContext.setState({
+                ...tasksContext.state,
+                selectedId: null,
+            })
+        }
+    }, [])
+
     return (
         <div className="overflow-container">
             <CustomDialog
@@ -18,7 +68,20 @@ export default function Tasks() {
                 setOpen={setLayersOpen}
                 keyName={'mapOptions'}
             />
-            {context.state.mapOpen ? (
+            {errorOpen && (
+                <div className="alert-container">
+                    <Alert
+                        className="overlayBottom fadeIn"
+                        severity="error"
+                        onClose={() => {
+                            setErrorOpen(false)
+                        }}
+                    >
+                        You must be at the location to complete a task!
+                    </Alert>
+                </div>
+            )}
+            {pageContext.state.mapOpen ? (
                 <>
                     <Map />
                     <div
@@ -32,8 +95,8 @@ export default function Tasks() {
                                 height: '7.608695652vh',
                             }}
                             onClick={() => {
-                                context.setState({
-                                    ...context.state,
+                                pageContext.setState({
+                                    ...pageContext.state,
                                     mapOpen: false,
                                 })
                             }}
@@ -48,6 +111,9 @@ export default function Tasks() {
                             style={{
                                 width: '7.608695652vh',
                                 height: '7.608695652vh',
+                            }}
+                            onClick={() => {
+                                handleCenterCamera()
                             }}
                         />
                     </div>
@@ -73,12 +139,27 @@ export default function Tasks() {
                             width: '83%',
                         }}
                     >
-                        <MapViewTask />
+                        {tasksContext.state.selectedId != null && (
+                            <MapViewTask
+                                task={
+                                    tasksContext.state.tasks[
+                                        tasksContext.state.tasks.findIndex(
+                                            (task) =>
+                                                task.id ===
+                                                tasksContext.state.selectedId
+                                        )
+                                    ]
+                                }
+                            />
+                        )}
                     </div>
                 </>
             ) : (
                 <div style={{ width: '100%', padding: '0 10px' }}>
-                    <TasksList />
+                    <TasksList
+                        tasks={tasksContext.state.tasks}
+                        setErrorOpen={setErrorOpen}
+                    />
                     <div
                         className="float"
                         style={{ right: '3%', bottom: '15%' }}
@@ -90,8 +171,8 @@ export default function Tasks() {
                                 height: '7.608695652vh',
                             }}
                             onClick={() => {
-                                context.setState({
-                                    ...context.state,
+                                pageContext.setState({
+                                    ...pageContext.state,
                                     mapOpen: true,
                                 })
                             }}

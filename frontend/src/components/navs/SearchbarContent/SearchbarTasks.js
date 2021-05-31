@@ -12,6 +12,9 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 export default function SearchbarTasks({ classes }) {
     const [filterOpen, setFilterOpen] = useState(false)
     const [sortOpen, setSortOpen] = useState(false)
+
+    const currentTime = new Date(Date.now())
+
     return (
         <>
             <CustomDialog
@@ -43,7 +46,9 @@ export default function SearchbarTasks({ classes }) {
                     justifyContent: 'center',
                 }}
             >
-                <p>New Tasks in 23hr 59m</p>
+                <p>{`New Tasks in ${23 - currentTime.getHours()}hr ${
+                60 - currentTime.getMinutes()
+            }m`}</p>
             </div>
             <IconButton
                 className={classes.wrapIconRight}

@@ -3,6 +3,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 import Avatar from '@material-ui/core/Avatar'
 import { makeStyles } from '@material-ui/core/styles'
+import ReactCountryFlag from 'react-country-flag'
 
 const useStyles = makeStyles((theme) => ({
     imageIcon: {
@@ -19,6 +20,11 @@ const useStyles = makeStyles((theme) => ({
 export default function LeaderboardListItem({ user, i, onClick }) {
     const classes = useStyles()
     const labelId = `checkbox-list-secondary-label-${i}`
+
+    let pointsLabel = `${user.points} pts`
+    if (pointsLabel >= 1000) {
+        pointsLabel = `${user.points / 1000}k pts`
+    }
 
     return (
         <ListItem
@@ -50,13 +56,13 @@ export default function LeaderboardListItem({ user, i, onClick }) {
             >
                 <ListItemAvatar>
                     <Avatar
-                        alt={`Avatar n°${user.name}`}
+                        alt={`Profile picture for ${user.displayName}`}
                         style={{
                             width: '5.434782609vh',
                             height: '5.434782609vh',
                             marginRight: '3.8647343vw',
                         }}
-                        src={`/static/images/avatar/${user.name}.jpg`}
+                        src={'profilepic.svg'}
                     />
                 </ListItemAvatar>
                 <div
@@ -68,19 +74,25 @@ export default function LeaderboardListItem({ user, i, onClick }) {
                 >
                     <ListItemText
                         id={labelId}
-                        primary={user.name}
+                        primary={
+                            user.displayName != null
+                                ? user.displayName
+                                : user.username
+                        }
                         secondary={
                             <div
                                 style={{
                                     display: 'flex',
                                     width: '34.28%',
                                     height: '34.28%',
-                                    fontSize: '1.902173913vh',
+                                    fontSize: '1.902173913vh'
+                                    alignItems: 'center',
                                 }}
                             >
-                                <img
-                                    className={classes.imageIcon}
-                                    src="/icons/nature.svg"
+                                <ReactCountryFlag
+                                    countryCode="US"
+                                    style={{ marginRight: '7.614696363%' }}
+                                    svg
                                 />
                                 {`@${user.username}`}
                             </div>
@@ -97,7 +109,7 @@ export default function LeaderboardListItem({ user, i, onClick }) {
             <div className={classes.numberDisplay}>
                 <ListItemText
                     id={labelId}
-                    primary={`${user.points / 10000}k pts`}
+                    primary={pointsLabel}
                     primaryTypographyProps={{
                         style: {
                             fontFamily: 'Oswald',

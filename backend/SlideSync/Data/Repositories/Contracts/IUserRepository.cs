@@ -13,5 +13,6 @@ namespace SlideSync.Data.Repositories.Contracts {
         void DeleteUserById(int id);
         void DeleteUserByUsername(string username);
         void UpdateUser(UserModel user);
+        void Save();
     }
 }

@@ -38,6 +38,7 @@ export default function ChangePasswordForm({ setEditPasswordOpen }) {
                 id="new-password"
                 variant="outlined"
                 type="password"
+                inputProps={{ minLength: 8 }}
                 required
                 onChange={(e) => {
                     tempContext.setState({
@@ -51,6 +52,7 @@ export default function ChangePasswordForm({ setEditPasswordOpen }) {
                 id="confirm-new-password"
                 variant="outlined"
                 type="password"
+                inputProps={{ minLength: 8 }}
                 required
                 onChange={(e) =>
                     tempContext.setState({
@@ -73,6 +75,9 @@ export default function ChangePasswordForm({ setEditPasswordOpen }) {
                     Cancel
                 </CustomButton>
             </div>
+            <Typography style={{ textAlign: 'center', color: 'gray' }}>
+                (View Only)
+            </Typography>
         </div>
     )
 }

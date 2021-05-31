@@ -83,7 +83,7 @@ export default function SettingsForm({
                                 </CustomButton>
                             ),
                         }}
-                        value={tempContext.state.password}
+                        value="12345678"
                     />
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
                         <CustomButton

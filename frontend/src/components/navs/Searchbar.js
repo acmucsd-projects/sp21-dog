@@ -5,6 +5,7 @@ import SearchbarLeaderboards from './SearchbarContent/SearchbarLeaderboards'
 import SearchbarJournal from './SearchbarContent/SearchbarJournal'
 import SearchbarTasks from './SearchbarContent/SearchbarTasks'
 import { useAppContext } from '../../contexts/AppContext'
+import { usePageContext } from '../../contexts/PageContext'
 const useStyles = makeStyles({
     dropdown: {
         display: 'flex',
@@ -51,18 +52,19 @@ const useStyles = makeStyles({
 })
 export default function Searchbar() {
     const classes = useStyles()
-    const context = useAppContext()
+    const pageContext = usePageContext()
     return (
         <div className={classes.dropdown}>
-            {context.state.page === Page.leaderboards && (
+            {pageContext.state.page === Page.leaderboards && (
                 <SearchbarLeaderboards classes={classes} />
             )}
-            {context.state.page === Page.journal && (
+            {pageContext.state.page === Page.journal && (
                 <SearchbarJournal classes={classes} />
             )}
-            {context.state.page === Page.tasks && !context.state.mapOpen && (
-                <SearchbarTasks classes={classes} />
-            )}
+            {pageContext.state.page === Page.tasks &&
+                !pageContext.state.mapOpen && (
+                    <SearchbarTasks classes={classes} />
+                )}
         </div>
     )
 }

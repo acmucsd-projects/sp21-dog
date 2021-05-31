@@ -2,6 +2,7 @@ import { useAppContext } from '../../../contexts/AppContext'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
+import LoopIcon from '@material-ui/icons/Loop'
 import CustomButton from '../../buttons/CustomButton'
 import { useTempContext } from '../../../contexts/TempContext'
 
@@ -20,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-export default function SignupForm({ setLoginOpen }) {
+export default function SignupForm({ loading, setLoginOpen }) {
     const classes = useStyles()
     const tempContext = useTempContext()
 
@@ -35,7 +36,7 @@ export default function SignupForm({ setLoginOpen }) {
                     required
                     onChange={(e) =>
                         tempContext.setState({
-                            ...tempContext,
+                            ...tempContext.state,
                             email: e.target.value,
                         })
                     }
@@ -45,19 +46,21 @@ export default function SignupForm({ setLoginOpen }) {
                     id="password"
                     variant="outlined"
                     type="password"
+                    inputProps={{ minLength: 8 }}
                     required
                     onChange={(e) =>
                         tempContext.setState({
-                            ...tempContext,
+                            ...tempContext.state,
                             password: e.target.value,
                         })
                     }
                 />
                 <Typography>Confirm Password</Typography>
                 <TextField
-                    id="password"
+                    id="confirmPassword"
                     variant="outlined"
                     type="password"
+                    inputProps={{ minLength: 8 }}
                     required
                     onChange={(e) =>
                         tempContext.setState({
@@ -72,8 +75,20 @@ export default function SignupForm({ setLoginOpen }) {
                         variant="primary"
                         halfWidth={true}
                         submit={true}
+                        disabled={loading}
                     >
-                        Sign Up
+                        {loading === true ? (
+                            <LoopIcon
+                                className="spin"
+                                style={{
+                                    height: 'auto',
+                                    width: '17%',
+                                    padding: 0,
+                                }}
+                            />
+                        ) : (
+                            'Sign Up'
+                        )}
                     </CustomButton>
                 </div>
                 <hr />

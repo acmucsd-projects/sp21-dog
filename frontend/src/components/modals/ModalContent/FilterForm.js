@@ -1,6 +1,7 @@
 import React from 'react'
 import CustomButton from '../../buttons/CustomButton'
 import { useTempContext } from '../../../contexts/TempContext'
+import { Typography } from '@material-ui/core'
 
 export default function FilterForm({ keyName }) {
     const tempContext = useTempContext()
@@ -101,6 +102,9 @@ export default function FilterForm({ keyName }) {
                     {Object.keys(tempContext.state[keyName].filter)[4]}
                 </CustomButton>
             </div>
+            <Typography style={{ textAlign: 'center', color: 'gray' }}>
+                (View Only)
+            </Typography>
         </>
     )
 }

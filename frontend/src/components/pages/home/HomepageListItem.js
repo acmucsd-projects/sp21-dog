@@ -8,6 +8,7 @@ import NavigateNextIcon from '@material-ui/icons/NavigateNext'
 import Map from '../map/Map'
 import { Page } from '../../../helpers/Page'
 import { useAppContext } from '../../../contexts/AppContext'
+import { usePageContext } from '../../../contexts/PageContext'
 
 const useStyles = makeStyles({
     root: {
@@ -49,7 +50,7 @@ const useStyles = makeStyles({
 })
 
 export default function HomepageListItem({ type, style }) {
-    const context = useAppContext()
+    const pageContext = usePageContext()
     const classes = useStyles()
 
     let title = 'title'
@@ -90,13 +91,16 @@ export default function HomepageListItem({ type, style }) {
             style={style}
             onClick={() => {
                 if (showMap) {
-                    context.setState({
-                        ...context.state,
+                    pageContext.setState({
+                        ...pageContext.state,
                         mapOpen: true,
                         page: targetPage,
                     })
                 } else {
-                    context.setState({ ...context.state, page: targetPage })
+                    pageContext.setState({
+                        ...pageContext.state,
+                        page: targetPage,
+                    })
                 }
             }}
         >

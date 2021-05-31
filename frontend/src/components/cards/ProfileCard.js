@@ -7,6 +7,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 import Avatar from '@material-ui/core/Avatar'
 import ListItemText from '@material-ui/core/ListItemText'
 import { useAppContext } from '../../contexts/AppContext'
+import ReactCountryFlag from 'react-country-flag'
 
 const useStyles = makeStyles({
     dropdown: {
@@ -14,7 +15,7 @@ const useStyles = makeStyles({
         justifyContent: 'space-between',
         backgroundColor: Color.primary,
         alignItems: 'center',
-        fontFamily: 'PT Sans',
+        fontFamily: 'PT Sans, Trebuchet MS',
         width: '100%',
     },
     root: {
@@ -32,9 +33,16 @@ const useStyles = makeStyles({
     },
 })
 
-export default function ProfileCard() {
+export default function ProfileCard({ data }) {
     const classes = useStyles()
-    const context = useAppContext()
+
+    if (data === undefined) {
+        return <div></div>
+    }
+
+    if (data === undefined) {
+        return <div></div>
+    }
 
     return (
         <div className={classes.dropdown}>
@@ -71,25 +79,28 @@ export default function ProfileCard() {
                             </ListItemAvatar>
                             <ListItemText
                                 id={0}
-                                primary={context.state.displayName}
+                                primary={
+                                    data.displayName != null
+                                        ? data.displayName
+                                        : data.username
+                                }
                                 secondary={
                                     <div
                                         style={{
                                             display: 'flex',
                                             width: '50%',
                                             height: '50%',
+                                            alignItems: 'center',
                                         }}
                                     >
-                                        <img
-                                            className={classes.imageIcon}
+                                        <ReactCountryFlag
+                                            countryCode="US"
                                             style={{
-                                                height: '4.076086957vh',
-                                                width: '4.076086957vh',
                                                 marginRight: '1.93236715vw',
                                             }}
-                                            src="/icons/nature.svg"
+                                            svg
                                         />
-                                        {`@${context.state.username}`}
+                                        {`@${data.username}`}
                                     </div>
                                 }
                                 primaryTypographyProps={{

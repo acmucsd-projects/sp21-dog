@@ -1,5 +1,6 @@
 import CustomButton from '../../buttons/CustomButton'
 import { useTempContext } from '../../../contexts/TempContext'
+import { Typography } from '@material-ui/core'
 
 export default function SortForm({ keyName }) {
     const tempContext = useTempContext()
@@ -93,6 +94,9 @@ export default function SortForm({ keyName }) {
                     ascending
                 </CustomButton>
             </div>
+            <Typography style={{ textAlign: 'center', color: 'gray' }}>
+                (View Only)
+            </Typography>
         </>
     )
 }
