@@ -15,6 +15,7 @@ import MapLayersForm from './ModalContent/MapLayersForm'
 import UnsavedChangesAlert from './ModalContent/UnsavedChangesAlert'
 import LogoutAlert from './ModalContent/LogoutAlert'
 import LoginForm from './ModalContent/LoginForm'
+import Question from './ModalContent/Question'
 import SignupForm from './ModalContent/SignupForm'
 import { Color } from '../../helpers/Color'
 import JournalForm from './ModalContent/JournalForm'
@@ -27,6 +28,8 @@ const styles = (theme) => ({
     root: {
         margin: 0,
         padding: theme.spacing(2),
+        // width: '2000px',
+        // height: '100px',
     },
 })
 
@@ -34,7 +37,14 @@ const DialogTitle = withStyles(styles)((props) => {
     const { children, classes, onClose, buttonOptions, ...other } = props
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <div
+            style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                // width: '1000px',
+                // height: '1000px',
+            }}
+        >
             <MuiDialogTitle
                 disableTypography
                 className={classes.root}
@@ -42,7 +52,14 @@ const DialogTitle = withStyles(styles)((props) => {
             >
                 <Typography variant="h6">{children}</Typography>
             </MuiDialogTitle>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
+            <div
+                style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    // width: '1000px',
+                    // height: '1000px',
+                }}
+            >
                 {buttonOptions === 'noTopSubmit' ? (
                     <div style={{ margin: '0 16px 0 8px' }}>
                         <CustomIconButton
@@ -215,6 +232,10 @@ export default function CustomDialog({
     } else if (type === 'view') {
         title = 'view'
         content = <JournalForm keyName={keyName} />
+    } else if (type === 'landing') {
+        title = "What's taskathon go? "
+        buttonOptions = 'noTopSubmit'
+        content = <Question />
     }
 
     return (

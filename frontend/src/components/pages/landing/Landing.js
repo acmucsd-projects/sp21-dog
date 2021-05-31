@@ -60,6 +60,7 @@ export default function Landing() {
     const tempContext = useTempContext()
     const [loginOpen, setLoginOpen] = useState(false)
     const [signupOpen, setSignupOpen] = useState(false)
+    const [landingOpen, setLandingOpen] = useState(false)
 
     const customSetLoginSignupOpen = (open) => {
         setLoginOpen(!loginOpen)
@@ -78,6 +79,11 @@ export default function Landing() {
                 setOpen={setLoginOpen}
                 setSignupOpen={customSetLoginSignupOpen}
                 nextPage={Page.home}
+            />
+            <CustomDialog
+                type="landing"
+                open={landingOpen}
+                setOpen={setLandingOpen}
             />
             <CustomDialog
                 type="signup"
@@ -125,7 +131,9 @@ export default function Landing() {
                     fontSize: '2.445652714vh',
                     position: 'fixed',
                     bottom: '2.038043478vh',
+                    cursor: 'pointer',
                 }}
+                onClick={() => setLandingOpen(true)}
             >
                 <ArrowForwardIosIcon
                     style={{
