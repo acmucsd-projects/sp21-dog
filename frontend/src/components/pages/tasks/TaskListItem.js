@@ -61,7 +61,7 @@ export default function TaskListItem({ id, task, mapView, setErrorOpen }) {
                 } else {
                     let updatedTasks = tasksContext.state.tasks
                     updatedTasks[
-                        updatedTasks.findIndex((task) => task.id)
+                        updatedTasks.findIndex((item) => item.id === task.id)
                     ].completed = data.completed
                     console.log(updatedTasks)
                     tasksContext.setState({
