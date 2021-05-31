@@ -46,6 +46,8 @@ export default function Content() {
                         alignItems: 'center',
                         backgroundColor: '#0094FF',
                         backgroundImage: 'url(/map.png)',
+                        backgroundSize: 'cover',
+                        // height: '500px',
                     }}
                 >
                     {context.state.page === Page.tasks ? (
@@ -70,15 +72,20 @@ export default function Content() {
                             style={{
                                 backgroundColor: Color.primary,
                                 borderRadius: '15px',
-
-                                margin: '3% 3%',
+                                margin: '10vh 10%',
                                 padding: '1%',
                             }}
                             className="content-wrapper"
                         >
                             {context.state.page === Page.landing && <Landing />}
                             {context.state.page === Page.profile && (
-                                <div style={{ display: 'flex', width: '100%' }}>
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        width: '100%',
+                                        // height: '200px',
+                                    }}
+                                >
                                     <Profile />
                                     <hr />
                                     <div
