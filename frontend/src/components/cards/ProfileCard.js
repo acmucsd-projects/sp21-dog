@@ -7,6 +7,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 import Avatar from '@material-ui/core/Avatar'
 import ListItemText from '@material-ui/core/ListItemText'
 import { useAppContext } from '../../contexts/AppContext'
+import ReactCountryFlag from 'react-country-flag'
 
 const useStyles = makeStyles({
     dropdown: {
@@ -34,7 +35,10 @@ const useStyles = makeStyles({
 
 export default function ProfileCard({ data }) {
     const classes = useStyles()
-    const context = useAppContext()
+
+    if (data === undefined) {
+        return <div></div>
+    }
 
     if (data === undefined) {
         return <div></div>
@@ -61,8 +65,8 @@ export default function ProfileCard({ data }) {
                             <ListItemAvatar>
                                 <Avatar
                                     style={{
-                                        width: '78.13%',
-                                        height: '78.13%',
+                                        width: '88.13%',
+                                        height: '88.13%',
                                     }}
                                     alt={`profile picture`}
                                     src={`/profilepic.svg`}
@@ -81,12 +85,15 @@ export default function ProfileCard({ data }) {
                                             display: 'flex',
                                             width: '50%',
                                             height: '50%',
+                                            alignItems: 'center',
                                         }}
                                     >
-                                        <img
-                                            className={classes.imageIcon}
-                                            style={{ marginRight: '8px' }}
-                                            src="/icons/nature.svg"
+                                        <ReactCountryFlag
+                                            countryCode="US"
+                                            style={{
+                                                marginRight: '7.614696363%',
+                                            }}
+                                            svg
                                         />
                                         {`@${data.username}`}
                                     </div>

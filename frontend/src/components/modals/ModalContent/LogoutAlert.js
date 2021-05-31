@@ -1,6 +1,7 @@
 import { Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useAppContext } from '../../../contexts/AppContext'
+import { usePageContext } from '../../../contexts/PageContext'
 import { Page } from '../../../helpers/Page'
 import CustomButton from '../../buttons/CustomButton'
 
@@ -15,11 +16,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function LogoutAlert({ setLogoutAlertOpen, closeAll }) {
     const classes = useStyles()
-    const context = useAppContext()
+    const pageContext = usePageContext()
 
     const logout = () => {
-        context.setState({
-            ...context,
+        pageContext.setState({
+            ...pageContext.state,
             page: Page.landing,
         })
     }

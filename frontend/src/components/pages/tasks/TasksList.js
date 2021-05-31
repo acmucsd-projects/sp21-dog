@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-export default function TaskList() {
+export default function TaskList({ tasks, setErrorOpen }) {
     const classes = useStyles()
 
     return (
@@ -24,9 +24,16 @@ export default function TaskList() {
                 <AccordionSummary />
                 <AccordionDetails />
             </Accordion>
-            <TaskListItem />
-            <TaskListItem />
-            <TaskListItem />
+            {tasks != null &&
+                tasks.map((task) => {
+                    return (
+                        <TaskListItem
+                            id={task.id}
+                            task={task}
+                            setErrorOpen={setErrorOpen}
+                        />
+                    )
+                })}
             <Accordion style={{ display: 'none' }}>
                 <AccordionSummary />
                 <AccordionDetails />

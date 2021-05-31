@@ -8,6 +8,7 @@ import Icon from '@material-ui/core/Icon'
 import { useAppContext } from '../../contexts/AppContext'
 import Searchbar from './Searchbar'
 import ProfileCard from '../cards/ProfileCard'
+import { usePageContext } from '../../contexts/PageContext'
 
 const useStyles = makeStyles((theme) => ({
     topNavbar: {
@@ -76,7 +77,8 @@ const useStyles = makeStyles((theme) => ({
 export default function TopNavigationBar() {
     const classes = useStyles()
     const context = useAppContext()
-    const title = context.state.page
+    const pageContext = usePageContext()
+    const title = pageContext.state.page
 
     return (
         <>
@@ -84,14 +86,14 @@ export default function TopNavigationBar() {
                 position="static"
                 style={{ height: 'auto', minHeight: '8.152173913%' }}
             >
-                {context.state.page == Page.landing && (
+                {pageContext.state.page == Page.landing && (
                     <div>
                         <div className={classes.topNavbar}>
                             <div
                                 className={classes.topNavButton}
                                 onClick={() => {
-                                    context.setState({
-                                        ...context.state,
+                                    pageContext.setState({
+                                        ...pageContext.state,
                                         page: Page.landing,
                                     })
                                 }}
@@ -119,13 +121,13 @@ export default function TopNavigationBar() {
                         </div>
                     </div>
                 )}
-                {context.state.page != Page.landing && (
+                {pageContext.state.page != Page.landing && (
                     <div className={classes.topNavbar}>
                         <div
                             className={classes.topNavButton}
                             onClick={() => {
-                                context.setState({
-                                    ...context.state,
+                                pageContext.setState({
+                                    ...pageContext.state,
                                     page: Page.home,
                                 })
                             }}
@@ -144,8 +146,8 @@ export default function TopNavigationBar() {
                         <div
                             className={classes.topNavButton}
                             onClick={() => {
-                                context.setState({
-                                    ...context.state,
+                                pageContext.setState({
+                                    ...pageContext.state,
                                     page: Page.profile,
                                 })
                             }}
@@ -160,7 +162,7 @@ export default function TopNavigationBar() {
                     </div>
                 )}
                 <Searchbar />
-                {context.state.page == Page.profile && (
+                {pageContext.state.page == Page.profile && (
                     <ProfileCard data={context.state} />
                 )}
             </AppBar>

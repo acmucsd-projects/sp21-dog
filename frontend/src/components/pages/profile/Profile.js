@@ -40,19 +40,6 @@ export default function Profile() {
         return false
     }
 
-    /*const editEmailParams = {
-        url: `https://taskathon-go.herokuapp.com/api/users/user/${context.state.username}/edit-email`,
-        params: {
-            method: 'POST',
-            headers: new Headers({
-                Authorization: 'Bearer ' + auth.state.token,
-            }),
-            body: objToFormData({
-                email: tempContext.state.email,
-            }),
-        },
-    }*/
-
     const editProfileParams = {
         url: `https://taskathon-go.herokuapp.com/api/users/user/${context.state.username}/edit`,
         params: {

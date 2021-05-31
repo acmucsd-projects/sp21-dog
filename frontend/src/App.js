@@ -7,21 +7,30 @@ import { AppContextProvider } from './contexts/AppContext'
 import { theme } from './helpers/Themes.js'
 import { TempContextProvider } from './contexts/TempContext'
 import { AuthContextProvider } from './contexts/AuthContext'
+import { TasksContextProvider } from './contexts/TasksContext'
+import { LocationContextProvider } from './contexts/LocationContext'
+import { PageContextProvider } from './contexts/PageContext'
 
 function App() {
     return (
         <div className="App">
             <ThemeProvider theme={theme}>
                 <AppContextProvider>
-                    <AuthContextProvider>
-                        <TempContextProvider>
-                            <div className="main-container">
-                                <TopNavigationBar />
-                                <Content />
-                                <BottomNavigationBar />
-                            </div>
-                        </TempContextProvider>
-                    </AuthContextProvider>
+                    <PageContextProvider>
+                        <AuthContextProvider>
+                            <TempContextProvider>
+                                <div className="main-container">
+                                    <TopNavigationBar />
+                                    <LocationContextProvider>
+                                        <TasksContextProvider>
+                                            <Content />
+                                        </TasksContextProvider>
+                                    </LocationContextProvider>
+                                    <BottomNavigationBar />
+                                </div>
+                            </TempContextProvider>
+                        </AuthContextProvider>
+                    </PageContextProvider>
                 </AppContextProvider>
             </ThemeProvider>
         </div>

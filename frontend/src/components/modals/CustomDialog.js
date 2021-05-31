@@ -23,6 +23,7 @@ import { useAppContext } from '../../contexts/AppContext'
 import { Page } from '../../helpers/Page'
 import Alert from '@material-ui/lab/Alert'
 import { testFormData } from '../../helpers/Utils'
+import { usePageContext } from '../../contexts/PageContext'
 
 const styles = (theme) => ({
     root: {
@@ -103,6 +104,7 @@ export default function CustomDialog({
 }) {
     const context = useAppContext()
     const tempContext = useTempContext()
+    const pageContext = usePageContext()
 
     const [error, setError] = React.useState(false)
     const [dialogErrorMessage, setDialogErrorMessage] = React.useState(
@@ -143,10 +145,13 @@ export default function CustomDialog({
                 {
                     ...context.state,
                     ...temp,
-                    page: nextPage,
                 },
                 tempContext.setState(context.state)
             )
+            pageContext.setState({
+                ...pageContext.state,
+                page: nextPage,
+            })
         } else {
             context.setState(
                 { ...context.state, ...temp }
@@ -202,7 +207,7 @@ export default function CustomDialog({
 
     React.useEffect(() => {
         tempContext.setState(context.state)
-    }, [context.state.mapOpen, open])
+    }, [pageContext.state.mapOpen])
 
     let title = 'title'
     let content = null

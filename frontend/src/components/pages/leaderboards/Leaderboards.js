@@ -27,6 +27,7 @@ export default function Leaderboards() {
         fetch('https://taskathon-go.herokuapp.com/api/game/leaderboard')
             .then((response) => response.json())
             .then((data) => {
+                console.log(data)
                 setLeaderboardData(data)
             })
             .catch((err) => {
@@ -35,7 +36,10 @@ export default function Leaderboards() {
     }, [])
 
     return (
-        <div className="overflow-container" style={{ margin: 0 }}>
+        <div
+            className="overflow-container"
+            style={{ margin: 0, height: '99%' }}
+        >
             <ProfileDialog
                 open={profileOpen}
                 setOpen={setProfileOpen}

@@ -1,3 +1,4 @@
+import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Accordion from '@material-ui/core/Accordion'
 import AccordionSummary from '@material-ui/core/AccordionSummary'
@@ -9,6 +10,10 @@ import CustomButton from '../../buttons/CustomButton'
 import Typography from '@material-ui/core/Typography'
 import { useAppContext } from '../../../contexts/AppContext'
 import { Page } from '../../../helpers/Page'
+import { useLocationContext } from '../../../contexts/LocationContext'
+import { useTasksContext } from '../../../contexts/TasksContext'
+import { usePageContext } from '../../../contexts/PageContext'
+import { useAuthContext } from '../../../contexts/AuthContext'
 
 const useStyles = makeStyles((theme) => ({
     imageIcon: {
@@ -23,24 +28,97 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-export default function TaskListItem({
-    mapView,
-    completed,
-    handleCompleteTask,
-}) {
-    const context = useAppContext()
+export default function TaskListItem({ id, task, mapView, setErrorOpen }) {
+    const pageContext = usePageContext()
     const classes = useStyles()
+    const locationContext = useLocationContext()
+    const tasksContext = useTasksContext()
+    const auth = useAuthContext()
+
     let margin = '15px 0'
     if (mapView) {
         margin = '8px'
     }
+
+    const stats = ['Fitness', 'Nature', 'Knowledge', 'Community']
+
+    const handleCompleteTask = () => {
+        fetch(
+            `https://taskathon-go.herokuapp.com/api/game/check?taskId=${task.id}&latitude=${locationContext.state.userLocation.latitude}&longitude=${locationContext.state.userLocation.longitude}`,
+            {
+                method: 'GET',
+                headers: new Headers({
+                    Authorization: 'Bearer ' + auth.state.token,
+                }),
+            }
+        )
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data)
+
+                if (data.completed == null) {
+                    setErrorOpen(true)
+                } else {
+                    let updatedTasks = tasksContext.state.tasks
+                    updatedTasks[
+                        updatedTasks.findIndex((item) => item.id === task.id)
+                    ].completed = data.completed
+                    console.log(updatedTasks)
+                    tasksContext.setState({
+                        ...tasksContext.state,
+                        tasks: updatedTasks,
+                    })
+                    setErrorOpen(false)
+                }
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+
+    function equals(obj1, obj2) {
+        return Object.keys(obj1).every((key) => {
+            return obj1[key] === obj2[key]
+        })
+    }
+
+    const distance = (userLocation, taskLocation) => {
+        if (equals(userLocation, taskLocation)) {
+            return 0
+        } else {
+            var radlat1 = (Math.PI * userLocation.latitude) / 180
+            var radlat2 = (Math.PI * taskLocation.latitude) / 180
+            var theta = userLocation.longitude - taskLocation.longitude
+            var radtheta = (Math.PI * theta) / 180
+            var dist =
+                Math.sin(radlat1) * Math.sin(radlat2) +
+                Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta)
+            if (dist > 1) {
+                dist = 1
+            }
+            dist = Math.acos(dist)
+            dist = (dist * 180) / Math.PI
+            dist = dist * 60 * 1.1515
+            dist = Math.round(dist * 100) / 100
+            return dist
+        }
+    }
+
+    if (task == null) {
+        return <div></div>
+    }
+
+    const miles = distance(locationContext.state.userLocation, {
+        latitude: task.latitude,
+        longitude: task.longitude,
+    })
 
     return (
         <Accordion style={{ margin: margin }}>
             <AccordionSummary
                 aria-controls="panel2a-content"
                 id="panel2a-header"
-                className={completed === true ? classes.completed : null}
+                className={task.completed != null ? classes.completed : null}
             >
                 <div
                     style={{
@@ -52,12 +130,18 @@ export default function TaskListItem({
                 >
                     <div style={{ display: 'flex', alignItems: 'center' }}>
                         <ListItemAvatar>
-                            <Avatar alt={`logo`} src={`/icons/nature.svg`} />
+                            <Avatar
+                                alt={`logo`}
+                                src={`/icons/${stats[
+                                    task.taskType
+                                ].toLowerCase()}.svg`}
+                            />
                         </ListItemAvatar>
                         <ListItemText
                             id={0}
-                            primary={'Take a walk'}
-                            secondary={'Emerald City Park'}
+                            style={{ maxWidth: '80%' }}
+                            primary={task.title}
+                            secondary={task.text}
                             primaryTypographyProps={{
                                 style: {
                                     fontSize: '18px',
@@ -71,15 +155,15 @@ export default function TaskListItem({
                             textAlign: 'right',
                         }}
                     >
-                        {completed === true ? (
+                        {task.completed != null ? (
                             <img
                                 src="icons/complete.svg"
                                 alt="task complete icon"
                             />
                         ) : (
                             <>
-                                <p>5 pts</p>
-                                <p>0.8 mi</p>
+                                <p>{`${task.points} pts`}</p>
+                                <p>{`${miles} mi`}</p>
                             </>
                         )}
                     </div>
@@ -87,30 +171,47 @@ export default function TaskListItem({
             </AccordionSummary>
             <AccordionDetails>
                 <div style={{ width: '100%' }}>
-                    <div
-                        style={{
-                            display: 'flex',
-                        }}
-                    >
-                        <CustomButton type="tasks" variant="primary">
-                            Share
-                        </CustomButton>
-                        {!mapView && !completed && (
+                    {task.completed == null && (
+                        <div
+                            style={{
+                                display: 'flex',
+                            }}
+                        >
+                            {!mapView && (
+                                <CustomButton
+                                    type="tasks"
+                                    variant="primary"
+                                    onClick={() => {
+                                        pageContext.setState({
+                                            ...pageContext.state,
+                                            page: Page.tasks,
+                                            mapOpen: true,
+                                        })
+                                        locationContext.setState({
+                                            ...locationContext.state,
+                                            viewportLocation: {
+                                                latitude: task.latitude,
+                                                longitude: task.longitude,
+                                            },
+                                        })
+                                        tasksContext.setState({
+                                            ...tasksContext.state,
+                                            selectedId: id,
+                                        })
+                                    }}
+                                >
+                                    View on Map
+                                </CustomButton>
+                            )}
                             <CustomButton
                                 type="tasks"
                                 variant="secondary"
-                                onClick={() => {
-                                    context.setState({
-                                        ...context.state,
-                                        page: Page.tasks,
-                                        mapOpen: true,
-                                    })
-                                }}
+                                onClick={handleCompleteTask}
                             >
-                                View on Map
+                                Complete Task
                             </CustomButton>
-                        )}
-                    </div>
+                        </div>
+                    )}
                     <div>
                         <div
                             style={{
@@ -131,9 +232,13 @@ export default function TaskListItem({
                                 >
                                     <img
                                         className={classes.imageIcon}
-                                        src="/icons/nature.svg"
+                                        src={`/icons/${stats[
+                                            task.taskType
+                                        ].toLowerCase()}.svg`}
                                     />
-                                    <p>+5 Nature Pts</p>
+                                    <p>{`+${task.points} ${
+                                        stats[task.taskType]
+                                    } Pts`}</p>
                                 </div>
 
                                 <div
@@ -162,12 +267,13 @@ export default function TaskListItem({
                                         />
                                     </div>
                                     <div>
-                                        <p>15823 Fairfield Street</p>
-                                        <p>Emerald City, EC 41852</p>
+                                        {task.address.split('\n').map((str) => (
+                                            <p>{str}</p>
+                                        ))}
                                     </div>
                                 </div>
                             </div>
-                            {!completed && (
+                            {task.completed == null && (
                                 <div
                                     style={{
                                         flex: 1,
@@ -193,32 +299,11 @@ export default function TaskListItem({
                                             }}
                                         />
                                     </div>
-                                    <p>0.8 miles away</p>
+                                    <p>{`${miles} miles away`}</p>
                                 </div>
                             )}
                         </div>
-                        <Typography>
-                            Go out and see the sunshine! Take a break from your
-                            devices and enjoy what nature has to offer.
-                        </Typography>
-                        {completed !== true && (
-                            <div
-                                style={{
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    marginTop: '3%',
-                                }}
-                            >
-                                <CustomButton
-                                    type="tasks"
-                                    variant="secondary"
-                                    halfWidth={true}
-                                    onClick={handleCompleteTask}
-                                >
-                                    Complete Task
-                                </CustomButton>
-                            </div>
-                        )}
+                        <Typography>{task.description}</Typography>
                     </div>
                 </div>
             </AccordionDetails>

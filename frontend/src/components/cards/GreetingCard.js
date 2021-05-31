@@ -61,6 +61,11 @@ export default function GreetingCard() {
         }
     }, [])
 
+    let greetingMessage = `Good ${timeOfDay}!`
+    if (context.state.displayName != null) {
+        greetingMessage = `Good ${timeOfDay}, ${context.state.displayName}!`
+    }
+
     return (
         <Card className={classes.root}>
             <CardContent>
@@ -75,11 +80,7 @@ export default function GreetingCard() {
                     </ListItemAvatar>
                     <ListItemText
                         id={0}
-                        primary={`Good ${timeOfDay}, ${
-                            context.state.displayName != null
-                                ? context.state.displayName
-                                : context.state.username
-                        }!`}
+                        primary={greetingMessage}
                         secondary={timeMessage}
                         primaryTypographyProps={{
                             style: {
