@@ -24,7 +24,6 @@ export default function Tasks() {
         locationContext.setState({
             ...locationContext.state,
             viewportLocation: locationContext.state.userLocation,
-            zoom: '4',
         })
     }
 

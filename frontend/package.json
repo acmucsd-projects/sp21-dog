@@ -16,7 +16,8 @@
     "react-map-gl": "^6.1.12",
     "react-scripts": "4.0.3",
     "recharts": "^2.0.9",
-    "web-vitals": "^1.0.1"
+    "web-vitals": "^1.0.1",
+    "worker-loader": "^3.0.8"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -36,7 +37,9 @@
     "production": [
       ">0.2%",
       "not dead",
-      "not op_mini all"
+      "not op_mini all",
+      "not chrome < 51",
+      "not safari < 10"
     ],
     "development": [
       "last 1 chrome version",
@@ -45,7 +48,6 @@
     ]
   },
   "devDependencies": {
-    "eslint": "^7.24.0",
     "eslint-config-prettier": "^8.2.0",
     "prettier": "2.2.1"
   }
