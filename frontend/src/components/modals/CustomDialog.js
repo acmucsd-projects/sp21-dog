@@ -6,6 +6,7 @@ import MuiDialogContent from '@material-ui/core/DialogContent'
 import Typography from '@material-ui/core/Typography'
 import CustomIconButton from '../buttons/CustomIconButton'
 import ProfileForm from './ModalContent/ProfileForm'
+import Question from './ModalContent/Question'
 import SettingsForm from './ModalContent/SettingsForm'
 import CalendarForm from './ModalContent/CalendarForm'
 import ChangePasswordForm from './ModalContent/ChangePasswordForm'
@@ -273,6 +274,10 @@ export default function CustomDialog({
     } else if (type === 'view') {
         title = 'view'
         content = <JournalForm keyName={keyName} />
+    } else if (type === 'landing') {
+        title = "What's taskathon go? "
+        buttonOptions = 'noTopSubmit'
+        content = <Question />
     }
 
     return (
