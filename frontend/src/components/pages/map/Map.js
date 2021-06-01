@@ -1,13 +1,16 @@
 import React from 'react'
 import ReactMapGL, { Marker, FlyToInterpolator } from '!react-map-gl'
-import mapboxgl from 'mapbox-gl/dist/mapbox-gl-csp';
 import MapboxWorker from 'worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker';
 import { useAppContext } from '../../../contexts/AppContext'
+<<<<<<< HEAD
 import { useLocationContext } from '../../../contexts/LocationContext'
 import { useTasksContext } from '../../../contexts/TasksContext'
+=======
+import mapboxgl from 'mapbox-gl';
+>>>>>>> 1f85b41 (maybe change eslint?)
 
-
-ReactMapGL.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default;
+// eslint-disable-next-line import/no-webpack-loader-syntax
+mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default;  
 
 export default function MapView({ noDrag }) {
     const context = useAppContext()
