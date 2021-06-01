@@ -266,9 +266,10 @@ export default function TaskListItem({ id, task, mapView, setErrorOpen }) {
                                         />
                                     </div>
                                     <div>
-                                        {task.address.split('\n').map((str) => (
-                                            <p>{str}</p>
-                                        ))}
+                                        {task.address != null &&
+                                            task.address
+                                                .split('\n')
+                                                .map((str) => <p>{str}</p>)}
                                     </div>
                                 </div>
                             </div>
