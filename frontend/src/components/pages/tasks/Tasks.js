@@ -69,7 +69,7 @@ export default function Tasks() {
                 keyName={'mapOptions'}
             />
             {errorOpen && (
-                <div className="alert-container">
+                <div className="alertContainer">
                     <Alert
                         className="overlayBottom fadeIn"
                         severity="error"
