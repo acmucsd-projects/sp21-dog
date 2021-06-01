@@ -7,6 +7,8 @@ import Profile from './profile/Profile'
 import Tasks from './tasks/Tasks'
 import Home from './home/Home'
 import Landing from './landing/Landing'
+import BottomNavigationBar from '../navs/BottomNavigationBar'
+import TopNavigationBar from '../navs/TopNavigationBar'
 import { usePageContext } from '../../contexts/PageContext'
 
 const Content = () => {
@@ -24,16 +26,22 @@ const Content = () => {
     }
 
     return (
-        <div
-            className="content-wrapper"
-            style={{ backgroundColor: backgroundColor }}
-        >
-            {pageContext.state.page === Page.landing && <Landing />}
-            {pageContext.state.page === Page.profile && <Profile />}
-            {pageContext.state.page === Page.leaderboards && <Leaderboards />}
-            {pageContext.state.page === Page.home && <Home />}
-            {pageContext.state.page === Page.tasks && <Tasks />}
-            {pageContext.state.page === Page.journal && <Journal />}
+        <div className="main-container">
+            {pageContext.state.page !== Page.landing && <TopNavigationBar />}
+            <div
+                className="content-wrapper"
+                style={{ backgroundColor: backgroundColor }}
+            >
+                {pageContext.state.page === Page.landing && <Landing />}
+                {pageContext.state.page === Page.profile && <Profile />}
+                {pageContext.state.page === Page.leaderboards && (
+                    <Leaderboards />
+                )}
+                {pageContext.state.page === Page.home && <Home />}
+                {pageContext.state.page === Page.tasks && <Tasks />}
+                {pageContext.state.page === Page.journal && <Journal />}
+            </div>
+            {pageContext.state.page !== Page.landing && <BottomNavigationBar />}
         </div>
     )
 }
