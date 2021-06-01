@@ -9,7 +9,6 @@ import { useTasksContext } from '../../../contexts/TasksContext'
 import mapboxgl from 'mapbox-gl';
 >>>>>>> 1f85b41 (maybe change eslint?)
 
-// eslint-disable-next-line import/no-webpack-loader-syntax
 mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default;  
 
 export default function MapView({ noDrag }) {
