@@ -68,6 +68,13 @@ export default function Tasks() {
                 setOpen={setLayersOpen}
                 keyName={'mapOptions'}
             />
+            <button
+                onClick={() => {
+                    console.log(tasksContext.state)
+                }}
+            >
+                button
+            </button>
             {errorOpen && (
                 <div className="alert-container">
                     <Alert

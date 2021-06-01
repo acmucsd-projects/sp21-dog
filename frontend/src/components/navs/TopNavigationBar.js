@@ -87,15 +87,51 @@ export default function TopNavigationBar() {
                     position="static"
                     style={{ height: 'auto', minHeight: '8.152173913%' }}
                 >
-                    {/* {pageContext.state.page == Page.landing && (
-                    <div>
+                    {pageContext.state.page == Page.landing && (
+                        <div>
+                            <div className={classes.topNavbar}>
+                                <div
+                                    className={classes.topNavButton}
+                                    onClick={() => {
+                                        pageContext.setState({
+                                            ...pageContext.state,
+                                            page: Page.landing,
+                                        })
+                                    }}
+                                >
+                                    <Icon
+                                        classes={{ root: classes.logoIconRoot }}
+                                    >
+                                        <img
+                                            className={classes.imageIcon}
+                                            src="/logo.svg"
+                                        />
+                                    </Icon>
+                                </div>
+
+                                <Typography
+                                    variant="h6"
+                                    className={classes.landing}
+                                >
+                                    Taskathon
+                                </Typography>
+                                <Typography
+                                    variant="h6"
+                                    className={classes.landingBlue}
+                                >
+                                    Go!
+                                </Typography>
+                            </div>
+                        </div>
+                    )}
+                    {pageContext.state.page != Page.landing && (
                         <div className={classes.topNavbar}>
                             <div
                                 className={classes.topNavButton}
                                 onClick={() => {
                                     pageContext.setState({
                                         ...pageContext.state,
-                                        page: Page.landing,
+                                        page: Page.home,
                                     })
                                 }}
                             >
@@ -107,61 +143,29 @@ export default function TopNavigationBar() {
                                 </Icon>
                             </div>
 
-                            <Typography
-                                variant="h6"
-                                className={classes.landing}
-                            >
-                                Taskathon
+                            <Typography variant="h6" className={classes.title}>
+                                {title}
                             </Typography>
-                            <Typography
-                                variant="h6"
-                                className={classes.landingBlue}
+                            <div
+                                className={classes.topNavButton}
+                                onClick={() => {
+                                    pageContext.setState({
+                                        ...pageContext.state,
+                                        page: Page.profile,
+                                    })
+                                }}
                             >
-                                Go!
-                            </Typography>
+                                <Icon
+                                    classes={{ root: classes.profileIconRoot }}
+                                >
+                                    <img
+                                        className={classes.imageIcon}
+                                        src="/profilepic.svg"
+                                    />
+                                </Icon>
+                            </div>
                         </div>
-                    </div>
-                )}
-                {pageContext.state.page != Page.landing && (
-                    <div className={classes.topNavbar}>
-                        <div
-                            className={classes.topNavButton}
-                            onClick={() => {
-                                pageContext.setState({
-                                    ...pageContext.state,
-                                    page: Page.home,
-                                })
-                            }}
-                        >
-                            <Icon classes={{ root: classes.logoIconRoot }}>
-                                <img
-                                    className={classes.imageIcon}
-                                    src="/logo.svg"
-                                />
-                            </Icon>
-                        </div>
-
-                        <Typography variant="h6" className={classes.title}>
-                            {title}
-                        </Typography>
-                        <div
-                            className={classes.topNavButton}
-                            onClick={() => {
-                                pageContext.setState({
-                                    ...pageContext.state,
-                                    page: Page.profile,
-                                })
-                            }}
-                        >
-                            <Icon classes={{ root: classes.profileIconRoot }}>
-                                <img
-                                    className={classes.imageIcon}
-                                    src="/profilepic.svg"
-                                />
-                            </Icon>
-                        </div>
-                    </div>
-                )}*/}
+                    )}
                     <Searchbar />
                     {pageContext.state.page == Page.profile && (
                         <ProfileCard data={context.state} />

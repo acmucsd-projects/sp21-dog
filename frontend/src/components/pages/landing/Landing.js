@@ -106,6 +106,7 @@ export default function Landing() {
             <CustomButton
                 type="landing"
                 variant="primary"
+                halfWidth={true}
                 onClick={() => {
                     // context.setState(Page.home)
                     setSignupOpen(true)
@@ -116,6 +117,7 @@ export default function Landing() {
             <CustomButton
                 type="landing"
                 variant="secondary"
+                halfWidth={true}
                 onClick={() => {
                     setLoginOpen(true)
                 }}

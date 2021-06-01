@@ -62,14 +62,7 @@ export default function LoginForm({ loading, setSignupOpen }) {
                         disabled={loading}
                     >
                         {loading === true ? (
-                            <LoopIcon
-                                className="spin"
-                                style={{
-                                    height: 'auto',
-                                    width: '17%',
-                                    padding: 0,
-                                }}
-                            />
+                            <LoopIcon className="spin" />
                         ) : (
                             'Log In'
                         )}
