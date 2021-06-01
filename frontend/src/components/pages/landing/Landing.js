@@ -1,6 +1,6 @@
 import React from 'react'
 import CustomDialog from '../../modals/CustomDialog'
-import Alert from '@material-ui/lab/alert'
+import Alert from '@material-ui/lab/Alert'
 import { Color } from '../../../helpers/Color'
 import { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
