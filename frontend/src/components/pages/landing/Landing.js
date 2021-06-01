@@ -64,7 +64,7 @@ export default function Landing() {
 
     const [loginOpen, setLoginOpen] = React.useState(false)
     const [signupOpen, setSignupOpen] = React.useState(false)
-    const [signupSuccess, setSignupSuccess] = React.useState(true)
+    const [signupSuccess, setSignupSuccess] = React.useState(false)
     const [landingOpen, setLandingOpen] = useState(false)
 
     const auth = useAuthContext()
