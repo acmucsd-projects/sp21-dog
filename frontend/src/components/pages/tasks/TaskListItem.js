@@ -54,8 +54,6 @@ export default function TaskListItem({ id, task, mapView, setErrorOpen }) {
         )
             .then((response) => response.json())
             .then((data) => {
-                console.log(data)
-
                 if (data.completed == null) {
                     setErrorOpen(true)
                 } else {
@@ -63,7 +61,6 @@ export default function TaskListItem({ id, task, mapView, setErrorOpen }) {
                     updatedTasks[
                         updatedTasks.findIndex((item) => item.id === task.id)
                     ].completed = data.completed
-                    console.log(updatedTasks)
                     tasksContext.setState({
                         ...tasksContext.state,
                         tasks: updatedTasks,

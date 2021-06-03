@@ -15,7 +15,6 @@ export default function Leaderboards() {
         fetch(`https://taskathon-go.herokuapp.com/api/users/user/${username}`)
             .then((response) => response.json())
             .then((data) => {
-                console.log(data)
                 setProfileData(data)
             })
             .catch((err) => {
@@ -27,7 +26,6 @@ export default function Leaderboards() {
         fetch('https://taskathon-go.herokuapp.com/api/game/leaderboard')
             .then((response) => response.json())
             .then((data) => {
-                console.log(data)
                 setLeaderboardData(data)
             })
             .catch((err) => {
