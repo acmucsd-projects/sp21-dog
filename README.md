@@ -22,9 +22,7 @@ An app that encourages users to exercise outdoors, partake in community events, 
 ## Screenshots
 ![landing](/screenshots/landing.png)
 ![signup](/screenshots/signup.png)
-![login](/screenshots/login.png)
 ![home](/screenshots/home.png)
 ![tasks](/screenshots/tasks.png)
-![filter](/screenshots/filter.png)
 ![map](/screenshots/map.png)
 ![profile](/screenshots/profile.png)
