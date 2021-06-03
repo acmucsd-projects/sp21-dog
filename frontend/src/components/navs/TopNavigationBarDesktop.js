@@ -109,7 +109,6 @@ export default function TopNavigationBarDesktop() {
     const accountValidate = () => {}
 
     const confirmPasswordValidate = () => {
-        console.log(tempContext.state)
         return tempContext.state.password === tempContext.state.confirmPassword
     }
 

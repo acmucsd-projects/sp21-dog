@@ -28,7 +28,9 @@ export default function Home() {
                 }),
             }
         )
-            .then((response) => response.json())
+            .then((response) => {
+                return response.json()
+            })
             .then((data) => {
                 tasksContext.setState({
                     ...tasksContext.state,

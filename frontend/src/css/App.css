@@ -4,6 +4,7 @@
 #root {
     height: 100%;
 }
+
 .App {
     height: 100%;
     overflow: auto;
@@ -48,6 +49,13 @@ p {
     display: flex;
     flex: 1;
     min-height: 0px;
+}
+
+@media only screen and (min-width: 900px) {
+    .content-wrapper-maxWidth {
+        width: 50%;
+        align-self: center;
+    }
 }
 
 .overflow-container {
