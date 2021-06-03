@@ -116,6 +116,13 @@ export default function Landing() {
         return false
     }
 
+    const loginValidate = () => {
+        if (tempContext.state.username.includes('@')) {
+            return false
+        }
+        return true
+    }
+
     return (
         <>
             <CustomDialog
@@ -144,6 +151,8 @@ export default function Landing() {
                 requestParams={loginRequestParams}
                 nextPage={Page.home}
                 handleRequestData={saveRequestToken}
+                validate={loginValidate}
+                errorMessage="Use username instead of email to log in"
             />
             <CustomDialog
                 type="signup"

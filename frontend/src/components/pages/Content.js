@@ -26,11 +26,18 @@ const Content = () => {
     }
 
     return (
-        <div className="main-container">
+        <div
+            className="main-container"
+            style={{ backgroundColor: backgroundColor }}
+        >
             {pageContext.state.page !== Page.landing && <TopNavigationBar />}
             <div
-                className="content-wrapper"
-                style={{ backgroundColor: backgroundColor }}
+                className={
+                    pageContext.state.page === Page.landing ||
+                    pageContext.state.mapOpen
+                        ? 'content-wrapper'
+                        : 'content-wrapper-maxWidth'
+                }
             >
                 {pageContext.state.page === Page.landing && <Landing />}
                 {pageContext.state.page === Page.profile && <Profile />}

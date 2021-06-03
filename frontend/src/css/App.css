@@ -51,6 +51,15 @@ p {
     min-height: 0px;
 }
 
+.content-wrapper-maxWidth {
+    width: 100%;
+    max-width: 700px;
+    align-self: center;
+    display: flex;
+    flex: 1;
+    min-height: 0px;
+}
+
 .overflow-container {
     flex: 1;
     overflow: auto;
