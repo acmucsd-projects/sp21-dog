@@ -1,4 +1,3 @@
-import { useAppContext } from '../../contexts/AppContext'
 import { Page } from '../../helpers/Page'
 import { Color } from '../../helpers/Color'
 import Journal from './journal/Journal'

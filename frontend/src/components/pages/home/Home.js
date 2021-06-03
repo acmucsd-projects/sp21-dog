@@ -1,14 +1,10 @@
 import React from 'react'
 import { useAppContext } from '../../../contexts/AppContext'
-import {
-    TempContextProvider,
-    useTempContext,
-} from '../../../contexts/TempContext'
+import { useTempContext } from '../../../contexts/TempContext'
 import GreetingCard from '../../cards/GreetingCard'
 import HomepageList from './HomepageList'
 import { useAuthContext } from '../../../contexts/AuthContext'
 import { useTasksContext } from '../../../contexts/TasksContext'
-import { objToFormData } from '../../../helpers/Utils'
 import { useLocationContext } from '../../../contexts/LocationContext'
 
 export default function Home() {
@@ -28,9 +24,7 @@ export default function Home() {
                 }),
             }
         )
-            .then((response) => {
-                return response.json()
-            })
+            .then((response) => response.json())
             .then((data) => {
                 tasksContext.setState({
                     ...tasksContext.state,

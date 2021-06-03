@@ -1,7 +1,6 @@
 import React from 'react'
 import TasksList from './TasksList'
 import Map from '../map/Map'
-import { useAppContext } from '../../../contexts/AppContext'
 import FloatingActionButton from '../../buttons/FloatingActionButton'
 import MapViewTask from '../map/MapViewTask'
 import CustomDialog from '../../modals/CustomDialog'

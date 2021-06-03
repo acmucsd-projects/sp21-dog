@@ -6,10 +6,6 @@ function objToFormData(obj) {
     return formData
 }
 
-function sortByField() {}
-
-function filter() {}
-
 function monthName(i) {
     const monthNames = [
         'Jan',

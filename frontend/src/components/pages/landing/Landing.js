@@ -1,7 +1,6 @@
 import React from 'react'
 import CustomDialog from '../../modals/CustomDialog'
 import Alert from '@material-ui/lab/Alert'
-import { Color } from '../../../helpers/Color'
 import { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { objToFormData } from '../../../helpers/Utils'
@@ -67,7 +66,7 @@ export default function Landing() {
     const auth = useAuthContext()
     const tempContext = useTempContext()
 
-    const customSetLoginSignupOpen = (open) => {
+    const customSetLoginSignupOpen = () => {
         setLoginOpen(!loginOpen)
         setSignupOpen(!signupOpen)
     }

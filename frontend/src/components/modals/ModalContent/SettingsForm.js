@@ -30,7 +30,7 @@ export default function SettingsForm({
     const context = useAppContext()
     const tempContext = useTempContext()
 
-    const [openPassword, setOpenPassword] = React.useState(false)
+    const [openPassword] = React.useState(false)
 
     const handleLogout = () => {
         setLogoutAlertOpen(true)

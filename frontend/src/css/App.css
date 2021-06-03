@@ -121,6 +121,11 @@ p {
     width: 100%;
     justify-content: center;
 }
+@media only screen and (min-width: 900px) {
+    .alertContainer {
+        width: 50%;
+    }
+}
 
 .overlayBottom {
     position: fixed;
