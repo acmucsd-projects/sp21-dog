@@ -13,6 +13,8 @@ import { useLocationContext } from '../../../contexts/LocationContext'
 import { useTasksContext } from '../../../contexts/TasksContext'
 import { usePageContext } from '../../../contexts/PageContext'
 import { useAuthContext } from '../../../contexts/AuthContext'
+import { useAppContext } from '../../../contexts/AppContext'
+import { useTempContext } from '../../../contexts/TempContext'
 
 const useStyles = makeStyles((theme) => ({
     imageIcon: {
@@ -28,6 +30,8 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 export default function TaskListItem({ id, task, mapView, setErrorOpen }) {
+    const context = useAppContext()
+    const tempContext = useTempContext()
     const pageContext = usePageContext()
     const classes = useStyles()
     const locationContext = useLocationContext()
@@ -40,6 +44,26 @@ export default function TaskListItem({ id, task, mapView, setErrorOpen }) {
     }
 
     const stats = ['Fitness', 'Nature', 'Knowledge', 'Community']
+
+    const updateProfile = () => {
+        fetch(
+            `https://taskathon-go.herokuapp.com/api/users/user/${context.state.username}`
+        )
+            .then((response) => response.json())
+            .then((userData) => {
+                context.setState({
+                    ...context.state,
+                    ...userData,
+                })
+                tempContext.setState({
+                    ...tempContext.state,
+                    ...userData,
+                })
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
 
     const handleCompleteTask = () => {
         fetch(
@@ -64,6 +88,7 @@ export default function TaskListItem({ id, task, mapView, setErrorOpen }) {
                         ...tasksContext.state,
                         tasks: updatedTasks,
                     })
+                    updateProfile()
                     setErrorOpen(false)
                 }
             })
