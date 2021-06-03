@@ -21,11 +21,9 @@ export default function CustomButton(props) {
             buttonStyle = {
                 ...buttonStyle,
                 backgroundColor: Color.coreTheme,
-                // fontSize: '18px',
                 fontFamily: 'Oswald',
                 fontWeight: 'normal',
                 textAlign: 'center',
-                // border: '3px solid ' + Color.coreTheme,
                 color: Color.primary,
             }
         } else if (props.variant === 'secondary') {
@@ -35,7 +33,6 @@ export default function CustomButton(props) {
                 border: '3px solid ' + Color.coreTheme,
                 fontFamily: 'Oswald',
                 fontWeight: 'normal',
-                // fontSize: '18px',
                 color: Color.coreTheme,
             }
         } else if (props.variant === 'warning') {
@@ -52,7 +49,6 @@ export default function CustomButton(props) {
             buttonStyle = {
                 ...buttonStyle,
                 backgroundColor: Color.primary,
-                //border: '3px solid ' + Color.primary,
             }
         } else if (props.variant === 'secondary') {
             buttonStyle = {
@@ -68,19 +64,16 @@ export default function CustomButton(props) {
             buttonStyle = {
                 ...buttonStyle,
                 backgroundColor: Color.accent,
-                //border: '3px solid ' + Color.accent,
             }
         } else if (props.variant === 'secondary') {
             buttonStyle = {
                 ...buttonStyle,
                 backgroundColor: Color.background,
-                //border: '3px solid ' + Color.background,
             }
         } else if (props.variant === 'warning') {
             buttonStyle = {
                 ...buttonStyle,
                 backgroundColor: Color.warningLight,
-                //border: '3px solid ' + Color.warningLight,
             }
         }
     } else if (props.type === 'search') {
@@ -92,13 +85,11 @@ export default function CustomButton(props) {
         buttonStyle = {
             ...buttonStyle,
             backgroundColor: Color.background,
-            //border: '3px solid ' + Color.background,
         }
         if (props.selected) {
             buttonStyle = {
                 ...buttonStyle,
                 backgroundColor: Color.selection,
-                //border: '3px solid ' + Color.background,
             }
         }
     }
