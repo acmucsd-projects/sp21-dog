@@ -15,33 +15,28 @@ const Content = () => {
     const pageContext = usePageContext()
 
     let backgroundColor = Color.primary
-
-    let backgroundStyle = {
-        backgroundImage: 'url(/Map.png)',
-        backgroundSize: 'cover',
-        backgroundColor: Color.coreTheme,
-    }
-    if (pageContext.state.page !== Page.landing) {
-        if (pageContext.state.page === Page.tasks) {
-            if (pageContext.state.mapOpen) {
-                backgroundColor = Color.primary
-            } else {
-                backgroundColor = Color.coreTheme
-            }
-        } else if (pageContext.state.page === Page.home) {
-            backgroundColor = Color.accent
+    if (pageContext.state.page === Page.tasks) {
+        if (pageContext.state.mapOpen) {
+            backgroundColor = Color.primary
+        } else {
+            backgroundColor = Color.coreTheme
         }
-        backgroundStyle = { backgroundColor: backgroundColor }
+    } else if (pageContext.state.page === Page.home) {
+        backgroundColor = Color.accent
     }
 
     return (
-        <div className="main-container" style={backgroundStyle}>
+        <div
+            className="main-container"
+            style={{ backgroundColor: backgroundColor }}
+        >
             {pageContext.state.page !== Page.landing && <TopNavigationBar />}
             <div
                 className={
+                    pageContext.state.page === Page.landing ||
                     pageContext.state.mapOpen
                         ? 'content-wrapper'
-                        : 'content-wrapper content-wrapper-maxWidth'
+                        : 'content-wrapper-maxWidth'
                 }
             >
                 {pageContext.state.page === Page.landing && <Landing />}

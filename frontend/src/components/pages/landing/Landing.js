@@ -19,6 +19,9 @@ const useStyles = makeStyles({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundImage: 'url(/Map.png)',
+        backgroundSize: 'cover',
+        backgroundColor: Color.coreTheme,
         color: 'white',
     },
     bottom: {
