@@ -206,6 +206,7 @@ export default function Tasks() {
                                     ...pageContext.state,
                                     mapOpen: true,
                                 })
+                                setErrorOpen(false)
                             }}
                         />
                     </div>
