@@ -1,8 +1,12 @@
 import React from 'react'
-import ReactMapGL, { Marker, FlyToInterpolator } from 'react-map-gl'
+import ReactMapGL, { Marker, FlyToInterpolator } from '!react-map-gl'
+import MapboxWorker from 'worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker'
 import { useAppContext } from '../../../contexts/AppContext'
 import { useLocationContext } from '../../../contexts/LocationContext'
 import { useTasksContext } from '../../../contexts/TasksContext'
+import mapboxgl from 'mapbox-gl'
+
+mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default
 
 export default function MapView({ noDrag }) {
     const context = useAppContext()
@@ -35,7 +39,7 @@ export default function MapView({ noDrag }) {
                 ...viewport,
                 latitude: newLoc.latitude,
                 longitude: newLoc.longitude,
-                zoom: 13,
+                zoom: 15,
                 transitionDuration: 500,
                 transitionInterpolator: new FlyToInterpolator(),
             })

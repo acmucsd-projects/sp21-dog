@@ -5,6 +5,7 @@ import { useAppContext } from '../../../contexts/AppContext'
 import FloatingActionButton from '../../buttons/FloatingActionButton'
 import MapViewTask from '../map/MapViewTask'
 import CustomDialog from '../../modals/CustomDialog'
+import CustomButton from '../../buttons/CustomButton'
 import Alert from '@material-ui/lab/Alert'
 import { useAuthContext } from '../../../contexts/AuthContext'
 import { useTasksContext } from '../../../contexts/TasksContext'
@@ -24,7 +25,6 @@ export default function Tasks() {
         locationContext.setState({
             ...locationContext.state,
             viewportLocation: locationContext.state.userLocation,
-            zoom: '4',
         })
     }
 
@@ -84,6 +84,42 @@ export default function Tasks() {
             )}
             {pageContext.state.mapOpen ? (
                 <>
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <div className="overlayTop">
+                            <CustomButton
+                                type="tasks"
+                                variant="primary"
+                                onClick={() => {
+                                    if (tasksContext.state.selectedId) {
+                                        const currentTask =
+                                            tasksContext.state.tasks[
+                                                tasksContext.state.tasks.findIndex(
+                                                    (task) =>
+                                                        task.id ===
+                                                        tasksContext.state
+                                                            .selectedId
+                                                )
+                                            ]
+                                        locationContext.setState({
+                                            ...location.context,
+                                            userLocation: {
+                                                latitude: currentTask.latitude,
+                                                longitude:
+                                                    currentTask.longitude,
+                                            },
+                                            viewportLocation: {
+                                                latitude: currentTask.latitude,
+                                                longitude:
+                                                    currentTask.longitude,
+                                            },
+                                        })
+                                    }
+                                }}
+                            >
+                                Move to task (Demo Only)
+                            </CustomButton>
+                        </div>
+                    </div>
                     <Map />
                     <div
                         className="float"
