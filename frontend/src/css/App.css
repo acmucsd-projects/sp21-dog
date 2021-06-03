@@ -51,12 +51,14 @@ p {
     min-height: 0px;
 }
 
-.content-wrapper-maxWidth {
-    width: 100%;
-    align-self: center;
-    display: flex;
-    flex: 1;
-    min-height: 0px;
+@media only screen and (min-width: 900px) {
+    .content-wrapper-maxWidth {
+        width: 50%;
+        align-self: center;
+        display: flex;
+        flex: 1;
+        min-height: 0px;
+    }
 }
 
 .overflow-container {
