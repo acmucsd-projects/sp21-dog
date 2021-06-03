@@ -55,9 +55,6 @@ p {
     .content-wrapper-maxWidth {
         width: 50%;
         align-self: center;
-        display: flex;
-        flex: 1;
-        min-height: 0px;
     }
 }
 
