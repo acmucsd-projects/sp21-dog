@@ -8,7 +8,6 @@ import Avatar from '@material-ui/core/Avatar'
 import ListItemText from '@material-ui/core/ListItemText'
 import CustomButton from '../../buttons/CustomButton'
 import Typography from '@material-ui/core/Typography'
-import { useAppContext } from '../../../contexts/AppContext'
 import { Page } from '../../../helpers/Page'
 import { useLocationContext } from '../../../contexts/LocationContext'
 import { useTasksContext } from '../../../contexts/TasksContext'
@@ -54,8 +53,6 @@ export default function TaskListItem({ id, task, mapView, setErrorOpen }) {
         )
             .then((response) => response.json())
             .then((data) => {
-                console.log(data)
-
                 if (data.completed == null) {
                     setErrorOpen(true)
                 } else {
@@ -63,7 +60,6 @@ export default function TaskListItem({ id, task, mapView, setErrorOpen }) {
                     updatedTasks[
                         updatedTasks.findIndex((item) => item.id === task.id)
                     ].completed = data.completed
-                    console.log(updatedTasks)
                     tasksContext.setState({
                         ...tasksContext.state,
                         tasks: updatedTasks,

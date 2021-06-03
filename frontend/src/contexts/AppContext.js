@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { Page } from '../helpers/Page'
 
 const AppContext = React.createContext()
 

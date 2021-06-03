@@ -4,7 +4,6 @@ import { useTempContext } from '../../../contexts/TempContext'
 import CustomButton from '../../buttons/CustomButton'
 import CustomDialog from '../../modals/CustomDialog'
 import ProfileContent from './ProfileContent'
-import ProfileCard from '../../cards/ProfileCard'
 import { objToFormData } from '../../../helpers/Utils'
 import { useAuthContext } from '../../../contexts/AuthContext'
 
@@ -13,7 +12,6 @@ export default function Profile() {
     const tempContext = useTempContext()
     const auth = useAuthContext()
 
-    const [profileData, setProfileData] = React.useState()
     const [editProfileOpen, setEditProfileOpen] = React.useState(false)
     const [editPasswordOpen, setEditPasswordOpen] = React.useState(false)
     const [settingsOpen, setSettingsOpen] = React.useState(false)
@@ -64,7 +62,6 @@ export default function Profile() {
                 flexDirection: 'column',
             }}
         >
-            {/*<ProfileCard data={data} />*/}
             <CustomDialog
                 type="editProfile"
                 open={editProfileOpen}

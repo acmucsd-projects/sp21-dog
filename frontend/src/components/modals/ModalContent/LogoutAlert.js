@@ -1,6 +1,5 @@
 import { Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import { useAppContext } from '../../../contexts/AppContext'
 import { usePageContext } from '../../../contexts/PageContext'
 import { Page } from '../../../helpers/Page'
 import CustomButton from '../../buttons/CustomButton'

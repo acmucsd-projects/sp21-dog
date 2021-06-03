@@ -6,7 +6,6 @@ import CardContent from '@material-ui/core/CardContent'
 import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 import Avatar from '@material-ui/core/Avatar'
 import ListItemText from '@material-ui/core/ListItemText'
-import { useAppContext } from '../../contexts/AppContext'
 import ReactCountryFlag from 'react-country-flag'
 
 const useStyles = makeStyles({

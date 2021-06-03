@@ -1,4 +1,3 @@
-import { useAppContext } from '../../contexts/AppContext'
 import { Page } from '../../helpers/Page'
 import { Color } from '../../helpers/Color'
 import Journal from './journal/Journal'
@@ -15,22 +14,34 @@ const Content = () => {
     const pageContext = usePageContext()
 
     let backgroundColor = Color.primary
-    if (pageContext.state.page === Page.tasks) {
-        if (pageContext.state.mapOpen) {
-            backgroundColor = Color.primary
-        } else {
-            backgroundColor = Color.coreTheme
+
+    let backgroundStyle = {
+        backgroundImage: 'url(/Map.png)',
+        backgroundSize: 'cover',
+        backgroundColor: Color.coreTheme,
+    }
+    if (pageContext.state.page !== Page.landing) {
+        if (pageContext.state.page === Page.tasks) {
+            if (pageContext.state.mapOpen) {
+                backgroundColor = Color.primary
+            } else {
+                backgroundColor = Color.coreTheme
+            }
+        } else if (pageContext.state.page === Page.home) {
+            backgroundColor = Color.accent
         }
-    } else if (pageContext.state.page === Page.home) {
-        backgroundColor = Color.accent
+        backgroundStyle = { backgroundColor: backgroundColor }
     }
 
     return (
-        <div className="main-container">
+        <div className="main-container" style={backgroundStyle}>
             {pageContext.state.page !== Page.landing && <TopNavigationBar />}
             <div
-                className="content-wrapper"
-                style={{ backgroundColor: backgroundColor }}
+                className={
+                    pageContext.state.mapOpen
+                        ? 'content-wrapper'
+                        : 'content-wrapper content-wrapper-maxWidth'
+                }
             >
                 {pageContext.state.page === Page.landing && <Landing />}
                 {pageContext.state.page === Page.profile && <Profile />}

@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactMapGL, { Marker, FlyToInterpolator } from '!react-map-gl'
-import MapboxWorker from 'worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker'
 import { useAppContext } from '../../../contexts/AppContext'
 import { useLocationContext } from '../../../contexts/LocationContext'
 import { useTasksContext } from '../../../contexts/TasksContext'
@@ -75,7 +74,6 @@ export default function MapView({ noDrag }) {
                             style={{
                                 width: '25%',
                                 height: '25%',
-                                // transform: 'translate(-5%, -5%)',
                             }}
                             src={`./icons/me.svg`}
                         />

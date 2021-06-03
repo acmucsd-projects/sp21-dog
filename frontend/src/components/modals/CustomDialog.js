@@ -21,9 +21,7 @@ import { Color } from '../../helpers/Color'
 import JournalForm from './ModalContent/JournalForm'
 import { useTempContext } from '../../contexts/TempContext'
 import { useAppContext } from '../../contexts/AppContext'
-import { Page } from '../../helpers/Page'
 import Alert from '@material-ui/lab/Alert'
-import { testFormData } from '../../helpers/Utils'
 import { usePageContext } from '../../contexts/PageContext'
 
 const styles = (theme) => ({
