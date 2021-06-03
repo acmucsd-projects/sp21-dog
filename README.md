@@ -6,6 +6,14 @@
 
 An app that encourages users to exercise outdoors, partake in community events, visit nearby shops and restaurants, and compete on worldwide leaderboards.
 
+## Screenshots
+![landing](/screenshots/landing.png)
+![signup](/screenshots/signup.png)
+![home](/screenshots/home.png)
+![tasks](/screenshots/tasks.png)
+![map](/screenshots/map.png)
+![profile](/screenshots/profile.png)
+
 ## Features
 - Complete various activities that refresh daily
 - Gain experience and build your profile
@@ -18,11 +26,3 @@ An app that encourages users to exercise outdoors, partake in community events, 
 - Social media integrations for community engagement
 - New types of tasks involving various completion criteria
 - Custom, user-defined tasks
-
-## Screenshots
-![landing](/screenshots/landing.png)
-![signup](/screenshots/signup.png)
-![home](/screenshots/home.png)
-![tasks](/screenshots/tasks.png)
-![map](/screenshots/map.png)
-![profile](/screenshots/profile.png)
