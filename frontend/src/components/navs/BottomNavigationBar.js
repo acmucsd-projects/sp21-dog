@@ -108,7 +108,10 @@ export default function BottomNavigationBar() {
                 key={i}
                 disableRipple={false}
                 classes={itemClasses}
-                disabled={context.state.displayName == null}
+                disabled={
+                    orderedNavItems[i].page === Page.profile &&
+                    context.state.displayName === ''
+                }
                 icon={
                     <div
                         style={{

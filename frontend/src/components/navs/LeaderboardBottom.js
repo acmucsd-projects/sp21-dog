@@ -46,7 +46,7 @@ export default function LeaderboardBottom() {
                     You're in 2nd place with 19k pts!
                 </p>
                 <p className={classes.smallerText}>
-                    19k pts behind the next person
+                    19k pts behind the next person (view only)
                 </p>
             </div>
         </div>

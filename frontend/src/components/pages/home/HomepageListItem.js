@@ -7,7 +7,6 @@ import { Color } from '../../../helpers/Color'
 import NavigateNextIcon from '@material-ui/icons/NavigateNext'
 import Map from '../map/Map'
 import { Page } from '../../../helpers/Page'
-import { useAppContext } from '../../../contexts/AppContext'
 import { usePageContext } from '../../../contexts/PageContext'
 
 const useStyles = makeStyles({

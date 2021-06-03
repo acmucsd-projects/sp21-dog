@@ -4,10 +4,10 @@
 #root {
     height: 100%;
 }
+
 .App {
     height: 100%;
     overflow: auto;
-
     background-color: 'white';
     font-family: 'PT Sans', 'Trebuchet MS';
 }
@@ -49,6 +49,13 @@ p {
     display: flex;
     flex: 1;
     min-height: 0px;
+}
+
+@media only screen and (min-width: 900px) {
+    .content-wrapper-maxWidth {
+        width: 50%;
+        align-self: center;
+    }
 }
 
 .overflow-container {
@@ -113,6 +120,11 @@ p {
     z-index: 1;
     width: 100%;
     justify-content: center;
+}
+@media only screen and (min-width: 900px) {
+    .alertContainer {
+        width: 50%;
+    }
 }
 
 .overlayBottom {

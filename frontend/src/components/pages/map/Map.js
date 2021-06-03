@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactMapGL, { Marker, FlyToInterpolator } from '!react-map-gl'
-import MapboxWorker from 'worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker'
 import { useAppContext } from '../../../contexts/AppContext'
 import { useLocationContext } from '../../../contexts/LocationContext'
 import { useTasksContext } from '../../../contexts/TasksContext'

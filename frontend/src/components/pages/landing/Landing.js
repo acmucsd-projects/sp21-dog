@@ -1,7 +1,6 @@
 import React from 'react'
 import CustomDialog from '../../modals/CustomDialog'
 import Alert from '@material-ui/lab/Alert'
-import { Color } from '../../../helpers/Color'
 import { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { objToFormData } from '../../../helpers/Utils'
@@ -19,9 +18,6 @@ const useStyles = makeStyles({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundImage: 'url(/Map.png)',
-        backgroundSize: 'cover',
-        backgroundColor: Color.coreTheme,
         color: 'white',
     },
     bottom: {
@@ -70,7 +66,7 @@ export default function Landing() {
     const auth = useAuthContext()
     const tempContext = useTempContext()
 
-    const customSetLoginSignupOpen = (open) => {
+    const customSetLoginSignupOpen = () => {
         setLoginOpen(!loginOpen)
         setSignupOpen(!signupOpen)
     }
@@ -116,6 +112,13 @@ export default function Landing() {
         return false
     }
 
+    const loginValidate = () => {
+        if (tempContext.state.username.includes('@')) {
+            return false
+        }
+        return true
+    }
+
     return (
         <>
             <CustomDialog
@@ -144,6 +147,8 @@ export default function Landing() {
                 requestParams={loginRequestParams}
                 nextPage={Page.home}
                 handleRequestData={saveRequestToken}
+                validate={loginValidate}
+                errorMessage="Use username instead of email to log in"
             />
             <CustomDialog
                 type="signup"

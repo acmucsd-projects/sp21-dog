@@ -4,7 +4,6 @@ import { makeStyles } from '@material-ui/core/styles'
 import SearchbarLeaderboards from './SearchbarContent/SearchbarLeaderboards'
 import SearchbarJournal from './SearchbarContent/SearchbarJournal'
 import SearchbarTasks from './SearchbarContent/SearchbarTasks'
-import { useAppContext } from '../../contexts/AppContext'
 import { usePageContext } from '../../contexts/PageContext'
 const useStyles = makeStyles({
     dropdown: {

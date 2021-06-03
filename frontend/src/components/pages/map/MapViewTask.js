@@ -19,7 +19,7 @@ export default function MapViewTask({ task }) {
     const classes = useStyles()
 
     return (
-        <div className={classes.root}>
+        <div className="content-wrapper content-wrapper-maxWidth">
             <Accordion style={{ display: 'none' }}>
                 <AccordionSummary />
                 <AccordionDetails />

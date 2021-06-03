@@ -1,7 +1,6 @@
 import React from 'react'
 import TasksList from './TasksList'
 import Map from '../map/Map'
-import { useAppContext } from '../../../contexts/AppContext'
 import FloatingActionButton from '../../buttons/FloatingActionButton'
 import MapViewTask from '../map/MapViewTask'
 import CustomDialog from '../../modals/CustomDialog'
@@ -28,31 +27,35 @@ export default function Tasks() {
         })
     }
 
+    const generateTasks = () => {
+        fetch(
+            `https://taskathon-go.herokuapp.com/api/game/generate?latitude=${locationContext.state.userLocation.latitude}&longitude=${locationContext.state.userLocation.longitude}`,
+            {
+                method: 'GET',
+                headers: new Headers({
+                    Authorization: 'Bearer ' + auth.state.token,
+                }),
+            }
+        )
+            .then((response) => response.json())
+            .then((data) => {
+                tasksContext.setState({
+                    ...tasksContext.state,
+                    tasks: data,
+                })
+                pageContext.setState({
+                    ...pageContext.state,
+                    page: Page.tasks,
+                })
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+
     React.useEffect(() => {
         if (tasksContext.state.tasks.length === 0) {
-            fetch(
-                `https://taskathon-go.herokuapp.com/api/game/generate?latitude=${locationContext.state.userLocation.latitude}&longitude=${locationContext.state.userLocation.longitude}`,
-                {
-                    method: 'GET',
-                    headers: new Headers({
-                        Authorization: 'Bearer ' + auth.state.token,
-                    }),
-                }
-            )
-                .then((response) => response.json())
-                .then((data) => {
-                    tasksContext.setState({
-                        ...tasksContext.state,
-                        tasks: data,
-                    })
-                    pageContext.setState({
-                        ...pageContext.state,
-                        page: Page.tasks,
-                    })
-                })
-                .catch((err) => {
-                    console.log(err)
-                })
+            generateTasks()
         } else {
             tasksContext.setState({
                 ...tasksContext.state,
@@ -178,6 +181,16 @@ export default function Tasks() {
                 </>
             ) : (
                 <div style={{ width: '100%', padding: '0 10px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <CustomButton
+                            type="tasks"
+                            variant="primary"
+                            halfWidth={true}
+                            onClick={generateTasks}
+                        >
+                            Generate New Tasks (Demo Only)
+                        </CustomButton>
+                    </div>
                     <TasksList
                         tasks={tasksContext.state.tasks}
                         setErrorOpen={setErrorOpen}
