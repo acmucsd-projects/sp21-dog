@@ -74,7 +74,6 @@ export default function MapView({ noDrag }) {
                             style={{
                                 width: '25%',
                                 height: '25%',
-                                // transform: 'translate(-5%, -5%)',
                             }}
                             src={`./icons/me.svg`}
                         />

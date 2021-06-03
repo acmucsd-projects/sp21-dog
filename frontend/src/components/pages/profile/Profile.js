@@ -62,7 +62,6 @@ export default function Profile() {
                 flexDirection: 'column',
             }}
         >
-            {/*<ProfileCard data={data} />*/}
             <CustomDialog
                 type="editProfile"
                 open={editProfileOpen}
