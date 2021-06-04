@@ -53,6 +53,43 @@ export default function Profile() {
         },
     }
 
+    React.useEffect(() => {
+        fetch(
+            `https://taskathon-go.herokuapp.com/api/users/user/${context.state.username}`
+        )
+            .then((response) => response.json())
+            .then((userData) => {
+                fetch(
+                    `https://taskathon-go.herokuapp.com/api/users/user/${context.state.username}/edit`,
+                    {
+                        method: 'GET',
+                        headers: new Headers({
+                            Authorization: 'Bearer ' + auth.state.token,
+                        }),
+                    }
+                )
+                    .then((response) => response.json())
+                    .then((protectedUserData) => {
+                        context.setState({
+                            ...context.state,
+                            ...userData,
+                            email: protectedUserData.email,
+                        })
+                        tempContext.setState({
+                            ...tempContext.state,
+                            ...userData,
+                            email: protectedUserData.email,
+                        })
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                    })
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    })
+
     return (
         <div
             className="overflow-container"

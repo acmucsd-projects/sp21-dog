@@ -19,19 +19,23 @@ export default function ProfileContent({ data }) {
                     <hr style={{ margin: '12px 0' }} />
                 </>
             )}
-            <div
-                style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                }}
-            >
-                <h3
-                    style={{ fontSize: '18px', margin: '8px 0' }}
-                >{`Level ${data.level}`}</h3>
-                <p>30 Points to next level</p>
-            </div>
-            <LinearDeterminate />
+            {data.joinDate != null && (
+                <>
+                    <div
+                        style={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <h3
+                            style={{ fontSize: '18px', margin: '8px 0' }}
+                        >{`Level ${data.level}`}</h3>
+                        <p>30 Points to next level</p>
+                    </div>
+                    <LinearDeterminate />
+                </>
+            )}
             <div
                 style={{
                     height: '45%',
