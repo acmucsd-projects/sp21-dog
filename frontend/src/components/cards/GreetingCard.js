@@ -62,7 +62,7 @@ export default function GreetingCard() {
     }, [])
 
     let greetingMessage = `Good ${timeOfDay}!`
-    if (context.state.displayName != null) {
+    if (context.state.displayName != '') {
         greetingMessage = `Good ${timeOfDay}, ${context.state.displayName}!`
     }
 

@@ -202,6 +202,7 @@ export default function TaskListItem({ id, task, mapView, setErrorOpen }) {
                                 type="tasks"
                                 variant="primary"
                                 onClick={() => {
+                                    setErrorOpen(false)
                                     pageContext.setState({
                                         ...pageContext.state,
                                         page: Page.tasks,

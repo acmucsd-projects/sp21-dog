@@ -41,15 +41,18 @@ export default function ProfileContent({ data }) {
                 }}
             >
                 <StatsChart stats={data} />
-                <div style={{ textAlign: 'center' }}>
-                    <p>{`User since ${monthName(
-                        joinDate.getMonth()
-                    )} ${joinDate.getDay()}, ${joinDate.getFullYear()}`}</p>
-                    <p>
-                        {`${data.points} Total Points • ${data.tasksCompleted} Tasks
+
+                {data.joinDate != null && (
+                    <div style={{ textAlign: 'center' }}>
+                        <p>{`User since ${monthName(
+                            joinDate.getMonth()
+                        )} ${joinDate.getDay()}, ${joinDate.getFullYear()}`}</p>
+                        <p>
+                            {`${data.points} Total Points • ${data.tasksCompleted} Tasks
                         Completed`}
-                    </p>
-                </div>
+                        </p>
+                    </div>
+                )}
             </div>
         </div>
     )
