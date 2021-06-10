@@ -34,26 +34,32 @@ const Content = () => {
     }
 
     return (
-        <div className="main-container" style={backgroundStyle}>
-            {pageContext.state.page !== Page.landing && <TopNavigationBar />}
-            <div
-                className={
-                    pageContext.state.mapOpen
-                        ? 'content-wrapper'
-                        : 'content-wrapper content-wrapper-maxWidth'
-                }
-            >
-                {pageContext.state.page === Page.landing && <Landing />}
-                {pageContext.state.page === Page.profile && <Profile />}
-                {pageContext.state.page === Page.leaderboards && (
-                    <Leaderboards />
+        <>
+            <div className="main-container" style={backgroundStyle}>
+                {pageContext.state.page !== Page.landing && (
+                    <TopNavigationBar />
                 )}
-                {pageContext.state.page === Page.home && <Home />}
-                {pageContext.state.page === Page.tasks && <Tasks />}
-                {pageContext.state.page === Page.journal && <Journal />}
+                <div
+                    className={
+                        pageContext.state.mapOpen
+                            ? 'content-wrapper'
+                            : 'content-wrapper content-wrapper-maxWidth'
+                    }
+                >
+                    {pageContext.state.page === Page.landing && <Landing />}
+                    {pageContext.state.page === Page.profile && <Profile />}
+                    {pageContext.state.page === Page.leaderboards && (
+                        <Leaderboards />
+                    )}
+                    {pageContext.state.page === Page.home && <Home />}
+                    {pageContext.state.page === Page.tasks && <Tasks />}
+                    {pageContext.state.page === Page.journal && <Journal />}
+                </div>
+                {pageContext.state.page !== Page.landing && (
+                    <BottomNavigationBar />
+                )}
             </div>
-            {pageContext.state.page !== Page.landing && <BottomNavigationBar />}
-        </div>
+        </>
     )
 }
 

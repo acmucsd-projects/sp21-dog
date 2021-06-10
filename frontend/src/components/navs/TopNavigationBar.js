@@ -84,7 +84,12 @@ export default function TopNavigationBar() {
         <>
             <AppBar
                 position="static"
-                style={{ height: 'auto', minHeight: '8.152173913%' }}
+                style={{
+                    height: 'auto',
+                    minHeight: '8.152173913%',
+                    position: 'sticky',
+                    top: 0,
+                }}
             >
                 {pageContext.state.page == Page.landing && (
                     <div>
