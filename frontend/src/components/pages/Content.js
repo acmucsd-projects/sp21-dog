@@ -34,11 +34,9 @@ const Content = () => {
     }
 
     return (
-        <>
+        <div style={{ height: '100%' }}>
+            {pageContext.state.page !== Page.landing && <TopNavigationBar />}
             <div className="main-container" style={backgroundStyle}>
-                {pageContext.state.page !== Page.landing && (
-                    <TopNavigationBar />
-                )}
                 <div
                     className={
                         pageContext.state.mapOpen
@@ -55,11 +53,9 @@ const Content = () => {
                     {pageContext.state.page === Page.tasks && <Tasks />}
                     {pageContext.state.page === Page.journal && <Journal />}
                 </div>
-                {pageContext.state.page !== Page.landing && (
-                    <BottomNavigationBar />
-                )}
             </div>
-        </>
+            {pageContext.state.page !== Page.landing && <BottomNavigationBar />}
+        </div>
     )
 }
 
