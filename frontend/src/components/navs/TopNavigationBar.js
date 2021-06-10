@@ -87,9 +87,9 @@ export default function TopNavigationBar() {
                 style={{
                     height: 'auto',
                     minHeight: '8.152173913%',
-                    position: 'sticky',
                     top: 0,
                 }}
+                className="sticky"
             >
                 {pageContext.state.page == Page.landing && (
                     <div>

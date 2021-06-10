@@ -17,7 +17,6 @@ const useStyles = makeStyles({
         backgroundColor: Color.primary,
         flexDirection: 'column',
         justifyContent: 'center',
-        position: 'sticky',
         bottom: 0,
         boxShadow:
             '0px -2px 4px -1px rgb(0 0 0 / 20%),' +
@@ -138,7 +137,7 @@ export default function BottomNavigationBar() {
 
     return (
         <>
-            <div className={classes.bottomNavbar}>
+            <div className={`${classes.bottomNavbar} sticky`}>
                 {pageContext.state.page == Page.leaderboards && (
                     <LeaderboardBottom />
                 )}

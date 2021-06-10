@@ -69,6 +69,14 @@ p {
     background: transparent;
 }
 
+.sticky {
+    position: -webkit-sticky;
+    position: -moz-sticky;
+    position: -ms-sticky;
+    position: -o-sticky;
+    position: sticky;
+}
+
 .marker {
     width: 0;
     height: 0;
